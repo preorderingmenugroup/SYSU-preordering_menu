@@ -1,30 +1,25 @@
 Component({
-  options : {
-    multipleSolts :true //定义组件支持多solts
+  options: {
+    multipleSolts: true //定义组件支持多solts
   },
   /*
    * 组件的属性列表 
    */
-  properties : {
+  properties: {
     //图片数组
-    imageUrl : {
-      type : Array,
-      value : []
+    imageUrl: {
+      type: Array,
+      value: []
     },
     //图片限制个数
-    imageLimit : {
+    imageLimit: {
       type: Number,
-      value : 8
+      value: 8
     },
-    imageMaxPerTime : {
-      type : Number,
-      value : 8
+    imageMaxPerTime: {
+      type: Number,
+      value: 8
     },
-    //提示语
-     hint : {
-      type : String,
-      value : "添加图片"
-    } ,
     //提示icon
     /* 
      * 默认支持的icon类有10种
@@ -41,68 +36,68 @@ Component({
      * iconfont icon-tianjia3
      * iconfont icon-icontjzp
     */
-    hint_icon : {
-      type : String,
-      value : "iconfont icon-xiangji"
+    hint_icon: {
+      type: String,
+      value: "iconfont icon-tianjia2"
     },
-    icon_size : {
-      type : String,
-      value: "100rpx"
+    icon_size: {
+      type: String,
+      value: "140rpx"
     },
-    icon_color : {
-      type : String,
-      value : "#2C2C2C"
+    icon_color: {
+      type: String,
+      value: "#2C2C2C"
     },
     //提示块的背景颜色
-    hint_background : {
-      type : String ,
+    hint_background: {
+      type: String,
       value: "#E5E5E5"
     },
     //每块的高 高宽比默认1:1
-    hint_height : {
-      type : String,
-      value : "160rpx"
+    hint_height: {
+      type: String,
+      value: "160rpx"
     },
     //每块的宽 高宽比默认1:1
-    hint_width : {
-      type : String,
-      value : "160rpx"
+    hint_width: {
+      type: String,
+      value: "160rpx"
     },
     //整体背景颜色
-    background : {
-      type : String,
+    background: {
+      type: String,
       value: "#FFFFFF"
     },
     //图片剪裁mode
-    mode : {
-      type : String,
+    mode: {
+      type: String,
       value: "aspectFill"
     }
 
   },
   //内部数据
-  data : {
+  data: {
     image: [
     ],
-    isBeyond : ""
+    isBeyond: ""
   },
-  attached : function(){
+  attached: function () {
     this.setData({
-      image : this.data.imageUrl
+      image: this.data.imageUrl
     })
   },
   //组件方法列表
-  methods : {
+  methods: {
     // 上传图片
     chooseImage: function () {
-      
+
       var that = this;
-      if(this.data.image.length >= this.data.imageLimit){
+      if (this.data.image.length >= this.data.imageLimit) {
         that.setData({
-          isBeyond : "none"
+          isBeyond: "none"
         })
-      }else{
-        var curPertime = that.data.imageLimit-that.data.image.length
+      } else {
+        var curPertime = that.data.imageLimit - that.data.image.length
         wx.chooseImage({
           count: curPertime,
           sizeType: ['original', 'compressed'],

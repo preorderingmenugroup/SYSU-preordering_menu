@@ -35,9 +35,6 @@
 .icon-xiangji3:before { content: "\e661"; }
 
 
-
-
-
 .body-image{
   display: flex;
   flex-wrap : wrap;

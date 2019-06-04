@@ -4,14 +4,14 @@
     <view class="row">
       <view class="row-add">店铺地址</view>
       <view class="row-input">
-        <input type="text" name="address" placeholder="输入店铺地址" bindinput='inputPrice' value="{{address}}"></input>
+        <input type="text" name="address" placeholder="输入店铺地址" bindinput='inputAddress' value="{{address}}"></input>
       </view>
     </view>
 
    <view class="row">
       <view class="row-add">店铺描述</view>
       <view class="row-input">
-        <input type="text" name="description" placeholder="简略描述" bindinput='inputPrice' value="{{descripton}}"></input>
+        <input type="text" name="description" placeholder="简略描述" bindinput='inputDescription' value="{{descripton}}"></input>
       </view>
     </view>
 
@@ -23,6 +23,7 @@
     <imgupload
       id = "imgupload1"
       imageUrl = "{{imageUrl}}"
+      bindtap = "inputImage1"
     >
     </imgupload>
     </view>
@@ -78,14 +79,14 @@
     <view class="row">
       <view class="row-add">联系人</view>
         <view class="row-input">
-        <input type="text" name="owner" placeholder="请输入联系人姓名" bindinput='inputPrice' value="{{owner}}"></input>
+        <input type="text" name="owner" placeholder="请输入联系人姓名" bindinput='inputOwner' value="{{owner}}"></input>
       </view>
     </view>
 
     <view class="row">
       <view class="row-add">店铺名称</view>
         <view class="row-input">
-        <input type="text" name="shopname" placeholder="请输入店铺名" bindinput='inputPrice' value="{{shopname}}"></input>
+        <input type="text" name="shopname" placeholder="请输入店铺名" bindinput='inputShop' value="{{shopname}}"></input>
       </view>
     </view>
 
@@ -102,12 +103,14 @@
     <view class="row">
       <view class="row-add">联系电话</view>
       <view class="row-input">
-        <input type="number" maxlength="11" name="phoneNum" placeholder="便于与您联系" value="{{phoneNum}}"></input>
+        <input type="number" maxlength="11" name="phoneNum" placeholder="便于与您联系" bindinput='inputPhone' value="{{phoneNum}}"></input>
       </view>
     </view>
 
-    <button type='primary' class='positive' size='default' bindtap='formSubmit'>确认</button>
+    <button type='primary' class='positive' size='default' bindtap='bindToIndex'>确认</button>
 
   </view>
+
+
 
 
