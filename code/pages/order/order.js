@@ -1,19 +1,22 @@
 //order.js
 //获取应用实例
-const app = getApp()
+var utils = require('../../utils/util.js');
+//获取当前时间需引用utils文件
+const app = getApp();
 
 Page({
   data: {
     // 统计商品数量和价格
     orderCount: {
       num: 0,
-      money: 0,
-      reservationid:"111111"
+      money: 0
     },
     bottomFlag: false,
     // 提交的订单
     orders: true,
-    items: []
+    items: [],
+    userid:'',
+    restaurantid:''
   },
   // 点击对应菜单添加按钮
   del: function (event) {
@@ -87,19 +90,79 @@ Page({
       success: function (res) {
         // 至少选中一个商品才能支付
         if (that.data.orderCount.num !== 0){
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '../pay/pay',
-            })
-          } else if (res.cancel) {
+          if (res.confirm){
+            
+            const db = wx.cloud.database();
+              db.collection('User').where({
+                UserId: app.globalData.userInfor.openid
+              }).get({
+                success:res=>{
+                  that.data.userid = app.globalData.userInfor.openid
+                },
+                fail:res=>{
+                  consolr.log('fail_in_getuserinfor')
+                }
+              }),
+              
+                /*db.collection('Restaurant').where({
+                  
+                }).get({
+                  success: res => {
+                    that.data.restaurantid = app.globalData.userInfor.openid
+                    
+                  },
+                  fail: res => {
+                    console.log('fail_in_getreserantinfor')
+                  }
+                }),*/
+
+                db.collection('Reservation').add({
+                  data: {
+                    ReserveTime: "2019-12-21",
+                    CreatTime: "2019-12-21",
+                    ReservationId: "11111",
+                    UserId: that.data.userid,
+                    RestaurantId: "123131231",
+                    TotalPrice: that.data.orderCount.money
+                  },
+                  success: res=> {
+                    console.log('创建订单成功')
+                      
+                  },
+                  fail: res=>{
+                    console.log('make_new_reservation_failed')
+                  }
+                }),
+                db.collection('ReservationItem').add({
+                  data: {
+                    ResvertionItemId: "",
+                    ReservationId: "11111",
+                    MenuItemId: "",
+                    count: that.data.orderCount.num,
+                    TotalPrice: that.data.orderCount.money
+                  },
+                  success:res=>{
+                    console.log('创建订单详情成功')
+                  },
+                  fail:res=>{
+                    console.log('创建订单详情失败')
+                  }
+                }),
+                
+                wx.navigateTo({
+                  url: '../pay/pay',
+                })
+          } 
+          else if (res.cancel) {
             console.log('用户点击取消')
           }
-        } else {
+         else {
           wx.showToast({
             title: '您未选中任何商品',
             icon: 'none',
             duration: 2000
           })
+        }
         }
       }
     })
@@ -137,5 +200,7 @@ Page({
       key: 'pay',
       data: 'rev_id',
     })
-  }
+  },
+  
+  
 })
