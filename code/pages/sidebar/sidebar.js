@@ -76,7 +76,7 @@ Page({
         success: res => {
           if (res.data[0].validateCode === 2) {
             wx.navigateTo({
-              url: '../orderReceive/orderReceive'
+              url: '../merchant/merchant'
             })
           }
           else {

@@ -121,7 +121,7 @@ Page({
                     ReserveTime: "2019-12-21",
                     CreatTime: "2019-12-21",
                     ReservationId: "11111",
-                    UserId: that.data.userid,
+                    UserId: "ow8DE5Bvq59TSYGPwkQMxTSHsMPo",
                     RestaurantId: "123131231",
                     TotalPrice: that.data.orderCount.money
                   },
