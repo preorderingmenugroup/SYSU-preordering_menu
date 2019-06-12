@@ -12,11 +12,11 @@
 - 6、[Requirement specification](https://preorderingmenugroup.github.io/SYSU-preordering_menu/Requirement-specification)（需求规格说明书）  
   - 6.1 [Usecase Diagram and UML Activity Diagram](https://preorderingmenugroup.github.io/SYSU-preordering_menu/Requirement-specification/1/1-1-usercase-diagram)（用例图，业务过程/多泳道图）  -
 
-  - 6.2 [Use Cases]()（用例+活动图）
+  - 6.2 [Use Cases](https://preorderingmenugroup.github.io/SYSU-preordering_menu/吉阁尔/user_cases)（用例+活动图）
 
   - 6.3 Domian Models（领域模型）
 
-  - 6.4 State Models（状态模型）
+  - 6.4 State Models()（状态模型）
 
   - 6.5 System Sequence Diagrams（功能模型）
 
