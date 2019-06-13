@@ -16,7 +16,7 @@
 
   - 6.3 Domian Models（领域模型）
 
-  - 6.4 State Models(https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/%E5%90%89%E9%98%81%E5%B0%94/statemodel.PNG?raw=true)（状态模型）
+  - 6.4 [State Models](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/%E5%90%89%E9%98%81%E5%B0%94/statemodel.PNG?raw=true)（状态模型）
 
   - 6.5 System Sequence Diagrams（功能模型）
 
