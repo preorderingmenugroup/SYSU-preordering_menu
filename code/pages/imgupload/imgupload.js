@@ -14,11 +14,11 @@ Component({
     //图片限制个数
     imageLimit: {
       type: Number,
-      value: 8
+      value: 1
     },
     imageMaxPerTime: {
       type: Number,
-      value: 8
+      value: 1
     },
     //提示icon
     /* 
