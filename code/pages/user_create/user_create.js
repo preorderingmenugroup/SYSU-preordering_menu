@@ -78,7 +78,7 @@ Page({
   },
 
   bindToIndex(e){
-    console.log(this.data.phone.length)
+    console.log(e)
     var phoneEp = /[0-9]*/
     var IdEp = /[0-9]*/
     if (this.data.phone.length != 11 ||! phoneEp.test(this.data.phone)){
@@ -123,8 +123,8 @@ Page({
                 Gender: app.globalData.userInfor.gendPicIndex,
                 StudentId: app.globalData.userInfor.studentId,
                 UserTelephone: app.globalData.userInfor.phone,
-                School: app.globalData.userInfor.school
-
+                School: app.globalData.userInfor.school,
+                isOwner: false
               },
               success: res => {
                 console.log('用户注册成功')

@@ -52,7 +52,8 @@ App({
       gendPicIndex:0,
       scoPicIndex:"",
       phoneNum:0,
-      studentId:""
+      studentId:"",
+      isOwner:false
     },/*记录用户所有信息，包括头像profileImage, 用户名userName, 
 =======
       school: "",
