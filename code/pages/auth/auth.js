@@ -7,7 +7,8 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    networkType: 'none'
+    networkType: 'none',
+    timeOutId:0
   },
   //事件处理函数
   bindViewTap: function () {
@@ -42,7 +43,7 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    setTimeout(this.toastTimeOut, 30000)
+    this.timeOutId = setTimeout(this.toastTimeOut, 30000)
   },
   getStorageSuccessCallback: function (){
     const db = wx.cloud.database()
@@ -80,7 +81,7 @@ Page({
     })
   },
   getUserInfo: function (e) {
-    console.log(e)
+    console.log('userinfo:',e)
     app.globalData.userInfo = e.detail.userInfo
     if (e.detail.userInfo) {
       this.setData({
@@ -98,7 +99,6 @@ Page({
         name: 'login',
         data: {},
         success: res => {
-          console.log( res.result.openid)
           app.globalData.userInfor.openid = res.result.openid
           console.log(res.result)
           //对数据进行缓存
@@ -106,10 +106,27 @@ Page({
             key: 'userInfor',
             data: app.globalData.userInfor,
           })
-          console.log(app.globalData.userInfor)
-          wx.redirectTo({
-            url: '../user_create/user_create',
+          const db = wx.cloud.database()
+          db.collection('User').where({
+            UserId: app.globalData.userInfor.openid
+          }).get({
+            success: res => {
+              if (res.data.length != 0) {
+                console.log(res.data)
+                clearTimeout(this.timeOutId)
+                wx.redirectTo({
+                  url: '../index/index',
+                })
+              }
+              else {
+                clearTimeout(this.timeOutId)
+                wx.redirectTo({
+                  url: '../user_create/user_create',
+                })
+              }
+            }
           })
+          
         }
       })
     }
