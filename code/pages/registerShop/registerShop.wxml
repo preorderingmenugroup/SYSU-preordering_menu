@@ -23,7 +23,6 @@
     <imgupload
       id = "imgupload1"
       imageUrl = "{{imageUrl}}"
-      bindtap = "inputImage1"
     >
     </imgupload>
     </view>
@@ -93,7 +92,7 @@
     <view class="row" bindtap="selectSch">
       <view class="row-add">店铺所属学校</view>
       <view class="row-input">
-        <text>{{school.name}}</text>
+        <text>{{school}}</text>
       </view>
       <view class="row-back">
         <text class="iconfont icon-gengduo"></text>
