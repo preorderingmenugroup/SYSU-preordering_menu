@@ -21,39 +21,15 @@ Page({
   },
 
   selectSch: function () {
-    /*
+
     var that = this
-    const db = wx.cloud.database()
-    db.collection('School').get({
-      success: res => {
-        for(var i = 0; i < res.data.length; i++) {
-          oneSchool = {
-            id: "",
-            name: ""
-          }
-          oneSchool.id = res.data[i].SchoolId
-          oneSchool.name = res.data[i].SchoolName
-          this.data.school.push(oneSchool)
-        }
-      },
-      fail: res => {
-        console.log('用户查询失败')
-      }
-    })
-    console.log(this.data.school)*/
-    var that = this
-    console.log(app.globalData.School)
+    var itemList1 = app.globalData.School.SchoolName
+    var itemList2 = app.globalData.School.SchoolId
     wx.showActionSheet({
-      itemList1: app.globalData.School.SchoolId,
       itemList: app.globalData.School.SchoolName,
       success: function (res) {
-
-        for(var i = 0; i < itemList.length; i++) {
-          if(res.tapIndex == i) {
-            that.data.school = itemList[i];
-            that.data.index = itemList1[i];
-          }
-        }
+            that.data.school = itemList1[res.tapIndex];
+            that.data.index = itemList2[res.tapIndex];
 
         that.setData({
           school: that.data.school
@@ -216,8 +192,6 @@ Page({
       for (var i = 0; i < 18; i++) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
       }
-
-      app.globalData.restaurantInfor.schoolId = 
 
       db.collection('Restaurant').add({
         data: {
