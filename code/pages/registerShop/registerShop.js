@@ -212,7 +212,8 @@ Page({
             const filePath = that.data.tempEnvironmentPhoto[0]
             // 上传图片
             var timestamp = Date.parse(new Date());
-            const cloudPath = 'registerShop/' + '1' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            var document = app.globalData.userInfor.userName + '/';
+            const cloudPath = 'registerShop/' + document + '1' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
             wx.cloud.uploadFile({
               cloudPath,
               filePath,
@@ -250,7 +251,8 @@ Page({
             const filePath = that.data.tempGatePhoto[0]
             // 上传图片
             var timestamp = Date.parse(new Date());
-            const cloudPath = 'registerShop/' + '2' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            var document = app.globalData.userInfor.userName + '/';
+            const cloudPath = 'registerShop/' + document + '2' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
             wx.cloud.uploadFile({
               cloudPath,
               filePath,
@@ -288,7 +290,8 @@ Page({
             const filePath = that.data.tempIdCardBackPhoto[0]
             // 上传图片
             var timestamp = Date.parse(new Date());
-            const cloudPath = 'registerShop/' + '3' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            var document = app.globalData.userInfor.userName + '/';
+            const cloudPath = 'registerShop/' + document + '3' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
             wx.cloud.uploadFile({
               cloudPath,
               filePath,
@@ -326,7 +329,8 @@ Page({
             const filePath = that.data.tempIdCardFrontPhoto[0]
             // 上传图片
             var timestamp = Date.parse(new Date());
-            const cloudPath = 'registerShop/' + '4' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            var document = app.globalData.userInfor.userName + '/';
+            const cloudPath = 'registerShop/' + document + '4' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
             wx.cloud.uploadFile({
               cloudPath,
               filePath,
@@ -364,7 +368,8 @@ Page({
             const filePath = that.data.tempProductionLicence[0]
             // 上传图片
             var timestamp = Date.parse(new Date());
-            const cloudPath = 'registerShop/' + '5' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            var document = app.globalData.userInfor.userName + '/';
+            const cloudPath = 'registerShop/' + document + '5' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
             wx.cloud.uploadFile({
               cloudPath,
               filePath,
