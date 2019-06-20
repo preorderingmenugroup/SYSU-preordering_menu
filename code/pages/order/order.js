@@ -2,6 +2,7 @@
 //获取应用实例
 var utils = require('../../utils/util.js');
 //获取当前时间需引用utils文件
+
 const app = getApp();
 
 Page({
@@ -16,7 +17,11 @@ Page({
     orders: true,
     items: [],
     userid:'',
-    restaurantid:''
+    restaurantid:'',
+    time: "",
+    getfoodtime:"",
+    timestramp:"",
+    menuitemid:""
   },
   // 点击对应菜单添加按钮
   del: function (event) {
@@ -91,63 +96,63 @@ Page({
         // 至少选中一个商品才能支付
         if (that.data.orderCount.num !== 0){
           if (res.confirm){
+            that.setData({
+              time: utils.formatTime(new Date()),
+              getfoodtime: utils.getfood_Time(new Date()),
+              timestramp: utils.getfood_timestramp(new Date())
+            })
             
             const db = wx.cloud.database();
-              db.collection('User').where({
-                UserId: app.globalData.userInfor.openid
-              }).get({
-                success:res=>{
-                  that.data.userid = app.globalData.userInfor.openid
-                },
-                fail:res=>{
-                  consolr.log('fail_in_getuserinfor')
-                }
-              }),
-              
+            console.log(that.data.userid);
+            console.log(that.data.time);
+            console.log(that.data.getfoodtime);
+            console.log(that.data.timestramp);
                 /*db.collection('Restaurant').where({
                   
                 }).get({
                   success: res => {
-                    that.data.restaurantid = app.globalData.userInfor.openid
+                    console.log(res);
                     
                   },
                   fail: res => {
-                    console.log('fail_in_getreserantinfor')
+                    console.log('fail_in_get_reserant_infor')
                   }
-                }),*/
-
-                db.collection('Reservation').add({
+                }),
+              for(let a=0;a<)*/
+                db.collection('ReservationItem').add({
                   data: {
-                    ReserveTime: "2019-12-21",
-                    CreatTime: "2019-12-21",
-                    ReservationId: "11111",
-                    UserId: "ow8DE5Bvq59TSYGPwkQMxTSHsMPo",
-                    RestaurantId: "123131231",
+                    ReservationItemId: "111",
+                    ReservationId: that.data.userid + that.data.timestramp,
+                    MenuItemId: that.data.menuitemid,
+                    Count: that.data.orderCount.num,
                     TotalPrice: that.data.orderCount.money
                   },
                   success: res=> {
-                    console.log('创建订单成功')
-                      
+                    console.log('创建订单详情成功')
+                    
                   },
                   fail: res=>{
-                    console.log('make_new_reservation_failed')
-                  }
-                }),
-                db.collection('ReservationItem').add({
-                  data: {
-                    ResvertionItemId: "",
-                    ReservationId: "11111",
-                    MenuItemId: "",
-                    count: that.data.orderCount.num,
-                    TotalPrice: that.data.orderCount.money
-                  },
-                  success:res=>{
-                    console.log('创建订单详情成功')
-                  },
-                  fail:res=>{
                     console.log('创建订单详情失败')
                   }
                 }),
+                  
+                 db.collection('Reservation').add({
+                   data: {
+                     ReserveTime: that.data.getfoodtime,
+                     CreatTime: that.data.time,
+                     ReservationId: that.data.userid + that.data.timestramp,
+                     UserId: that.data.userid,
+                     RestaurantId: that.data.userid,
+                     TotalPrice: that.data.orderCount.money
+                   },
+                   success: res => {
+                     console.log('创建订单成功')
+
+                   },
+                   fail: res => {
+                     console.log('make_new_reservation_failed')
+                   }
+                 }),
                 
                 wx.navigateTo({
                   url: '../pay/pay',
@@ -169,13 +174,28 @@ Page({
   },
   onLoad: function() {
     let that = this;
+    var date = new Date();
+    that.data.userid = app.globalData.userInfor.openid;
+    that.data.time = utils.formatTime(new Date());
+
+    console.log(that.data.time);
     // 取出订单传过来的数据
     wx.getStorage({
       key: 'orders',
       success: function (res) {
+        console.log(res.data);
         that.setData({
+          
           items: res.data
         });
+        console.log(res.data);
+        
+
+        for(let i =0;i<(that.data.items.length);i++){
+          
+          that.data.menuitemid = that.data.menuitemid+that.data.items[i].categroy_id;
+        }
+        console.log(that.data.menuitemid);
         // 价格统计汇总
         let money = 0;
         let num = res.data.length;
@@ -193,14 +213,9 @@ Page({
       }
     })
     
+
   },
-  pass_rev_id:function(){
-    var rev_id=this.data.reservationid;
-    wx.setStorage({
-      key: 'pay',
-      data: 'rev_id',
-    })
-  },
+  
   
   
 })
