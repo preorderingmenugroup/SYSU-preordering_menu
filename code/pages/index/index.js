@@ -112,10 +112,15 @@ Page({
       },
       fail: () => { console.log("无法获取显示器高度，请检查网络连接") }
     });
-
-    const db = wx.cloud.database();
-    //进行restaurant的查询
-    
+  const db = wx.cloud.database();
+    db.collection('User').where({
+      _openid: app.globalData.userInfor.openid
+    }).get({
+      success:res =>{
+        console.log(res.data);
+        
+      }
+    })
     //进行对应学校的菜品查询
     db.collection('MenuItem').where({}).get({
         success: res => {
