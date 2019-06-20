@@ -37,7 +37,7 @@
         <text>学校</text>
       </view>
       <picker disabled='{{school_dis}}' bindchange='bindSchoolPicker' class="item-second {{edit==true?'sec-col-edit':'sec-col-ok'}}"  value="{{scoPicIndex}}" range="{{schools}}">
-        {{schools[scoPicIndex]}}
+         {{schools[scoPicIndex]}}
       </picker>
   </view>
 

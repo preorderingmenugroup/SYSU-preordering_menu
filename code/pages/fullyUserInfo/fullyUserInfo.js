@@ -199,6 +199,9 @@ Page({
   
   updateUserInfo: function (e) {
     var that = this
+    //更新school内容
+    this.data.schools = (app.globalData.School.SchoolName).slice();
+    console.log("学校Id", this.data.schools)
     const db = wx.cloud.database()
     db.collection('User').where({
       UserId: app.globalData.userInfor.openid
@@ -215,9 +218,19 @@ Page({
           })
         }
         if (res.data[0].SchoolId != undefined) {
-          
-          app.globalData.userInfor.scoPicIndex = res.data[0].School
+          var counter;
+          for( counter = 0; counter < app.globalData.School.SchoolId.length;counter++)
+          {
+            if (app.globalData.School.SchoolId[counter] == res.data[0].SchoolId)
+            {
+              
+              app.globalData.userInfor.scoPicIndex = counter;
+              console.log("找到了学校id", app.globalData.userInfor.scoPicIndex);
+              break;
+            }
+          }
           this.setData({
+            schools : (app.globalData.School.SchoolName).slice(),
             scoPicIndex: app.globalData.userInfor.scoPicIndex
           })
         }
