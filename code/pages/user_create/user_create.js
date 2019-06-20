@@ -5,20 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    university_name: ["中山大学","清华大学","北京大学"],
+    university_name: [],
     object_university: [
-      {
-        id: 0,
-        name: '中山大学'
-      },
-      {
-        id: 1,
-        name: '清华大学'
-      },
-      {
-        id: 2,
-        name: '北京大学'
-      }
+      
     ],
     index: 0,
     isSelected: false,
@@ -43,6 +32,8 @@ Page({
         }
       }
     })
+
+    
     //加载时的动画效果
     this.animation = wx.createAnimation({
       duration: 1000,
@@ -65,6 +56,25 @@ Page({
       success(res) {
         console.log("inStorage:",res.data)
         app.globalData.userInfor = res.data
+      }
+    })
+    const db = wx.cloud.database()
+    db.collection('School').where({
+    }).get({
+      success: res => {
+        if (res.data.length != 0) {
+          console.log(res.data)
+          var university = []
+          var object = [] 
+          for (let idx in res.data) {
+            university.push(res.data[idx].SchoolName)
+            object.push(res.data[idx])
+          }
+          this.setData({
+            university_name: university,
+            object_university: object
+          })
+        }
       }
     })
 
@@ -103,7 +113,7 @@ Page({
       })
     }
     else{
-      app.globalData.userInfor.school = this.data.university_name[this.data.index]
+      app.globalData.userInfor.school = this.data.object_university[this.data.index].SchoolId
       app.globalData.userInfor.phone = this.data.phone
       app.globalData.userInfor.studentId = this.data.studentId
       const db = wx.cloud.database()
@@ -123,7 +133,7 @@ Page({
                 Gender: app.globalData.userInfor.gendPicIndex,
                 StudentId: app.globalData.userInfor.studentId,
                 UserTelephone: app.globalData.userInfor.phone,
-                School: app.globalData.userInfor.school,
+                SchoolId: app.globalData.userInfor.school,
                 isOwner: false
               },
               success: res => {

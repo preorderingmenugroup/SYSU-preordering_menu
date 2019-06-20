@@ -53,7 +53,8 @@ App({
       scoPicIndex:"",
       phoneNum:0,
       studentId:"",
-      isOwner:false
+      isOwner:false,
+      RestaurantId:""
     },/*记录用户所有信息，包括头像profileImage, 用户名userName, 
 =======
       school: "",

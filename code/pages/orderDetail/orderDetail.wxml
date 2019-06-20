@@ -1,4 +1,5 @@
 <!--订单状态-->
+<view wx:if="{{hasData}}">
 <view class='headerInfo'>
   <view class='headerFlex'>
     <view class='statusInfo'>
@@ -58,4 +59,5 @@
       <label class="itemName">{{ "支付方式  " }}<label class='itemNameBlack'>{{"在线支付"}}</label></label>
     </view>
   </view>
+</view>
 </view>
