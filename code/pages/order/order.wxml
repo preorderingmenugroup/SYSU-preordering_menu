@@ -3,8 +3,8 @@
   <view class="item-content">
     <view class="box">
       <view class="item" wx:for="{{items}}" wx:key="{{item.id}}">
-        <image src="../../images/index/dapanji.jpeg"></image>
-        <text class="title">{{item.title}}</text>
+        <image src="{{item.url}}"></image>
+        <text class="title">{{item.categroy_name}}</text>
         <text class="price">￥ {{item.price}} 元</text>
         <view class="opera">
           <text class="btn" bindtap="del" data-id="{{item.id}}" data-index="{{index}}">-</text>
