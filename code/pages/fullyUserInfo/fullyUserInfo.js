@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    schools:['请选择','中山大学', '清华大学', '北京大学'],//由于数据库中存储的是index，所以这个列表不可以插入，只能追加
+    schools:[],//由于数据库中存储的是index，所以这个列表不可以插入，只能追加
     scoPicIndex:0,
 
     genders:['请选择', '男', '女'],
@@ -64,7 +64,7 @@ Page({
     db.collection('User').doc(that.data.dbUserInfoId).update({
       data: {
         UserName: that.data.userName,
-        School:that.data.scoPicIndex,
+        SchoolId:app.globalData.School.SchoolId[that.data.scoPicIndex],
         UserTelephone:that.data.phoneNum,
         Gender:that.data.gendPicIndex,
         StudentId:that.data.studentId
@@ -214,7 +214,8 @@ Page({
             phoneNum: app.globalData.userInfor.phoneNum,
           })
         }
-        if (res.data[0].School != undefined) {
+        if (res.data[0].SchoolId != undefined) {
+          
           app.globalData.userInfor.scoPicIndex = res.data[0].School
           this.setData({
             scoPicIndex: app.globalData.userInfor.scoPicIndex
