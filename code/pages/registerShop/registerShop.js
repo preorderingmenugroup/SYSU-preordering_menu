@@ -68,6 +68,72 @@ Page({
     })
   },
 
+  upEnvironmentPhoto: function () {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        that.setData({
+          EnvironmentPhoto: res.tempFilePaths
+        })
+      }
+    })
+  },
+
+  upGatePhoto: function () {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        that.setData({
+          GatePhoto: res.tempFilePaths
+        })
+      }
+    })
+  },
+
+  upIdCardBackPhoto: function () {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        that.setData({
+          IdCardBackPhoto: res.tempFilePaths
+        })
+      }
+    })
+  },
+
+  upIdCardFrontPhoto: function () {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        that.setData({
+          IdCardFrontPhoto: res.tempFilePaths
+        })
+      }
+    })
+  },
+
+  upProductionLicence: function () {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        that.setData({
+          ProductionLicence: res.tempFilePaths
+        })
+      }
+    })
+  }, 
+
+
   bindToIndex: function (e) {
     var that = this
     var data = e.detail.value

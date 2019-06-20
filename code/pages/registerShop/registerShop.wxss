@@ -77,3 +77,34 @@ page{
   margin-top: 10%;
   width: 90%;
 }
+
+.big-logos {
+  float: left;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  width: 100%;
+  height: 160rpx;
+  border: #ccc;
+}
+.big-logos .big-logos_img {
+  float: left;
+  width: 100%;
+  height: 160rpx;
+}
+.big-logos .big-logos_img image {
+  float: left;
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.big-logos .logoinfo {
+  float: left;
+  width: 170rpx;
+  height: 170rpx;
+  margin-top: -166rpx;
+}
+.big-logos .logoinfo image {
+  float: left;
+  width: 160rpx;
+  height: 160rpx;
+}
