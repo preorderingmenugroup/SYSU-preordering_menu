@@ -1,5 +1,5 @@
 // pages/pay/pay.js
-var QRCode = require('../../utils/weapp-qrcode.js');
+var QRCode = require('../../../utils/weapp-qrcode.js');
 var qrcode;
 Page({
 
