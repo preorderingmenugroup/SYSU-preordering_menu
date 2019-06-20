@@ -36,7 +36,7 @@ Page({
 
             const db1 = wx.cloud.database()
             db1.collection('Reservation').where({
-              UserId: app.globalData.userInfor.openid
+              UserId: app.globalData.userInfor.UserId
             }).get({
               success: res => {
                 var totalOrdArr = res.data

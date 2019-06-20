@@ -1,66 +1,60 @@
+var app = getApp()
+
 Page({
   data: {
+    temp: [{
+
+    }],
+    _id: "",
+    idNum: 0,
     // 商品列表
     items: [{
-      id: 1,
-      title: '土豆丝拌面',
-      price: 12,
-      active: false,
-      describe: '好吃',
-      imageUrl: ''
-    }, {
-      id: 2,
-      title: '豆角炒肉盖浇饭',
-      price: 13,
-      active: false,
-      describe: '好吃',
-      imageUrl: ''
-    }, {
-      id: 3,
-      title: '大盘鸡盖饭',
-      price: 14,
-      active: false,
-      describe: '好吃',
-      imageUrl: ''
-    }, {
-      id: 4,
-      title: '新疆拌面',
-      price: 15,
-      active: false,
-      describe: '好吃',
-      imageUrl: ''
-    }, {
-      id: 5,
-      title: '西拉蛋拌面',
-      price: 16,
-      active: false,
-      describe: '好吃',
-      imageUrl: ''
-    }, {
-      id: 6,
-      title: '土豆牛肉盖浇饭',
-      price: 17,
-      active: false,
-      describe: '好吃',
-      imageUrl: ''
-    }, {
-      id: 7,
-      title: '可乐',
-      price: 18,
-      active: false,
-      describe: '好吃',
-      imageUrl: ''
-    }, {
-      id: 8,
-      title: '温馨提示',
-      price: 0.1,
-      active: false,
-      describe: '好吃',
-      imageUrl: ''
+      id: 0,
+      ItemDescription: "",
+      MenuItemName: "",
+      Price: 0,
     }]
   },
-  onLoad: function (options) {
-    var addFood = JSON.parse(options.addFood)
+
+
+  onLoad: function () {
+    const db = wx.cloud.database()
+    var menu = []
+    var that = this;
+
+    db.collection('MenuItem').where({
+      id: app.globalData.id
+    }).get({
+      success: function (res) {
+        that.setData({ _id: res.data[0]._id });
+      }
+    })
+
+    db.collection('MenuItem').get({
+      success: function (res) {
+        console.log(res.data.length)
+        // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
+        for (var i = 0; i < res.data.length; i++) {
+          menu.push(res.data[i])
+        }
+        that.setData({ items: menu });  //为什么必须把this换成that，直接调用this就不行?
+        console.log(that.data.items)
+      }
+    })
+
+    /*
+    db.collection('MenuItem').add({
+      data: {
+        ItemDescription: "好吃",
+        MenuItemName: "宫保鸡丁",
+        Price: 15
+      },
+      success: function(res) {
+        console.log(res)
+      }
+    })*/
+
+    /*var addFood = JSON.parse(options.addFood)
     var model = {
       id: 0,
       title: '',
@@ -82,25 +76,51 @@ Page({
       items: items 
     })
     console.log(this.data.items.length)
-    console.log(this.data.items)
-
+    console.log(this.data.items)*/
   },
 
-  deleteFood: function(e) {
-    var index = e.currentTarget.dataset.index
+  onReady: function () {
+  },
+
+
+  deleteFood: function (e) {
+    var index = e.currentTarget.dataset.index  //类型问题，为什么wxml那里改成data-index就好了
     var items = this.data.items
-    
+
+    app.globalData.id = index + 1
+
+    console.log(app.globalData.id)
+    var that = this;
+
+    const db = wx.cloud.database()
+
+    db.collection('MenuItem').where({
+      id: app.globalData.id
+    }).get({
+      success: function (res) {
+        db.collection('MenuItem').doc(res.data[0]._id).remove({
+          success: function (res) {
+            console.log(res.data)
+          }
+        })
+      }
+    })
+
     items.splice(index, 1)
     this.setData({
       items: items,
     })
+    console.log(this.data.items)
     wx.showToast({
-      title: '删除成功',
+      title: '正在删除中',
       icon: 'success',
-      duration: 2000,
+      duration: 5000,
     })
+
   },
-  addFood: function(e) {
+
+
+  addFood: function (e) {
     wx.navigateTo({
       url: "../addFood/addFood"
     })
