@@ -198,7 +198,7 @@ Page({
       db.collection('Restaurant').add({
         data: {
           Address: this.data.address,
-          Description: this.data.discription,
+          Description: this.data.description,
           OwenId: app.globalData.userInfor.openid,
           RestruantId: text,
           RestaurantName: this.data.shop,
