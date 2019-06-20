@@ -19,61 +19,78 @@
       <view class="row-add">店内环境图</view>
       <view class="row-text">需真实反映用餐环境</view>
     </view>
-    <view class="image">
-    <imgupload
-      id = "imgupload1"
-      imageUrl = "{{imageUrl}}"
-    >
-    </imgupload>
-    </view>
+      <view class="big-logos">
+        <view class='big-logos_img'>
+           <image bindtap="upEnvironmentPhoto" src='/images/registerShop/edit.png'></image> 
+        </view>
+        <block wx:for="{{EnvironmentPhoto}}" wx:key="{{index}}"> 
+            <view class='logoinfo'>    
+              <image src='{{item}}'></image>    
+            </view>  
+        </block>    
+      </view>   
 
     <view class="row">
       <view class="row-add">门脸图</view>
       <view class="row-text">需拍出完整门匾、门框</view>
     </view>
-    <view class="image">
-    <imgupload
-      id = "imgupload2"
-      imageUrl = "{{imageUrl}}"
-    >
-    </imgupload>
-    </view>
+      <view class="big-logos">
+        <view class='big-logos_img'>
+           <image bindtap="upGatePhoto" src='/images/registerShop/edit.png'></image> 
+        </view>
+        <block wx:for="{{GatePhoto}}" wx:key="{{index}}"> 
+            <view class='logoinfo'>    
+              <image src='{{item}}'></image>    
+            </view>  
+        </block>    
+      </view> 
 
     <view class="row">
       <view class="row-add">身份证反面照</view>
       <view class="row-text">请确保照片清晰可见</view>
     </view>
-    <view class="image">
-    <imgupload
-      id = "imgupload3"
-      imageUrl = "{{imageUrl}}"
-    >
-    </imgupload>
-    </view>
+      <view class="big-logos">
+        <view class='big-logos_img'>
+           <image bindtap="upIdCardBackPhoto" src='/images/registerShop/edit.png'></image> 
+        </view>
+        <block wx:for="{{IdCardBackPhoto}}" wx:key="{{index}}"> 
+            <view class='logoinfo'>    
+              <image src='{{item}}'></image>    
+            </view>  
+        </block>    
+      </view> 
+
 
     <view class="row">
       <view class="row-add">身份证正面照</view>
       <view class="row-text">请确保照片清晰可见</view>
     </view>
-    <view class="image">
-    <imgupload
-      id = "imgupload4"
-      imageUrl = "{{imageUrl}}"
-    >
-    </imgupload>
-    </view>
+      <view class="big-logos">
+        <view class='big-logos_img'>
+           <image bindtap="upIdCardFrontPhoto" src='/images/registerShop/edit.png'></image> 
+        </view>
+        <block wx:for="{{IdCardFrontPhoto}}" wx:key="{{index}}"> 
+            <view class='logoinfo'>    
+              <image src='{{item}}'></image>    
+            </view>  
+        </block>    
+      </view> 
 
     <view class="row">
       <view class="row-add">生产许可证</view>
       <view class="row-text">上传许可证</view>
     </view>
-    <view class="image">
-    <imgupload
-      id = "imgupload5"
-      imageUrl = "{{imageUrl}}"
-    >
-    </imgupload>
-    </view>
+      <view class="big-logos">
+        <view class='big-logos_img'>
+           <image bindtap="upProductionLicence" src='/images/registerShop/edit.png'></image> 
+        </view>
+        <block wx:for="{{ProductionLicence}}" wx:key="{{index}}"> 
+            <view class='logoinfo'>    
+              <image src='{{item}}'></image>    
+            </view>  
+        </block>    
+      </view> 
+
 
     <view class="row">
       <view class="row-add">联系人</view>
@@ -92,7 +109,7 @@
     <view class="row" bindtap="selectSch">
       <view class="row-add">店铺所属学校</view>
       <view class="row-input">
-        <text>{{school}}</text>
+        <text>{{school.name}}</text>
       </view>
       <view class="row-back">
         <text class="iconfont icon-gengduo"></text>
