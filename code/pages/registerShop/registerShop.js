@@ -12,24 +12,24 @@ Page({
     description: "",
     shop: "",
     school: "",
-    imageUrl: [
-
-    ],
-    owner: "",
+    tempEnvironmentPhoto: "",
+    tempGatePhoto: "",
+    tempIdCardBackPhoto: "",
+    tempIdCardFrontPhoto: "",
+    tempProductionLicence: "",
     phone: "",
   },
 
   selectSch: function () {
     var that = this
     wx.showActionSheet({
-      itemList: ['中山大学', '清华大学', '北京大学'],
+      itemList: ['中山大学', '华南理工大学', '北京大学'],
       success: function (res) {
         var sch = ""
         switch (res.tapIndex) {
-          case 0: that.data.school = "中山大学"; that.data.index = 1; break;
-          case 1: that.data.school = "清华大学"; that.data.index = 2; break;
-          case 2: that.data.school = "北京大学"; that.data.index = 3; break;
-          default: that.data.school = "中山大学"; that.data.index = 1; break;
+          case 0: that.data.school = "中山大学"; that.data.index = 1234312431432143; break;
+          case 1: that.data.school = "华南理工大学"; that.data.index = 1212343254654765; break;
+          case 2: that.data.school = "北京大学"; that.data.index = 21413243134213412; break;
         }
         that.setData({
           school: that.data.school
@@ -74,6 +74,7 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
+        that.data.tempEnvironmentPhoto = res.tempFilePaths
         that.setData({
           EnvironmentPhoto: res.tempFilePaths
         })
@@ -87,6 +88,7 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
+        that.data.tempGatePhoto = res.tempFilePaths
         that.setData({
           GatePhoto: res.tempFilePaths
         })
@@ -100,6 +102,7 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
+        that.data.tempIdCardBackPhoto = res.tempFilePaths
         that.setData({
           IdCardBackPhoto: res.tempFilePaths
         })
@@ -113,6 +116,7 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
+        that.data.tempIdCardFrontPhoto = res.tempFilePaths
         that.setData({
           IdCardFrontPhoto: res.tempFilePaths
         })
@@ -126,13 +130,13 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
+        that.data.tempProductionLicence = res.tempFilePaths
         that.setData({
           ProductionLicence: res.tempFilePaths
         })
       }
     })
   }, 
-
 
   bindToIndex: function (e) {
     var that = this
@@ -159,7 +163,7 @@ Page({
         title: '未填写店铺名',
         icon: "none"
       })
-    } else if (this.data.school.name == "店铺属于哪个学校") {
+    } else if (this.data.school == "") {
       wx.showToast({
         title: '未填写所属学校',
         icon: "none"
@@ -174,37 +178,227 @@ Page({
         title: '请输入正确的电话号码',
         icon: "none"
       })
+    } else if (that.data.tempEnvironmentPhoto.length == 0 || that.data.tempGatePhoto.length == 0 || that.data.tempIdCardBackPhoto.length == 0 || that.data.tempIdCardFrontPhoto.length == 0 || that.data.tempProductionLicence.length == 0) {
+      wx.showToast({
+        title: '未添加所需的图片',
+        icon: "none"
+      })
     } else {
 
       const db = wx.cloud.database()
 
-      var schoolId = app.globalData.School.SchoolId[that.data.index]
       var text = "";
       var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
       for (var i = 0; i < 18; i++) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
       }
 
-
+      app.globalData.restaurantInfor.schoolId = 
 
       db.collection('Restaurant').add({
         data: {
           Address: this.data.address,
-          EnvironmentPhoto: "cloud://cloud-database-5hfz6.636c-cloud-database-5hfz6/ResigsterShop/ow8DE5F6fD_7REKVbg_XMi1M1isA1560855646000.jpg",
-          GatePhoto: "cloud://cloud-database-5hfz6.636c-cloud-database-5hfz6/ResigsterShop/ow8DE5F6fD_7REKVbg_XMi1M1isA1560855656000.jpg",
-          IdCardBackPhoto: "cloud://cloud-database-5hfz6.636c-cloud-database-5hfz6/ResigsterShop/ow8DE5F6fD_7REKVbg_XMi1M1isA1560855669000.jpg",
-          IdCardFrontPhoto: "",
-          ProductionLicence: "",
           Description: this.data.discription,
           OwenId: app.globalData.userInfor.openid,
           RestruantId: text,
           RestaurantName: this.data.shop,
-          SchoolId: "21413243134213412",
+          SchoolId: this.data.index,
           TelephoneNumber: this.data.phone,
-          isReviewed: false,
         },
+
+
         success: res => {
-          
+
+          if (1)//如果环境图片是新图片
+          {
+            const filePath = that.data.tempEnvironmentPhoto[0]
+            // 上传图片
+            var timestamp = Date.parse(new Date());
+            const cloudPath = 'registerShop/' + '1' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            wx.cloud.uploadFile({
+              cloudPath,
+              filePath,
+              success: res => {
+                console.log('[上传图片] 成功：', res)
+              },
+              fail: e => {
+                console.error('[上传] 失败：', e)
+                wx.showToast({
+                  icon: 'none',
+                  title: '上传失败',
+                })
+              },
+              complete: res => {
+                console.log('[上传图片] 完成：', res)
+                app.globalData.restaurantInfor.EnvironmentPhoto = res.fileID
+                //更新数据库中的图片路径
+                console.log("EnvironmentPhoto", res.fileID)
+                db.collection('Restaurant').doc(that.data.dbRestaurantInfoId).update({
+                  data: {
+                    EnvironmentPhoto: res.fileID,
+                  },
+                  success: res => {
+                    console.log("EnvironmentPhoto更新success")
+                  },
+                  fail: res => {
+                    console.log("EnvironmentPhoto更新失败")
+                  }
+                })
+              },
+            })
+          }
+
+          if (1) {
+            const filePath = that.data.tempGatePhoto[0]
+            // 上传图片
+            var timestamp = Date.parse(new Date());
+            const cloudPath = 'registerShop/' + '2' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            wx.cloud.uploadFile({
+              cloudPath,
+              filePath,
+              success: res => {
+                console.log('[上传图片] 成功：', res)
+              },
+              fail: e => {
+                console.error('[上传] 失败：', e)
+                wx.showToast({
+                  icon: 'none',
+                  title: '上传失败',
+                })
+              },
+              complete: res => {
+                console.log('[上传图片] 完成：', res)
+                app.globalData.restaurantInfor.GatePhoto = res.fileID
+                //更新数据库中的图片路径
+                console.log("GatePhoto ", res.fileID)
+                db.collection('Restaurant').doc(that.data.dbRestaurantInfoId).update({
+                  data: {
+                    GatePhoto: res.fileID,
+                  },
+                  success: res => {
+                    console.log("GatePhoto更新success")
+                  },
+                  fail: res => {
+                    console.log("GatePhoto更新失败")
+                  }
+                })
+              },
+            })
+          }
+
+          if (1) {
+            const filePath = that.data.tempIdCardBackPhoto[0]
+            // 上传图片
+            var timestamp = Date.parse(new Date());
+            const cloudPath = 'registerShop/' + '3' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            wx.cloud.uploadFile({
+              cloudPath,
+              filePath,
+              success: res => {
+                console.log('[上传图片] 成功：', res)
+              },
+              fail: e => {
+                console.error('[上传] 失败：', e)
+                wx.showToast({
+                  icon: 'none',
+                  title: '上传失败',
+                })
+              },
+              complete: res => {
+                console.log('[上传图片] 完成：', res)
+
+                //更新数据库中的图片路径
+                console.log("IdCardBackPhoto ", res.fileID)
+                db.collection('Restaurant').doc(that.data.dbRestaurantInfoId).update({
+                  data: {
+                    IdCardBackPhoto: res.fileID,
+                  },
+                  success: res => {
+                    console.log("IdCardBackPhoto更新success")
+                  },
+                  fail: res => {
+                    console.log("IdCardBackPhoto更新失败")
+                  }
+                })
+              },
+            })
+          }
+
+          if (1) {
+            const filePath = that.data.tempIdCardFrontPhoto[0]
+            // 上传图片
+            var timestamp = Date.parse(new Date());
+            const cloudPath = 'registerShop/' + '4' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            wx.cloud.uploadFile({
+              cloudPath,
+              filePath,
+              success: res => {
+                console.log('[上传图片] 成功：', res)
+              },
+              fail: e => {
+                console.error('[上传] 失败：', e)
+                wx.showToast({
+                  icon: 'none',
+                  title: '上传失败',
+                })
+              },
+              complete: res => {
+                console.log('[上传图片] 完成：', res)
+
+                //更新数据库中的图片路径
+                console.log("IdCardFrontPhoto ", res.fileID)
+                db.collection('Restaurant').doc(that.data.dbRestaurantInfoId).update({
+                  data: {
+                    IdCardFrontPhoto: res.fileID,
+                  },
+                  success: res => {
+                    console.log("IdCardFrontPhoto更新success")
+                  },
+                  fail: res => {
+                    console.log("IdCardFrontPhoto更新失败")
+                  }
+                })
+              },
+            })
+          }
+
+          if (1) {
+            const filePath = that.data.tempProductionLicence[0]
+            // 上传图片
+            var timestamp = Date.parse(new Date());
+            const cloudPath = 'registerShop/' + '5' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            wx.cloud.uploadFile({
+              cloudPath,
+              filePath,
+              success: res => {
+                console.log('[上传图片] 成功：', res)
+              },
+              fail: e => {
+                console.error('[上传] 失败：', e)
+                wx.showToast({
+                  icon: 'none',
+                  title: '上传失败',
+                })
+              },
+              complete: res => {
+                console.log('[上传图片] 完成：', res)
+
+                //更新数据库中的图片路径
+                console.log("ProductionLicence ", res.fileID)
+                db.collection('Restaurant').doc(that.data.dbRestaurantInfoId).update({
+                  data: {
+                    ProductionLicence: res.fileID,
+                  },
+                  success: res => {
+                    console.log("ProductionLicence更新success")
+                  },
+                  fail: res => {
+                    console.log("ProductionLicence更新失败")
+                  }
+                })
+              },
+            })
+          }
 
           // 在返回结果中会包含新创建的记录的 _id
           this.setData({
