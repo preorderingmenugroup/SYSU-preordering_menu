@@ -7,10 +7,10 @@ Page({
    */
   data: {
 
-    index: "",
     address: "",
     description: "",
     shop: "",
+    index: "",
     school: "",
     tempEnvironmentPhoto: "",
     tempGatePhoto: "",
@@ -21,16 +21,40 @@ Page({
   },
 
   selectSch: function () {
+    /*
     var that = this
-    wx.showActionSheet({
-      itemList: ['中山大学', '华南理工大学', '北京大学'],
-      success: function (res) {
-        var sch = ""
-        switch (res.tapIndex) {
-          case 0: that.data.school = "中山大学"; that.data.index = 1234312431432143; break;
-          case 1: that.data.school = "华南理工大学"; that.data.index = 1212343254654765; break;
-          case 2: that.data.school = "北京大学"; that.data.index = 21413243134213412; break;
+    const db = wx.cloud.database()
+    db.collection('School').get({
+      success: res => {
+        for(var i = 0; i < res.data.length; i++) {
+          oneSchool = {
+            id: "",
+            name: ""
+          }
+          oneSchool.id = res.data[i].SchoolId
+          oneSchool.name = res.data[i].SchoolName
+          this.data.school.push(oneSchool)
         }
+      },
+      fail: res => {
+        console.log('用户查询失败')
+      }
+    })
+    console.log(this.data.school)*/
+    var that = this
+    console.log(app.globalData.School)
+    wx.showActionSheet({
+      itemList1: app.globalData.School.SchoolId,
+      itemList: app.globalData.School.SchoolName,
+      success: function (res) {
+
+        for(var i = 0; i < itemList.length; i++) {
+          if(res.tapIndex == i) {
+            that.data.school = itemList[i];
+            that.data.index = itemList1[i];
+          }
+        }
+
         that.setData({
           school: that.data.school
         })
@@ -399,6 +423,28 @@ Page({
               },
             })
           }
+
+          db.collection('User').where({
+            UserId: app.globalData.userInfor.openid
+          }).get({
+            success: res => {
+              console.log('用户查询成功')
+              db.collection('User').doc(res.data[0]._id).update({
+                data: {
+                  isOwner: true,
+                },
+                success: res => {
+                  console.log("success")
+                },
+                fail: res => {
+                  console.log("failed")
+                }
+              })
+            },
+            fail: res => {
+              console.log('用户查询失败')
+            }
+          })
 
           // 在返回结果中会包含新创建的记录的 _id
           this.setData({
