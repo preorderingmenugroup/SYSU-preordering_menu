@@ -106,18 +106,10 @@ Page({
       fail: () => { console.log("无法获取显示器高度，请检查网络连接") }
     });
   const db = wx.cloud.database();
-    db.collection('User').where({
-      _openid: app.globalData.userInfor.openid
-    }).get({
-      success:res =>{
-        this.setData({
-          schoolid:res.data[0].SchoolId
-        })
-      }
-    })
+    
     
     db.collection('Restaurant').where({
-      SchoolId:this.data.schoolid
+      SchoolId: app.globalData.userInfor.school
     }).get({
       success:res=>{
         this.setData({
@@ -125,191 +117,208 @@ Page({
           
         })
         console.log(this.data.resid);
+        
+        //进行对应学校的菜品查询
+        db.collection('MenuItem').where({
+          RestaurantId: this.data.resid
+        }).get({
+          success: res => {
+            console.log(res.data);
+            console.log('menuitem查询成功');
+            console.log(res.data[0].Class);
+            console.log(res.data.length);
+            var tempList1 = [];
+            var tempList2 = [];
+            var tempList3 = [];
+            var tempList4 = [];
+            var tempList5 = [];
+            var tempList6 = [];
+            var tempList7 = [];
+            for (var a = 0; a < (res.data.length); a++) {
+
+              if ((res.data[a].Class) == "面食") {
+                console.log(this.data.id1add);
+                console.log(that.data.id1add);
+                var MenuItemName = res.data[a].MenuItemName;
+                console.log(MenuItemName)
+                var Price = res.data[a].Price;
+                console.log(Price);
+                var Photo = res.data[a].Photo;
+                console.log(Photo);
+                var MenuItemId = res.data[a].MenuItemId;
+                console.log(MenuItemId);
+                let tempCat = {
+                  categroy_id: this.data.id1add,
+                  categroy_name: MenuItemName,
+                  price: Price,
+                  num: 0,
+                  url: Photo,
+                  menuitemid: MenuItemId,
+                  Class: "面食"
+                }
+                console.log(tempCat)
+                tempList1.push(tempCat)
+                this.data.id1add++
+              }
+              else if ((res.data[a].Class) == "盖浇饭") {
+                console.log(this.data.id2add);
+                console.log(that.data.id2add);
+                var MenuItemName = res.data[a].MenuItemName;
+                console.log(MenuItemName)
+                var Price = res.data[a].Price;
+                console.log(Price);
+                var Photo = res.data[a].Photo;
+                console.log(Photo);
+
+                let tempCat = {
+                  categroy_id: this.data.id1add,
+                  categroy_name: MenuItemName,
+                  price: Price,
+                  num: 0,
+                  url: Photo,
+                  menuitemid: MenuItemId,
+                  Class: "盖浇饭"
+                }
+                console.log(tempCat)
+                tempList2.push(tempCat)
+                this.data.id2add++
+              }
+              else if ((res.data[a].Class) == "热菜") {
+                console.log(this.data.id3add);
+                console.log(that.data.id3add);
+                var MenuItemName = res.data[a].MenuItemName;
+                console.log(MenuItemName)
+                var Price = res.data[a].Price;
+                console.log(Price);
+                var Photo = res.data[a].Photo;
+                console.log(Photo);
+
+                let tempCat = {
+                  categroy_id: this.data.id1add,
+                  categroy_name: MenuItemName,
+                  price: Price,
+                  num: 0,
+                  url: Photo,
+                  menuitemid: MenuItemId,
+                  Class: "热菜"
+                }
+                console.log(tempCat)
+                tempList3.push(tempCat)
+                this.data.id3add++
+              }
+              else if ((res.data[a].Class) == "凉菜") {
+                console.log(this.data.id4add);
+                console.log(that.data.id4add);
+                var MenuItemName = res.data[a].MenuItemName;
+                console.log(MenuItemName)
+                var Price = res.data[a].Price;
+                console.log(Price);
+                var Photo = res.data[a].Photo;
+                console.log(Photo);
+
+                let tempCat = {
+                  categroy_id: this.data.id1add,
+                  categroy_name: MenuItemName,
+                  price: Price,
+                  num: 0,
+                  url: Photo,
+                  menuitemid: MenuItemId,
+                  Class: "凉菜"
+                }
+                console.log(tempCat)
+                tempList4.push(tempCat)
+                this.data.id4add++
+              }
+              else if ((res.data[a].Class) == "主食") {
+                console.log(this.data.id5add);
+                console.log(that.data.id5add);
+                var MenuItemName = res.data[a].MenuItemName;
+                console.log(MenuItemName)
+                var Price = res.data[a].Price;
+                console.log(Price);
+                var Photo = res.data[a].Photo;
+                console.log(Photo);
+
+                let tempCat = {
+                  categroy_id: this.data.id1add,
+                  categroy_name: MenuItemName,
+                  price: Price,
+                  num: 0,
+                  url: Photo,
+                  menuitemid: MenuItemId,
+                  Class: "主食"
+                }
+                console.log(tempCat)
+                tempList5.push(tempCat)
+                this.data.id5add++
+              }
+              else if ((res.data[a].Class) == "甜点") {
+                console.log(this.data.id6add);
+                console.log(that.data.id6add);
+                var MenuItemName = res.data[a].MenuItemName;
+                console.log(MenuItemName)
+                var Price = res.data[a].Price;
+                console.log(Price);
+                var Photo = res.data[a].Photo;
+                console.log(Photo);
+
+                let tempCat = {
+                  categroy_id: this.data.id1add,
+                  categroy_name: MenuItemName,
+                  price: Price,
+                  num: 0,
+                  url: Photo,
+                  menuitemid: MenuItemId,
+                  Class: "甜点"
+                }
+                console.log(tempCat)
+                tempList6.push(tempCat)
+                this.data.id6add++
+              }
+              else if (res.data[a].Class == "饮料") {
+                console.log(this.data.id7add);
+                console.log(that.data.id7add);
+                var MenuItemName = res.data[a].MenuItemName;
+                console.log(MenuItemName)
+                var Price = res.data[a].Price;
+                console.log(Price);
+                var Photo = res.data[a].Photo;
+                console.log(Photo);
+
+                let tempCat = {
+                  categroy_id: this.data.id1add,
+                  categroy_name: MenuItemName,
+                  price: Price,
+                  num: 0,
+                  url: Photo,
+                  menuitemid: MenuItemId,
+                  Class: "饮料"
+                }
+                console.log(tempCat)
+                tempList7.push(tempCat)
+                this.data.id7add++
+              }
+
+              else {
+                console.log("获取菜单失败");
+              }
+            }
+            this.setData({
+              "menus[0].categroy": tempList1,
+              "menus[1].categroy": tempList2,
+              "menus[2].categroy": tempList3,
+              "menus[3].categroy": tempList4,
+              "menus[4].categroy": tempList5,
+              "menus[5].categroy": tempList6,
+              "menus[6].categroy": tempList7,
+            })
+            console.log(this.data.menus);
+          }
+        });
+
       }
     })
-    //进行对应学校的菜品查询
-    db.collection('MenuItem').where({
-      /*RestaurantId:this.data.resid*/
-    }).get({
-        success: res => {
-          console.log(res.data);
-          console.log('menuitem查询成功');
-          console.log(res.data[0].Class);
-          console.log(res.data.length);
-          var tempList1 = [];
-          var tempList2 = [];
-          var tempList3 = [];
-          var tempList4 = [];
-          var tempList5 = [];
-          var tempList6 = [];
-          var tempList7 = [];
-          for(var a=0;a<(res.data.length);a++){
-            
-            if ((res.data[a].Class) == "面食") {
-              console.log(this.data.id1add);
-              console.log(that.data.id1add);
-              var MenuItemName = res.data[a].MenuItemName;
-              console.log(MenuItemName)
-              var Price = res.data[a].Price;
-              console.log(Price);
-              var Photo = res.data[a].Photo;
-              console.log(Photo);
-
-              let tempCat = {
-                categroy_id: this.data.id1add,
-                categroy_name: MenuItemName,
-                price: Price,
-                num: 0,
-                url: Photo
-              }
-              console.log(tempCat)
-              tempList1.push(tempCat)
-              this.data.id1add++
-            }
-            else if ((res.data[a].Class) == "盖浇饭") {
-              console.log(this.data.id2add);
-              console.log(that.data.id2add);
-              var MenuItemName = res.data[a].MenuItemName;
-              console.log(MenuItemName)
-              var Price = res.data[a].Price;
-              console.log(Price);
-              var Photo = res.data[a].Photo;
-              console.log(Photo);
-
-              let tempCat = {
-                categroy_id: this.data.id1add,
-                categroy_name: MenuItemName,
-                price: Price,
-                num: 0,
-                url: Photo
-              }
-              console.log(tempCat)
-              tempList2.push(tempCat)
-              this.data.id2add++
-            }
-            else if ((res.data[a].Class) == "热菜") {
-              console.log(this.data.id3add);
-              console.log(that.data.id3add);
-              var MenuItemName = res.data[a].MenuItemName;
-              console.log(MenuItemName)
-              var Price = res.data[a].Price;
-              console.log(Price);
-              var Photo = res.data[a].Photo;
-              console.log(Photo);
-
-              let tempCat = {
-                categroy_id: this.data.id3add,
-                categroy_name: MenuItemName,
-                price: Price,
-                num: 0,
-                url: Photo
-              }
-              console.log(tempCat)
-              tempList3.push(tempCat)
-              this.data.id3add++
-            }
-            else if ((res.data[a].Class) == "凉菜") {
-              console.log(this.data.id4add);
-              console.log(that.data.id4add);
-              var MenuItemName = res.data[a].MenuItemName;
-              console.log(MenuItemName)
-              var Price = res.data[a].Price;
-              console.log(Price);
-              var Photo = res.data[a].Photo;
-              console.log(Photo);
-
-              let tempCat = {
-                categroy_id: this.data.id4add,
-                categroy_name: MenuItemName,
-                price: Price,
-                num: 0,
-                url: Photo
-              }
-              console.log(tempCat)
-              tempList4.push(tempCat)
-              this.data.id4add++
-            }
-            else if ((res.data[a].Class) == "主食") {   
-              console.log(this.data.id5add); 
-              console.log(that.data.id5add); 
-              var MenuItemName = res.data[a].MenuItemName;
-              console.log(MenuItemName)
-              var Price = res.data[a].Price;
-              console.log(Price);
-              var Photo = res.data[a].Photo;
-              console.log(Photo);
-              
-              let tempCat = {
-                  categroy_id:this.data.id4add,
-                  categroy_name:MenuItemName,
-                  price:Price,
-                  num:0,
-                  url:Photo
-                }
-              console.log(tempCat)
-              tempList5.push(tempCat)
-              this.data.id5add++
-            }
-            else if ((res.data[a].Class) == "甜点") {
-              console.log(this.data.id6add);
-              console.log(that.data.id6add);
-              var MenuItemName = res.data[a].MenuItemName;
-              console.log(MenuItemName)
-              var Price = res.data[a].Price;
-              console.log(Price);
-              var Photo = res.data[a].Photo;
-              console.log(Photo);
-
-              let tempCat = {
-                categroy_id: this.data.id6add,
-                categroy_name: MenuItemName,
-                price: Price,
-                num: 0,
-                url: Photo
-              }
-              console.log(tempCat)
-              tempList6.push(tempCat)
-              this.data.id6add++
-            }
-            else if (res.data[a].Class == "饮料") {
-              console.log(this.data.id7add);
-              console.log(that.data.id7add);
-              var MenuItemName = res.data[a].MenuItemName;
-              console.log(MenuItemName)
-              var Price = res.data[a].Price;
-              console.log(Price);
-              var Photo = res.data[a].Photo;
-              console.log(Photo);
-              
-              let tempCat = {
-                categroy_id: this.data.id7add,
-                categroy_name: MenuItemName,
-                price: Price,
-                num: 0,
-                url: Photo
-              }
-              console.log(tempCat)
-              tempList7.push(tempCat)
-              this.data.id7add++
-            }
-
-            else {
-              console.log("获取菜单失败");
-            }
-          }
-          this.setData({
-            "menus[0].categroy": tempList1,
-            "menus[1].categroy": tempList2,
-            "menus[2].categroy": tempList3,
-            "menus[3].categroy": tempList4,
-            "menus[4].categroy":tempList5,
-            "menus[5].categroy":tempList6,
-            "menus[6].categroy": tempList7,
-          })
-          console.log(this.data.menus);
-        }
-      });
-  
+    
 
   },
   //左边菜品类点击效果

@@ -90,6 +90,8 @@ Page({
   // 点击结账按钮
   pay: function() {
     let that = this;
+    var itemnum = that.data.items.length;
+    console.log(itemnum);
     let str = '选中' + that.data.orderCount.num + '件商品，共' + that.data.orderCount.money + '元，是否要支付？'
     wx.showModal({
       title: '提示',
@@ -110,8 +112,10 @@ Page({
             console.log(that.data.getfoodtime);
             console.log(that.data.timestramp);
             
+            var time = new Date();
+            var timestramp = time.getTime();
             
-            db.collection('User').where({
+            /*db.collection('User').where({
               _openid: app.globalData.userInfor.openid
             }).get({
               success: res => {
@@ -120,58 +124,90 @@ Page({
                 })
                 console.log(that.data.schoolid);
               }
-            })
+            })*/
 
             db.collection('Restaurant').where({
-              SchoolId: that.data.schoolid
+              SchoolId: app.globalData.userInfor.school
             }).get({
               success: res => {
                 console.log(res.data)
                 that.setData({
                   
                   resid:res.data[0].RestaurantId
-                })
+                }),
                 console.log(that.data.resid);
+                db.collection('Reservation').add({
+                  data: {
+                    ReserveTime: that.data.getfoodtime,
+                    CreatTime: that.data.time,
+                    ReservationId: timestramp,
+                    UserId: that.data.userid,
+                    RestaurantId: that.data.resid,
+                    TotalPrice: that.data.orderCount.money
+                  },
+                  success: res => {
+                    console.log('创建订单成功')
+
+                    for (var a = 0; a < itemnum; a++) {
+
+                      db.collection('ReservationItem').add({
+                        data: {
+                          ReservationItemId: timestramp + a,
+                          ReservationId: timestramp,
+                          MenuItemId: that.data.items[a].menuitemid,
+                          Count: that.data.items[a].num,
+                          TotalPrice: (that.data.items[a].num) * (that.data.items[a].price)
+                        },
+
+                        success: res => {
+                          console.log('创建订单详情成功')
+
+                        },
+
+                        fail: res => {
+                          console.log('创建订单详情失败')
+                        }
+                      })
+                    }
+
+                  },
+                  fail: res => {
+                    console.log('make_new_reservation_failed')
+                  }
+                })
               },
               fail:res=> {
                 console.log("查询失败")
               }
             })
-                /*db.collection('Restaurant').where({
-                  
-                }).get({
-                  success: res => {
-                    console.log(res);
-                    
-                  },
-                  fail: res => {
-                    console.log('fail_in_get_reserant_infor')
-                  }
-                }),
-              for(let a=0;a<this.data.items.length;i++){
-                db.collection('ReservationItem').add({
-                  data: {
-                    ReservationItemId: (that.data.userid+that.data.item[a].categroy_name),
-                    ReservationId: that.data.userid + that.data.timestramp,
-                    MenuItemId: that.data.menuitemid,
-                    Count: that.data.items[a].num,
-                    TotalPrice: (that.data.items[a].num)*(that.data.items[a].price)
-                  },
-                  success: res => {
-                    console.log('创建订单详情成功')
+              
+               /* for(var a = 0;a<itemnum;a++){
+                  var time = new Date();
+                  var timestramp = time.getTime();
+            db.collection('ReservationItem').add({
+              data: {
+                ReservationItemId: timestramp+a,
+                ReservationId: timestramp,
+                MenuItemId: that.data.items[a].menuitemid,
+                Count: that.data.items[a].num,
+                TotalPrice: (that.data.items[a].num) * (that.data.items[a].price)
+              },
 
-                  },
-                  fail: res => {
-                    console.log('创建订单详情失败')
-                  }
-                }),
-              }*/
-                  
-                 db.collection('Reservation').add({
+              success: res => {
+                console.log('创建订单详情成功')
+
+              },
+
+              fail: res => {
+                console.log('创建订单详情失败')
+              }
+            })
+                } */
+                /* db.collection('Reservation').add({
                    data: {
                      ReserveTime: that.data.getfoodtime,
                      CreatTime: that.data.time,
-                     ReservationId: that.data.userid + that.data.timestramp,
+                     ReservationId: timestramp,
                      UserId: that.data.userid,
                      RestaurantId: that.data.resid,
                      TotalPrice: that.data.orderCount.money
@@ -179,11 +215,33 @@ Page({
                    success: res => {
                      console.log('创建订单成功')
 
+                     for (var a = 0; a < itemnum; a++) {
+                    
+                       db.collection('ReservationItem').add({
+                         data: {
+                           ReservationItemId: timestramp + a,
+                           ReservationId: timestramp,
+                           MenuItemId: that.data.items[a].menuitemid,
+                           Count: that.data.items[a].num,
+                           TotalPrice: (that.data.items[a].num) * (that.data.items[a].price)
+                         },
+
+                         success: res => {
+                           console.log('创建订单详情成功')
+
+                         },
+
+                         fail: res => {
+                           console.log('创建订单详情失败')
+                         }
+                       })
+                     } 
+                     
                    },
                    fail: res => {
                      console.log('make_new_reservation_failed')
                    }
-                 }),
+                 }),*/
                 
                 wx.navigateTo({
                   url: '../pay/pay',
@@ -222,11 +280,7 @@ Page({
         console.log(res.data);
         
 
-        for(let i =0;i<(that.data.items.length);i++){
-          
-          that.data.menuitemid = that.data.menuitemid+that.data.items[i].categroy_id;
-        }
-        console.log(that.data.menuitemid);
+        
         // 价格统计汇总
         let money = 0;
         let num = res.data.length;
