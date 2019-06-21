@@ -21,7 +21,9 @@ Page({
     time: "",
     getfoodtime:"",
     timestramp:"",
-    menuitemid:""
+    menuitemid:"",
+    schoolid:"",
+    resid:""
   },
   // 点击对应菜单添加按钮
   del: function (event) {
@@ -107,6 +109,34 @@ Page({
             console.log(that.data.time);
             console.log(that.data.getfoodtime);
             console.log(that.data.timestramp);
+            
+            
+            db.collection('User').where({
+              _openid: app.globalData.userInfor.openid
+            }).get({
+              success: res => {
+                that.setData({
+                  schoolid:res.data[0].SchoolId
+                })
+                console.log(that.data.schoolid);
+              }
+            })
+
+            db.collection('Restaurant').where({
+              SchoolId: that.data.schoolid
+            }).get({
+              success: res => {
+                console.log(res.data)
+                that.setData({
+                  
+                  resid:res.data[0].RestaurantId
+                })
+                console.log(that.data.resid);
+              },
+              fail:res=> {
+                console.log("查询失败")
+              }
+            })
                 /*db.collection('Restaurant').where({
                   
                 }).get({
@@ -118,23 +148,24 @@ Page({
                     console.log('fail_in_get_reserant_infor')
                   }
                 }),
-              for(let a=0;a<)*/
+              for(let a=0;a<this.data.items.length;i++){
                 db.collection('ReservationItem').add({
                   data: {
-                    ReservationItemId: "111",
+                    ReservationItemId: (that.data.userid+that.data.item[a].categroy_name),
                     ReservationId: that.data.userid + that.data.timestramp,
                     MenuItemId: that.data.menuitemid,
-                    Count: that.data.orderCount.num,
-                    TotalPrice: that.data.orderCount.money
+                    Count: that.data.items[a].num,
+                    TotalPrice: (that.data.items[a].num)*(that.data.items[a].price)
                   },
-                  success: res=> {
+                  success: res => {
                     console.log('创建订单详情成功')
-                    
+
                   },
-                  fail: res=>{
+                  fail: res => {
                     console.log('创建订单详情失败')
                   }
                 }),
+              }*/
                   
                  db.collection('Reservation').add({
                    data: {
@@ -142,7 +173,7 @@ Page({
                      CreatTime: that.data.time,
                      ReservationId: that.data.userid + that.data.timestramp,
                      UserId: that.data.userid,
-                     RestaurantId: that.data.userid,
+                     RestaurantId: that.data.resid,
                      TotalPrice: that.data.orderCount.money
                    },
                    success: res => {
