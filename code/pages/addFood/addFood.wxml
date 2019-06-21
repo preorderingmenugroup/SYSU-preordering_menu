@@ -16,4 +16,9 @@
 <view class="inputDescribe">请输入菜品描述：</view>
 <input class="inputName" placeholder="请输入菜品描述" bindblur="inputDescribe"></input>
 
+<view class="inputDescribe">请选择菜品分类：</view>
+<picker  bindchange='bindCategrayPicker' class="inputName"  value="{{cateIndex}}" range="{{categorys}}">
+  {{categorys[cateIndex]}}
+</picker>
+
 <button class="addSuccess" bindtap="addImageSuccess">确定添加</button>

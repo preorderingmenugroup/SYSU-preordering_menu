@@ -1,3 +1,4 @@
+var app = getApp();
 Page({  
     data: {  
       tempFilePaths: "",
@@ -12,7 +13,9 @@ Page({
         active: false,
         describe: "",
         imageUrl: ""
-      }
+      },
+      categorys: ["面食", "盖浇饭", "热菜", "凉菜", "主食", "甜点", "饮料"],
+      cateIndex:0
     }, 
     
     onLoad: function () {
@@ -59,8 +62,14 @@ Page({
             price: e.detail.value
         })
     },
-
+  bindCategrayPicker(e) {
+    console.log('Categirypicker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      cateIndex: e.detail.value
+    })
+  },
     addImageSuccess: function() {
+      var that = this;
         var model = {
             MenuItemName: "",
             Price: 0,
@@ -83,26 +92,42 @@ Page({
         const db = wx.cloud.database()
         console.log(this.data.countNum)
         model.countNum = this.data.countNum
-        var date = new Date();
+        var date = new Date();//获取时间戳
         var timestamp = date.getTime();
-        db.collection('MenuItem').add({
+        var restruId;
+        //查询RestaurantId
+        db.collection('Restaurant').where({
+          OwenId: app.globalData.userInfor.openid
+        }).get({
+          success: res => {
+            
+            restruId = res.data[0].RestaurantId;
+            console.log("查询餐馆Id成功", restruId)
+            db.collection('MenuItem').add({
 
-            data: {
+              data: {
                 ItemDescription: model.ItemDescription,
                 MenuItemName: model.MenuItemName,
                 Price: model.Price,
                 id: model.countNum,
-                RestaurantId: 1,//
-                MenuItemId:timestamp,
+                RestaurantId: restruId,
+                MenuItemId: timestamp,
                 Photo: model.ImageUrl,//
-                Class: "hh"//
-            },
-            success: function(res) {
-                console.log(res)
-            },
-            fail: console.error
+                Class: that.data.categorys[that.data.cateIndex]
+              },
+              success: function (res) {
+                console.log("添加数据成功", res)
+              },
+              fail: console.error
 
-        })
+            })
+          },
+          fail: res => {
+            console.log("查询餐馆Id失败")
+          }
+        }),
+
+        
 
         console.log(addFood)
 
