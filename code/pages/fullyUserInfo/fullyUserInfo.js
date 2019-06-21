@@ -64,7 +64,7 @@ Page({
     db.collection('User').doc(that.data.dbUserInfoId).update({
       data: {
         UserName: that.data.userName,
-        SchoolId:app.globalData.School.SchoolId[scoPicIndex],
+        SchoolId:app.globalData.School.SchoolId[that.data.scoPicIndex],
         UserTelephone:that.data.phoneNum,
         Gender:that.data.gendPicIndex,
         StudentId:that.data.studentId

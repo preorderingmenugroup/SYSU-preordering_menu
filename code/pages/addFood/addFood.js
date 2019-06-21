@@ -83,6 +83,7 @@ Page({
         const db = wx.cloud.database()
         console.log(this.data.countNum)
         model.countNum = this.data.countNum
+        var timestamp = Date.parse(new Date());
         db.collection('MenuItem').add({
 
             data: {
@@ -90,9 +91,10 @@ Page({
                 MenuItemName: model.MenuItemName,
                 Price: model.Price,
                 id: model.countNum,
-                RestaurantId: 1,
-                Photo: model.ImageUrl,
-                Class: "hh"
+                RestaurantId: 1,//
+                MenuItemId:timestamp,
+                Photo: model.ImageUrl,//
+                Class: "hh"//
             },
             success: function(res) {
                 console.log(res)

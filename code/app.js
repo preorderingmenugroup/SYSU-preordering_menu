@@ -44,6 +44,8 @@ App({
       }
     })
     this.getSchools();
+    
+   
   },
 
   //这个云函数最终会将所有学校的Id以及name分别对应的放在 
