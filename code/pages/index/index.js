@@ -11,14 +11,6 @@ const RIGHT_ITEM_HEIGHT = 122;
 const LEFT_ITEM_HEIGHT = 41;     
 Page({
   data: {
-    //用于数据获取的数组
-    categroy_get: [{
-      categroy_id:0,
-      categroy_name:"",
-      price:"",
-      num:"",
-      url:""
-    }],
     //左边当前选定的按钮
     currentLeftSelected: null,
     
@@ -48,7 +40,8 @@ Page({
     bottomFlag: false,
     // 提交的订单
     orders: true,
-
+    schoolid:"",
+    resid:"",
     menus: [
       {
         id: "id1",
@@ -117,12 +110,27 @@ Page({
       _openid: app.globalData.userInfor.openid
     }).get({
       success:res =>{
-        console.log(res.data);
-        
+        this.setData({
+          schoolid:res.data[0].SchoolId
+        })
+      }
+    })
+    
+    db.collection('Restaurant').where({
+      SchoolId:this.data.schoolid
+    }).get({
+      success:res=>{
+        this.setData({
+          resid:res.data[0].RestaurantId
+          
+        })
+        console.log(this.data.resid);
       }
     })
     //进行对应学校的菜品查询
-    db.collection('MenuItem').where({}).get({
+    db.collection('MenuItem').where({
+      /*RestaurantId:this.data.resid*/
+    }).get({
         success: res => {
           console.log(res.data);
           console.log('menuitem查询成功');
@@ -178,27 +186,6 @@ Page({
               console.log(tempCat)
               tempList2.push(tempCat)
               this.data.id2add++
-            }
-            else if ((res.data[a].Class) == "甜点") {
-              console.log(this.data.id6add);
-              console.log(that.data.id6add);
-              var MenuItemName = res.data[a].MenuItemName;
-              console.log(MenuItemName)
-              var Price = res.data[a].Price;
-              console.log(Price);
-              var Photo = res.data[a].Photo;
-              console.log(Photo);
-
-              let tempCat = {
-                categroy_id: this.data.id6add,
-                categroy_name: MenuItemName,
-                price: Price,
-                num: 0,
-                url: Photo
-              }
-              console.log(tempCat)
-              tempList6.push(tempCat)
-              this.data.id6add++
             }
             else if ((res.data[a].Class) == "热菜") {
               console.log(this.data.id3add);
@@ -262,6 +249,27 @@ Page({
               console.log(tempCat)
               tempList5.push(tempCat)
               this.data.id5add++
+            }
+            else if ((res.data[a].Class) == "甜点") {
+              console.log(this.data.id6add);
+              console.log(that.data.id6add);
+              var MenuItemName = res.data[a].MenuItemName;
+              console.log(MenuItemName)
+              var Price = res.data[a].Price;
+              console.log(Price);
+              var Photo = res.data[a].Photo;
+              console.log(Photo);
+
+              let tempCat = {
+                categroy_id: this.data.id6add,
+                categroy_name: MenuItemName,
+                price: Price,
+                num: 0,
+                url: Photo
+              }
+              console.log(tempCat)
+              tempList6.push(tempCat)
+              this.data.id6add++
             }
             else if (res.data[a].Class == "饮料") {
               console.log(this.data.id7add);
@@ -339,7 +347,7 @@ Page({
     return obj;
   },
   
-    right: function (e) {
+  right: function (e) {
       for (let i = 0; i < this.data.menus.length; i++) {
        let left = this.data.eachrightScrollToTop[this.data.menus[i].id]
        let right = this.data.eachrightScrollToTop[this.data.menus[i + 1] ? this.data.menus[i + 1].id : 'last']
