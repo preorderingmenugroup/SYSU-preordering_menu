@@ -69,6 +69,9 @@ Page({
     })
   },
     addImageSuccess: function() {
+      wx.showLoading({
+        title: '正在上传菜品信息',
+      })
       var that = this;
         var model = {
             MenuItemName: "",
@@ -81,7 +84,6 @@ Page({
         model.MenuItemName = this.data.name
         model.Price = this.data.price
         model.ItemDescription = this.data.describe
-        model.ImageUrl = this.data.tempFilePaths
 
         this.setData({
             food: model,
@@ -92,8 +94,9 @@ Page({
         const db = wx.cloud.database()
         console.log(this.data.countNum)
         model.countNum = this.data.countNum
-        var date = new Date();//获取时间戳
-        var timestamp = date.getTime();
+        //上传图片
+      
+       
         var restruId;
         //查询RestaurantId
         db.collection('Restaurant').where({
@@ -103,36 +106,60 @@ Page({
             
             restruId = res.data[0].RestaurantId;
             console.log("查询餐馆Id成功", restruId)
-            db.collection('MenuItem').add({
-
-              data: {
-                ItemDescription: model.ItemDescription,
-                MenuItemName: model.MenuItemName,
-                Price: model.Price,
-                id: model.countNum,
-                RestaurantId: restruId,
-                MenuItemId: timestamp,
-                Photo: model.ImageUrl,//
-                Class: that.data.categorys[that.data.cateIndex]
+            //等到图片上传成功
+            const filePath = that.data.tempFilePaths
+            var date = new Date();
+            var timestamp = date.getTime();
+            const cloudPath = 'menuItem/' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            wx.cloud.uploadFile({
+              cloudPath,
+              filePath,
+              success: res => {
+                console.log('[上传图片] 成功：', res)
               },
-              success: function (res) {
-                console.log("添加数据成功", res)
+              fail: e => {
+                console.error('[上传] 失败：', e)
+                wx.showToast({
+                  icon: 'none',
+                  title: '上传失败',
+                })
               },
-              fail: console.error
+              complete: res => {
+                console.log('[上传图片] 完成：', res)
+                model.ImageUrl = res.fileID
+                date = new Date();//获取时间戳
+                timestamp = date.getTime();
+                db.collection('MenuItem').add({
 
+                  data: {
+                    ItemDescription: model.ItemDescription,
+                    MenuItemName: model.MenuItemName,
+                    Price: model.Price,
+                    RestaurantId: restruId,
+                    MenuItemId: timestamp,
+                    Photo: model.ImageUrl,
+                    Class: that.data.categorys[that.data.cateIndex]
+                  },
+                  success: function (res) {
+                    console.log("添加数据成功", res)
+                    wx.hideLoading();
+                    wx.navigateTo({
+                      url: "../merchant/merchant?addFood=" + addFood
+                    })
+                  },
+                  fail: console.error
+
+                })
+              },
             })
-          },
-          fail: res => {
-            console.log("查询餐馆Id失败")
-          }
-        }),
+              
+            },
+            fail: res => {
+              console.log("查询餐馆Id失败")
+            },
+            
 
         
-
-        console.log(addFood)
-
-        wx.navigateTo({
-            url: "../merchant/merchant?addFood=" + addFood
         })
     },
 

@@ -10,6 +10,7 @@ Page({
     // 商品列表
     items: [{
       id: 0,
+      Photo:"",
       ItemDescription: "",
       MenuItemName: "",
       Price: 0,
