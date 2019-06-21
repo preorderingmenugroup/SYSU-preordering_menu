@@ -202,6 +202,7 @@ Page({
           RestaurantName: this.data.shop,
           SchoolId: this.data.index,
           TelephoneNumber: this.data.phone,
+          isReviewed: false
         },
 
 
@@ -452,29 +453,39 @@ Page({
   },
 
 
+
+  //这个云函数最终会将所有学校的Id以及name分别对应的放在 
+  //app.globalData.School.SchoolId和app.globalData.School.SchoolName 中
+  getSchools: function () {
+    wx.cloud.callFunction({
+      name: 'getSchool',
+      success: function (res) {
+        console.log('查询学校', res)
+        var schoolId = []
+        var schoolName = []
+        var data = res.result.data
+        for (var counter = 0; counter < data.length; counter++) {
+          schoolId.push(data[counter].SchoolId)
+          schoolName.push(data[counter].SchoolName)
+        }
+        app.globalData.School.SchoolId = schoolId
+        app.globalData.School.SchoolName = schoolName
+
+        console.log("schoolId从数据库", app.globalData.School.SchoolId)
+        console.log(app.globalData.School.SchoolName)
+      },
+      fail: console.error
+    })
+
+  },
+
+
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //获取imgupload组件
-    this.imgupload1 = this.selectComponent("#imgupload1");
-    this.imgupload2 = this.selectComponent("#imgupload2");
-    this.imgupload3 = this.selectComponent("#imgupload3");
-    this.imgupload4 = this.selectComponent("#imgupload4");
-    this.imgupload5 = this.selectComponent("#imgupload5");
-    var that = this
-
-    success: res => {
-      if (res.data) {
-        console.log(res.data)
-        that.imgupload.setData({
-          image: res.data.imageUrl
-        })
-        that.setData({
-          imageUrl: res.data.imageUrl,
-        })
-      }
-    }
+    this.getSchools()
   },
 
   /**
