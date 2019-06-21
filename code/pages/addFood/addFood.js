@@ -83,7 +83,8 @@ Page({
         const db = wx.cloud.database()
         console.log(this.data.countNum)
         model.countNum = this.data.countNum
-        var timestamp = Date.parse(new Date());
+        var date = new Date();
+        var timestamp = date.getTime();
         db.collection('MenuItem').add({
 
             data: {

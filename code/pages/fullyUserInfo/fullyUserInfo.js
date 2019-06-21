@@ -78,7 +78,8 @@ Page({
         {
           const filePath = this.data.tempHeadImageUrl
           // 上传图片
-          var timestamp = Date.parse(new Date());
+          var date = new Date();
+          var timestamp = date.getTime();
           const cloudPath = 'UserProfileImage/' + app.globalData.userInfor.openid +timestamp+ filePath.match(/\.[^.]+?$/)[0]
           wx.cloud.uploadFile({
             cloudPath,
