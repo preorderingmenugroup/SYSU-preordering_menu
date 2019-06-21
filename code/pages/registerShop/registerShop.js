@@ -198,7 +198,7 @@ Page({
           Address: this.data.address,
           Description: this.data.description,
           OwenId: app.globalData.userInfor.openid,
-          RestruantId: text,
+          RestaurantId: text,
           RestaurantName: this.data.shop,
           SchoolId: this.data.index,
           TelephoneNumber: this.data.phone,
