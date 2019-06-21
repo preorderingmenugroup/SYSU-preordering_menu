@@ -7,10 +7,10 @@ Page({
    */
   data: {
 
-    index: "",
     address: "",
     description: "",
     shop: "",
+    index: "",
     school: "",
     tempEnvironmentPhoto: "",
     tempGatePhoto: "",
@@ -21,16 +21,16 @@ Page({
   },
 
   selectSch: function () {
+
     var that = this
+    var itemList1 = app.globalData.School.SchoolName
+    var itemList2 = app.globalData.School.SchoolId
     wx.showActionSheet({
-      itemList: ['中山大学', '华南理工大学', '北京大学'],
+      itemList: app.globalData.School.SchoolName,
       success: function (res) {
-        var sch = ""
-        switch (res.tapIndex) {
-          case 0: that.data.school = "中山大学"; that.data.index = 1234312431432143; break;
-          case 1: that.data.school = "华南理工大学"; that.data.index = 1212343254654765; break;
-          case 2: that.data.school = "北京大学"; that.data.index = 21413243134213412; break;
-        }
+            that.data.school = itemList1[res.tapIndex];
+            that.data.index = itemList2[res.tapIndex];
+
         that.setData({
           school: that.data.school
         })
@@ -193,8 +193,6 @@ Page({
         text += possible.charAt(Math.floor(Math.random() * possible.length));
       }
 
-      app.globalData.restaurantInfor.schoolId = 
-
       db.collection('Restaurant').add({
         data: {
           Address: this.data.address,
@@ -214,7 +212,8 @@ Page({
             const filePath = that.data.tempEnvironmentPhoto[0]
             // 上传图片
             var timestamp = Date.parse(new Date());
-            const cloudPath = 'registerShop/' + '1' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            var document = app.globalData.userInfor.userName + '/';
+            const cloudPath = 'registerShop/' + document + '1' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
             wx.cloud.uploadFile({
               cloudPath,
               filePath,
@@ -252,7 +251,8 @@ Page({
             const filePath = that.data.tempGatePhoto[0]
             // 上传图片
             var timestamp = Date.parse(new Date());
-            const cloudPath = 'registerShop/' + '2' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            var document = app.globalData.userInfor.userName + '/';
+            const cloudPath = 'registerShop/' + document + '2' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
             wx.cloud.uploadFile({
               cloudPath,
               filePath,
@@ -290,7 +290,8 @@ Page({
             const filePath = that.data.tempIdCardBackPhoto[0]
             // 上传图片
             var timestamp = Date.parse(new Date());
-            const cloudPath = 'registerShop/' + '3' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            var document = app.globalData.userInfor.userName + '/';
+            const cloudPath = 'registerShop/' + document + '3' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
             wx.cloud.uploadFile({
               cloudPath,
               filePath,
@@ -328,7 +329,8 @@ Page({
             const filePath = that.data.tempIdCardFrontPhoto[0]
             // 上传图片
             var timestamp = Date.parse(new Date());
-            const cloudPath = 'registerShop/' + '4' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            var document = app.globalData.userInfor.userName + '/';
+            const cloudPath = 'registerShop/' + document + '4' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
             wx.cloud.uploadFile({
               cloudPath,
               filePath,
@@ -366,7 +368,8 @@ Page({
             const filePath = that.data.tempProductionLicence[0]
             // 上传图片
             var timestamp = Date.parse(new Date());
-            const cloudPath = 'registerShop/' + '5' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
+            var document = app.globalData.userInfor.userName + '/';
+            const cloudPath = 'registerShop/' + document + '5' + app.globalData.userInfor.openid + timestamp + filePath.match(/\.[^.]+?$/)[0]
             wx.cloud.uploadFile({
               cloudPath,
               filePath,
@@ -399,6 +402,28 @@ Page({
               },
             })
           }
+
+          db.collection('User').where({
+            UserId: app.globalData.userInfor.openid
+          }).get({
+            success: res => {
+              console.log('用户查询成功')
+              db.collection('User').doc(res.data[0]._id).update({
+                data: {
+                  isOwner: true,
+                },
+                success: res => {
+                  console.log("success")
+                },
+                fail: res => {
+                  console.log("failed")
+                }
+              })
+            },
+            fail: res => {
+              console.log('用户查询失败')
+            }
+          })
 
           // 在返回结果中会包含新创建的记录的 _id
           this.setData({
