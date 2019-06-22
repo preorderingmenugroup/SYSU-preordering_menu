@@ -70,7 +70,7 @@ Page({
   },
     addImageSuccess: function() {
       wx.showLoading({
-        title: '正在上传菜品信息',
+        title: '正在创建菜品',
       })
       var that = this;
         var model = {

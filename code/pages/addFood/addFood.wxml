@@ -6,7 +6,7 @@
     <image src="{{tempFilePaths}}"></image>
 </view>
 
-<button class="uploadImage" bindtap="chooseImage">请选择上传菜品图片</button>
+<button class="uploadImage" bindtap="chooseImage">请选择菜品图片</button>
 <view class="editName">请编辑菜品名称：</view>
 <input class="inputName" placeholder="请输入菜品名称" bindblur="inputFood"></input>
 
