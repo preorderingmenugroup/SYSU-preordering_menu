@@ -12,12 +12,14 @@ Page({
     shop: "",
     index: "",
     school: "",
+    owner: "",
     tempEnvironmentPhoto: "",
     tempGatePhoto: "",
     tempIdCardBackPhoto: "",
     tempIdCardFrontPhoto: "",
     tempProductionLicence: "",
     phone: "",
+    key: false,
   },
 
   selectSch: function () {
@@ -141,6 +143,18 @@ Page({
   bindToIndex: function (e) {
     var that = this
     var data = e.detail.value
+    const db = wx.cloud.database()
+
+    db.collection('Restaurant').where({
+      SchoolId: that.data.index
+    }).get({
+      success: function (res) {
+        that.setData({
+          key: true
+        })
+      }
+    })
+
     if (this.data.address == "") {
       console.log('未填写地址')
       wx.showToast({
@@ -176,6 +190,11 @@ Page({
     } else if (this.data.phone.length != 11) {
       wx.showToast({
         title: '请输入正确的电话号码',
+        icon: "none"
+      })
+    } else if (this.data.key) {
+      wx.showToast({
+        title: '该学校已注册店铺',
         icon: "none"
       })
     } else if (that.data.tempEnvironmentPhoto.length == 0 || that.data.tempGatePhoto.length == 0 || that.data.tempIdCardBackPhoto.length == 0 || that.data.tempIdCardFrontPhoto.length == 0 || that.data.tempProductionLicence.length == 0) {
@@ -436,7 +455,7 @@ Page({
           })
           console.log('创建店铺成功，记录 _id: ', res._id)
           wx.navigateTo({
-            url: '../restaurantCenter/restaurantCenter',
+            url: '../sidebar/sidebar',
           })
         },
 
