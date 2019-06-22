@@ -231,7 +231,7 @@ Page({
             }
           }
           this.setData({
-            schools : (app.globalData.School.SchoolName).slice(),
+            schools : app.globalData.School.SchoolName,
             scoPicIndex: app.globalData.userInfor.scoPicIndex
           })
         }
