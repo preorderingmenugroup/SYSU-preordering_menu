@@ -112,8 +112,10 @@ Page({
       SchoolId: app.globalData.userInfor.school
     }).get({
       success:res=>{
+        console.log(res.data)
         this.setData({
-          resid:res.data[0].RestaurantId
+          
+          resid:res.data[4].RestaurantId
           
         })
         console.log(this.data.resid);
