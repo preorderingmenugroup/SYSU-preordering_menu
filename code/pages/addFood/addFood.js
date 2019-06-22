@@ -82,7 +82,7 @@ Page({
             countNum: 0
         }
         model.MenuItemName = this.data.name
-        model.Price = this.data.price
+        model.Price =  parseInt(this.data.price)
         model.ItemDescription = this.data.describe
 
         this.setData({
@@ -94,7 +94,6 @@ Page({
         const db = wx.cloud.database()
         console.log(this.data.countNum)
         model.countNum = this.data.countNum
-        //上传图片
       
        
         var restruId;
