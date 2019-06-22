@@ -3,15 +3,12 @@ var app = getApp()
 Page({
   data: {
     temp: [{
-
     }],
     idNum: 0,
     // 商品列表
     items: []
   },
-
-
-  onLoad: function () {
+  getMenuItem: function () {
     const db = wx.cloud.database()
     var menu = []
     var that = this;
@@ -38,10 +35,18 @@ Page({
           }
         })
       },
-      fail: function(rese){
+      fail: function (rese) {
         console.log("查询餐馆信息失败")
       }
     })
+  },
+
+  onShow:function(){
+    this.getMenuItem()
+  },
+
+  onLoad: function () {
+    this.getMenuItem()
     /*
     db.collection('MenuItem').add({
       data: {
@@ -108,6 +113,12 @@ Page({
   addFood: function (e) {
     wx.navigateTo({
       url: "../addFood/addFood"
+    })
+  },
+
+  bindRestaurantCenter:function(e){
+    wx.navigateTo({
+      url: "../restaurantCenter/restaurantCenter"
     })
   }
 })

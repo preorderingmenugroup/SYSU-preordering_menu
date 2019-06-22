@@ -68,7 +68,8 @@ Page({
       cateIndex: e.detail.value
     })
   },
-    addImageSuccess: function() {
+  
+  addImageSuccess: function() {
       wx.showLoading({
         title: '正在创建菜品',
       })
@@ -142,8 +143,8 @@ Page({
                   success: function (res) {
                     console.log("添加数据成功", res)
                     wx.hideLoading();
-                    wx.navigateTo({
-                      url: "../merchant/merchant?addFood=" + addFood
+                    wx.navigateBack({
+                      
                     })
                   },
                   fail: console.error
