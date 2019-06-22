@@ -115,7 +115,7 @@ Page({
         console.log(res.data)
         this.setData({
           
-          resid:res.data[4].RestaurantId
+          resid:res.data[0].RestaurantId
           
         })
         console.log(this.data.resid);
