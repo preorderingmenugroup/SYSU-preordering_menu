@@ -289,7 +289,7 @@ Page({
           money += (item.price*item.num); // 总价格求和
         });
         res.data.forEach(item => {
-          num += item.num; // 总价格求和
+          num += item.num; // 总件数求和
         });
         let orderCount = {
           num,
