@@ -284,9 +284,12 @@ Page({
         
         // 价格统计汇总
         let money = 0;
-        let num = res.data.length;
+        let num = 0;
         res.data.forEach(item => {
           money += (item.price*item.num); // 总价格求和
+        });
+        res.data.forEach(item => {
+          num += item.num; // 总价格求和
         });
         let orderCount = {
           num,
