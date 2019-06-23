@@ -333,16 +333,7 @@ Page({
   },
   
   // 下拉刷新
-  onPullDownRefresh: function () {
-    setTimeout(()=>{
-      wx.showToast({
-        title: '成功加载数据',
-        icon: 'success',
-        duration: 500
-      });
-      wx.stopPullDownRefresh()
-    }, 500);
-  },
+
   
   get_eachItemToTop: function () {
     var obj = {};
@@ -747,7 +738,13 @@ Page({
       }
     })
 
+    wx.stopPullDownRefresh()
 
+    wx.showToast({
+      title: '成功加载数据',
+      icon: 'success',
+      duration: 500
+    })
 
   }
 })
