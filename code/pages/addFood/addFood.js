@@ -83,7 +83,7 @@ Page({
             countNum: 0
         }
         model.MenuItemName = this.data.name
-        model.Price =  parseInt(this.data.price)
+        model.Price =  parseFloat(this.data.price)
         model.ItemDescription = this.data.describe
 
         this.setData({

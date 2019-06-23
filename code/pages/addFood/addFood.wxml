@@ -11,7 +11,7 @@
 <input class="inputName" placeholder="请输入菜品名称" bindblur="inputFood"></input>
 
 <view class="editPrice">请设定菜品价格：</view>
-<input class="inputName"  type="number"  placeholder="请设定菜品价格" bindblur="inputPrice"></input>
+<input class="inputName"  type="digit"  placeholder="请设定菜品价格" bindblur="inputPrice"></input>
 
 <view class="inputDescribe">请输入菜品描述：</view>
 <input class="inputName"placeholder="请输入菜品描述" bindblur="inputDescribe"></input>
