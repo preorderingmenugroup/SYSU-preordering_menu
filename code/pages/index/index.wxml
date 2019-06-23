@@ -13,7 +13,7 @@
 
     <view class="option" >
     <button id='user_btn' bindtap='getin' >个</button>
-    <image id='user_img' src='../../images/index/user_option.jpg'></image>
+    <image id='user_img' src='../../images/index/user_option.png'></image>
     </view>
     
   </scroll-view>

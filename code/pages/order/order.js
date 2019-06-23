@@ -143,7 +143,8 @@ Page({
                     ReservationId: timestramp,
                     UserId: that.data.userid,
                     RestaurantId: that.data.resid,
-                    TotalPrice: that.data.orderCount.money
+                    TotalPrice: that.data.orderCount.money,
+                    Status: 0
                   },
                   success: res => {
                     console.log('创建订单成功')
