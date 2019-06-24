@@ -5,7 +5,7 @@
 
 - 3、[Investigation](https://preorderingmenugroup.github.io/SYSU-preordering_menu/Investagation)（项目前期调研/竞品分析）  
 
-- 4、[Vision]()（项目愿景）  
+- 4、[Vision](https://preorderingmenugroup.github.io/SYSU-preordering_menu/Vision)（项目愿景）  
 
 - 5、[Product Backlog](https://preorderingmenugroup.github.io/SYSU-preordering_menu/Backlog) （产品特性库）  
 

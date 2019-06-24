@@ -13,8 +13,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    var that = this
+  onLoad: function () {
+    /*var that = this
 
     wx.getStorage({
       key: 'pay',
@@ -32,7 +32,7 @@ Page({
       colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.H,
     });
-    qrcode.makeCode(e.target.dataset.code);  //用元素对应的code更新二维码
+    qrcode.makeCode(events.target.dataset.code);  //用元素对应的code更新二维码*/
   },
 
   /**

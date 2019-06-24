@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    schools:['请选择','中山大学', '清华大学', '北京大学'],//由于数据库中存储的是index，所以这个列表不可以插入，只能追加
+    schools:[],//由于数据库中存储的是index，所以这个列表不可以插入，只能追加
     scoPicIndex:0,
 
     genders:['请选择', '男', '女'],
@@ -64,7 +64,7 @@ Page({
     db.collection('User').doc(that.data.dbUserInfoId).update({
       data: {
         UserName: that.data.userName,
-        School:that.data.scoPicIndex,
+        SchoolId:app.globalData.School.SchoolId[that.data.scoPicIndex],
         UserTelephone:that.data.phoneNum,
         Gender:that.data.gendPicIndex,
         StudentId:that.data.studentId
@@ -78,7 +78,8 @@ Page({
         {
           const filePath = this.data.tempHeadImageUrl
           // 上传图片
-          var timestamp = Date.parse(new Date());
+          var date = new Date();
+          var timestamp = date.getTime();
           const cloudPath = 'UserProfileImage/' + app.globalData.userInfor.openid +timestamp+ filePath.match(/\.[^.]+?$/)[0]
           wx.cloud.uploadFile({
             cloudPath,
@@ -199,6 +200,9 @@ Page({
   
   updateUserInfo: function (e) {
     var that = this
+    //更新school内容
+    this.data.schools = (app.globalData.School.SchoolName).slice();
+    console.log("学校Id", this.data.schools)
     const db = wx.cloud.database()
     db.collection('User').where({
       UserId: app.globalData.userInfor.openid
@@ -214,9 +218,20 @@ Page({
             phoneNum: app.globalData.userInfor.phoneNum,
           })
         }
-        if (res.data[0].School != undefined) {
-          app.globalData.userInfor.scoPicIndex = res.data[0].School
+        if (res.data[0].SchoolId != undefined) {
+          var counter;
+          for( counter = 0; counter < app.globalData.School.SchoolId.length;counter++)
+          {
+            if (app.globalData.School.SchoolId[counter] == res.data[0].SchoolId)
+            {
+              
+              app.globalData.userInfor.scoPicIndex = counter;
+              console.log("找到了学校id", app.globalData.userInfor.scoPicIndex);
+              break;
+            }
+          }
           this.setData({
+            schools : app.globalData.School.SchoolName,
             scoPicIndex: app.globalData.userInfor.scoPicIndex
           })
         }

@@ -7,7 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    validateStatus: ['待审核', '审核中', '审核成功', '审核失败'],
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     logged: false,
     takeSession: false,
@@ -63,34 +62,47 @@ Page({
         duration: 1000
       })
     } else {
-      /*
-      wx.navigateTo({
-        //这里应该加上判断这个用户是不是商家的逻辑，如果是才能进入
-        url: '../merchant/merchant'
-      })
-      */
       const db = wx.cloud.database()
       db.collection('User').where({
         UserId: app.globalData.userInfor.openid
       }).get({
         success: res => {
-          if (res.data[0].validateCode === 2) {
-            wx.navigateTo({
-              url: '../merchant/merchant'
+          if (!res.data[0].isOwner) {
+            wx.showToast({
+              title: '您尚未添加店铺',
+              icon: 'none',
+              duration: 1000
             })
           }
           else {
-            wx.showToast({
-              title: this.data.validateStatus[res.data[0].validateCode],
-              icon: 'none',
-              duration: 1000
+            const db1 = wx.cloud.database()
+            db1.collection('Restaurant').where({
+              OwenId: app.globalData.userInfor.openid
+            }).get({
+              success: res => {
+                if (!res.data[0].isReviewed) {
+                  wx.showToast({
+                    title: '审核中',
+                    icon: 'none',
+                    duration: 1000
+                  })
+                }
+                else {
+                  app.globalData.userInfor.RestaurantId = res.data[0].RestaurantId
+                  wx.navigateTo({
+                    url: '../merchant/merchant'
+                  })
+                }
+              },
+              fail: res => {
+                console.log('failed')
+              }
             })
           }
         },
         fail: res => {
           console.log('failed')
         }
-
       })
     }
   },
@@ -222,7 +234,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
 
   /**

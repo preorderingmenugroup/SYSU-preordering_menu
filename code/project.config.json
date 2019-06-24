@@ -10,8 +10,12 @@
 		"minified": true,
 		"newFeature": true,
 		"autoAudits": false,
+<<<<<<< HEAD
 		"checkInvalidKey": true,
 		"nodeModules": true
+=======
+		"checkInvalidKey": true
+>>>>>>> d0f762522d65cdb766e792b926140a93d4b40801
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.6.6",

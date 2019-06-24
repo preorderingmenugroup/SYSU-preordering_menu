@@ -1,6 +1,30 @@
 //app.js
 App({
 
+  //这个云函数最终会将所有学校的Id以及name分别对应的放在 
+  //app.globalData.School.SchoolId和app.globalData.School.SchoolName 中
+  getSchools: function () {
+    var that = this
+    wx.cloud.callFunction({
+      name: 'getSchool',
+      success: function (res) {
+        console.log('查询学校', res)
+        var schoolId = []
+        var schoolName = []
+        var data = res.result.data
+        for (var counter = 0; counter < data.length; counter++) {
+          schoolId.push(data[counter].SchoolId)
+          schoolName.push(data[counter].SchoolName)
+        }
+        that.globalData.School.SchoolId = schoolId
+        that.globalData.School.SchoolName = schoolName
+
+        console.log("schoolId从数据库", that.globalData.School.SchoolId)
+        console.log(that.globalData.School.SchoolName)
+      },
+      fail: console.error
+    })
+  },
   onLaunch: function () {
 
     if (!wx.cloud) {
@@ -43,6 +67,7 @@ App({
         }
       }
     })
+    this.getSchools();
   },
   globalData: {
     userInfor: {
@@ -52,7 +77,9 @@ App({
       gendPicIndex:0,
       scoPicIndex:"",
       phoneNum:0,
-      studentId:""
+      studentId:"",
+      isOwner:false,
+      RestaurantId:""
     },/*记录用户所有信息，包括头像profileImage, 用户名userName, 
 =======
       school: "",

@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const express = require('express');
 const axios = require('axios');
+const querystring = require('querystring');
 const app = express();
 
 var bodyParser = require('body-parser');
@@ -43,19 +45,40 @@ app.get('/token', function(req, res) {
 })
 
 app.get('/restaurants', function(req, res) {
+    //console.log(res)
     axios.get(data.tokenUrl).then((result) => {
         let accessToken = result.data.access_token
         let postdata = {'env': data.envid, 'query': 'db.collection(\"Restaurant\").where({}).get()'}
         let queryURL = 'https://api.weixin.qq.com/tcb/databasequery?access_token=' + accessToken
         axios.post(queryURL, postdata).then((postresult) => {
-            let downloadURL = 'https://api.weixin.qq.com/tcb/batchdownloadfile?access_token=' + accessToken
-            postdata = {'env': data.envid, 'file_list':[{'fileid':postresult.data.data[0].GatePhoto, 'max_age': 7200}]}
-            axios.post(downloadURL, postdata).then((downloadresult) => {
-                console.log(downloadresult)
-            }, function() {
-                console.log('downloadFailed')
-            })
-            console.log(postresult.data.data)
+            console.log(postresult.data)
+            for (var i in postresult.data.data){
+                postresult.data.data[i] = JSON.parse(postresult.data.data[i])
+                var EnvironmentPhoto = postresult.data.data[i].EnvironmentPhoto
+                var GatePhoto = postresult.data.data[i].GatePhoto
+                var IdCardBackPhoto = postresult.data.data[i].IdCardBackPhoto
+                var IdCardFrontPhoto = postresult.data.data[i].IdCardFrontPhoto
+                var ProductionLicence = postresult.data.data[i].ProductionLicence
+                var Photos = []
+                Photos.push(EnvironmentPhoto,GatePhoto,IdCardBackPhoto,IdCardFrontPhoto,ProductionLicence)
+                console.log('photos:',Photos)
+                for(idx in Photos){
+                    var splitString = Photos[idx].split('/')
+                    var databaseName = splitString[2]
+                    if(typeof(databaseName) != "undefined" ){
+                       databaseName =  databaseName.split('.')[1] + '.tcb.qcloud.la'
+                       var resourcePath = '/' + splitString[3] + '/' + splitString[4] + '/' +splitString[5]
+                       Photos[idx] = 'https://' + databaseName + resourcePath
+                    }
+                }
+                
+                console.log(Photos)
+                postresult.data.data[i].EnvironmentPhoto = Photos[0]
+                postresult.data.data[i].GatePhoto = Photos[1]
+                postresult.data.data[i].IdCardBackPhoto =  Photos[2]
+                postresult.data.data[i].IdCardFrontPhoto = Photos[3]
+                postresult.data.data[i].ProductionLicence = Photos[4]
+            }
             res.send(postresult.data)
         }, function() {
             console.log('queryFailed')
@@ -66,6 +89,25 @@ app.get('/restaurants', function(req, res) {
     })
 })
 
+app.get('/schools', function(req, res) {
+    axios.get(data.tokenUrl).then((result) => {
+        let accessToken = result.data.access_token
+        let postdata = {'env': data.envid, 'query': 'db.collection(\"School\").where({}).get()'}
+        let queryURL = 'https://api.weixin.qq.com/tcb/databasequery?access_token=' + accessToken
+        axios.post(queryURL, postdata).then((postresult) => {
+	    for (var i in postresult.data.data){
+		postresult.data.data[i] = JSON.parse(postresult.data.data[i])
+            }
+            console.log(postresult.data.data)
+            res.send(postresult.data)
+	})
+    }, function () {
+        console.log('Unable to get token.')
+    })
+})
+
+
+
 app.post('/updateReview', function(req, res) {
     let request = req.body
     console.log(request.id)
@@ -75,6 +117,36 @@ app.post('/updateReview', function(req, res) {
         console.log(query)
         let postdata = {'env': data.envid, 'query': query}
         let queryURL = 'https://api.weixin.qq.com/tcb/databaseupdate?access_token=' + accessToken
+        axios.post(queryURL, postdata).then((postresult) => {
+            console.log(postresult.data)
+            res.send(postresult.data)
+        }, function() {
+            console.log('queryFailed')
+        })
+
+    }, function () {
+        console.log('Unable to get token.')
+    })
+})
+
+app.post('/newSchool', function(req, res) {
+    let request = req.body
+    console.log(request)
+    axios.get(data.tokenUrl).then((result) => {
+        console.log(Date.now())
+        let id = crypto.createHash('md5').update(Date.now().toString()).digest('hex');
+        console.log(id)
+        request = {
+            data: [{
+	        SchoolId: id,
+	        SchoolName: request.SchoolName
+            }]
+	}
+        let accessToken = result.data.access_token
+        let query = 'db.collection(\"School\").add(' + JSON.stringify(request) + ')'
+        console.log(query)
+        let postdata = {'env': data.envid, 'query': query}
+        let queryURL = 'https://api.weixin.qq.com/tcb/databaseadd?access_token=' + accessToken
         axios.post(queryURL, postdata).then((postresult) => {
             console.log(postresult.data)
             res.send(postresult.data)

@@ -1,13 +1,20 @@
-<view class="title">已有菜品</view>
+<view class="option" >
+    <button id='user_btn' bindtap='bindRestaurantCenter' >个</button>
+    <image id='user_img' src='../../images/merchant/restaurantCenter.png'></image>
+</view>
 <view class="item-content">
-  <view class="box">
     <view class="item" wx:for="{{items}}" wx:key="{{item.id}}">
-      <image  src="../../images/index/dapanji.jpeg"></image>
-      <text class="title">{{item.title}}</text>
-      <text class="price">￥ {{item.price}} 元</text>
-      <button class="del" bindtap="deleteFood">删除该菜品</button>
-    </view>
+      <view class = 'left'>
+        <image class="img" mode="scaleToFill" src="{{item.Photo}}"></image>
+        <button class="del" data-index="{{index}}" bindtap="deleteFood">删除</button>
+      </view>
+      <view class='right'>
+        <view class="title">{{item.MenuItemName}}</view>
+        <view class="class">{{item.Class}}</view>
+        <view class="price">￥ {{item.Price}} 元</view>
+      </view>
+      
   </view>
 </view>
 
-<button class="add" bindtap="addFood">添加菜品</button>
+<button type='primary'  bindtap="addFood">添加菜品</button>
