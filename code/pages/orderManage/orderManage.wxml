@@ -130,7 +130,7 @@
     </view>
 
     <view class='orderFooter'>
-      <label class="footerButton" wx:if="{{totalOrderItem.Status === 3}}">{{ "去下单" }}</label>
+      <label class="footerButton" wx:if="{{totalOrderItem.Status === 3}}" bindtap="onToOrder">{{ "去下单" }}</label>
       <!--label class="footerButton" wx:if="{{totalOrderItem.Status != 0}}">{{ "去评价" }}</label-->
     </view>
 

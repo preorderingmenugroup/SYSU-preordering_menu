@@ -64,18 +64,25 @@ Page({
 
         totalOrdArr_.forEach(totalItem => {
 
-          wx.cloud.callFunction({
-            name: 'getRestaurant',
-            data: {
-              resid: totalItem.RestaurantId
-            }
-          })
-            .then(res => {
-              console.log(res.result.data)
+          const db = wx.cloud.database()
 
-              totalItem.dineAddress = res.result.data[0].Address
-              totalItem.logo = res.result.data[0].GatePhoto
-              totalItem.name = res.result.data[0].RestaurantName              
+          db.collection('Restaurant').where({
+            RestaurantId: totalItem.RestaurantId
+          }).get()
+
+
+          //wx.cloud.callFunction({
+          //  name: 'getRestaurant',
+          //  data: {
+          //    resid: totalItem.RestaurantId
+          //  }
+          //})
+            .then(res => {
+              console.log(res.data)
+
+              totalItem.dineAddress = res.data[0].Address
+              totalItem.logo = res.data[0].GatePhoto
+              totalItem.name = res.data[0].RestaurantName              
 
               //console.log(totalItem)
               this.setData({
@@ -90,17 +97,22 @@ Page({
             })
             .catch(err => { console.log(err) })
 
+          db.collection('ReservationItem').where({
+            ReservationId: totalItem.ReservationId
+          }).get()
 
-          wx.cloud.callFunction({
-            name: 'getReservationItem',
-            data: {
-              resvid: totalItem.ReservationId
-            }
-          })
+
+
+          //wx.cloud.callFunction({
+          //  name: 'getReservationItem',
+          //  data: {
+          //    resvid: totalItem.ReservationId
+          //  }
+          //})
             .then(res => {
-              console.log(res.result.data)
+              console.log(res.data)
 
-              totalItem.items = res.result.data
+              totalItem.items = res.data
               totalItem.items.sort(function (a, b) { return a.ReservationItemId - b.ReservationItemId });
               //console.log(totalItem)
 
@@ -110,15 +122,19 @@ Page({
                 
                 totalItem.num += oneItem.Count
 
-                wx.cloud.callFunction({
-                  name: 'getMenuItem',
-                  data: {
-                    menuitmid: oneItem.MenuItemId
-                  }
-                })
+                db.collection('MenuItem').where({
+                  MenuItemId: oneItem.MenuItemId
+                }).get()
+
+                //wx.cloud.callFunction({
+                //  name: 'getMenuItem',
+                //  data: {
+                //    menuitmid: oneItem.MenuItemId
+                //  }
+                //})
                   .then(res => {
 
-                    oneItem.name = res.result.data[0].MenuItemName
+                    oneItem.name = res.data[0].MenuItemName
 
                     console.log(totalItem)
 
@@ -326,6 +342,10 @@ Page({
   onOrderDetail: function (e) {
     this.data.detailOrderStamp = e.currentTarget.dataset.orderid
     wx.navigateTo({ url: '../orderDetail/orderDetail' })
+  },
+
+  onToOrder: function () {
+    wx.reLaunch({ url: '../index/index' })
   },
 
   /**
