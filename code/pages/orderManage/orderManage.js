@@ -1,9 +1,9 @@
 const app = getApp();
 Page({
   data: {
-    navBar: ['全部', '待付款', '已完成', '已取消'],
+    navBar: ['待接单', '待就餐', '已完成', '已取消'],
     currTab: 0,
-    orderStatus: ['待付款', '已完成', '已取消'],
+    orderStatus: ['待接单', '待就餐', '已完成', '已取消'],
     detailOrderStamp: 0,
     hasData: false,
     totalOrd: []
@@ -17,12 +17,63 @@ Page({
 
   queryDB: function () {
 
+
+
+    wx.cloud.callFunction({
+      // 云函数名称
+      name: 'getMenus',
+      // 传给云函数的参数
+      data: {
+        a: 1,
+        b: 2,
+      },
+    })
+      .then(res => {
+        console.log(res.result) // 3
+      })
+      .catch(console.error)
+
+
+
+
     var totalOrd = []
 
     this.setData({
       hasData: false,
       totalOrd: totalOrd
     })
+
+    const db = wx.cloud.database()
+    db.collection('User').where({
+      UserId: app.globalData.userInfor.openid
+    }).get({
+      success: res => {
+        console.log(res.data[0].SchoolId)
+
+        db.collection('User').where({
+          UserId: app.globalData.userInfor.openid
+        }).get({
+          success: res => {
+            console.log(res.data[0].SchoolId)
+
+
+
+
+          },
+          fail: res => {
+            console.log('failed')
+          }
+        })
+
+
+      },
+      fail: res => {
+        console.log('failed')
+      }
+    })
+
+
+
 
     const dbr = wx.cloud.database()
     dbr.collection('Restaurant').get({

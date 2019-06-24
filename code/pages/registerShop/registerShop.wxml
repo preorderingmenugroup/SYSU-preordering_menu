@@ -106,11 +106,11 @@
       </view>
     </view>
 
-    <view class="row" bindtap="selectSch">
+    <view class="row">
       <view class="row-add">店铺所属学校</view>
-      <view class="row-input">
-        <text>{{school}}</text>
-      </view>
+      <picker  bindchange='selectSch' class="row-input"  value="{{schoolIndex}}" range="{{schoolList}}">
+        {{schoolList[schoolIndex]}}
+      </picker>
       <view class="row-back">
         <text class="iconfont icon-gengduo"></text>
       </view>

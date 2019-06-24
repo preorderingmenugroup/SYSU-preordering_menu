@@ -20,22 +20,17 @@ Page({
     tempProductionLicence: "",
     phone: "",
     key: false,
+    schoolIndex: 0,
+    schoolList: ["面食", "盖浇饭", "热菜", "凉菜", "主食", "甜点", "饮料"]
   },
 
-  selectSch: function () {
-
-    var that = this
-    var itemList1 = app.globalData.School.SchoolName
-    var itemList2 = app.globalData.School.SchoolId
-    wx.showActionSheet({
-      itemList: app.globalData.School.SchoolName,
-      success: function (res) {
-            that.data.school = itemList1[res.tapIndex];
-            that.data.index = itemList2[res.tapIndex];
-        that.setData({
-          school: that.data.school
-        })
-      }
+  selectSch: function (e) {
+    this.setData({
+      schoolIndex: e.detail.value
+    })
+    this.setData({
+      school: app.globalData.School.SchoolName[this.data.schoolIndex],
+      index: app.globalData.School.SchoolId[this.data.schoolIndex]
     })
   },
 
@@ -516,6 +511,9 @@ Page({
    */
   onLoad: function (options) {
     this.getSchools()
+    this.setData({
+      schoolList: app.globalData.School.SchoolName
+    })
   },
 
   /**
@@ -554,7 +552,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.getSchools()
+    this.setData({
+      schoolList: app.globalData.School.SchoolName
+    })
   },
 
   /**
