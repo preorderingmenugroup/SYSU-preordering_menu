@@ -20,7 +20,7 @@ Page({
     restaurantid:'',
     time: "",
     getfoodtime:"",
-    timestramp:"",
+    timestamp:"",
     menuitemid:"",
     schoolid:"",
     resid:""
@@ -103,18 +103,22 @@ Page({
             that.setData({
               time: utils.formatTime(new Date()),
               getfoodtime: utils.getfood_Time(new Date()),
-              timestramp: utils.getfood_timestramp(new Date())
+              timestamp: utils.getfood_timestamp(new Date())
             })
             
             const db = wx.cloud.database();
             console.log(that.data.userid);
             console.log(that.data.time);
             console.log(that.data.getfoodtime);
-            console.log(that.data.timestramp);
+            console.log(that.data.timestamp);
             
             var time = new Date();
-            var timestramp = time.getTime();
-            
+            var timestamp = time.getTime();
+
+            that.setData({
+              detailOrderStamp: timestamp
+            })
+
             /*db.collection('User').where({
               _openid: app.globalData.userInfor.openid
             }).get({
@@ -140,7 +144,7 @@ Page({
                   data: {
                     ReserveTime: that.data.getfoodtime,
                     CreatTime: that.data.time,
-                    ReservationId: timestramp,
+                    ReservationId: timestamp,
                     UserId: that.data.userid,
                     RestaurantId: that.data.resid,
                     TotalPrice: that.data.orderCount.money,
@@ -153,8 +157,8 @@ Page({
 
                       db.collection('ReservationItem').add({
                         data: {
-                          ReservationItemId: timestramp + a,
-                          ReservationId: timestramp,
+                          ReservationItemId: timestamp + a,
+                          ReservationId: timestamp,
                           MenuItemId: that.data.items[a].menuitemid,
                           Count: that.data.items[a].num,
                           TotalPrice: (that.data.items[a].num) * (that.data.items[a].price)
@@ -184,11 +188,11 @@ Page({
               
                /* for(var a = 0;a<itemnum;a++){
                   var time = new Date();
-                  var timestramp = time.getTime();
+                  var timestamp = time.getTime();
             db.collection('ReservationItem').add({
               data: {
-                ReservationItemId: timestramp+a,
-                ReservationId: timestramp,
+                ReservationItemId: timestamp+a,
+                ReservationId: timestamp,
                 MenuItemId: that.data.items[a].menuitemid,
                 Count: that.data.items[a].num,
                 TotalPrice: (that.data.items[a].num) * (that.data.items[a].price)
@@ -208,7 +212,7 @@ Page({
                    data: {
                      ReserveTime: that.data.getfoodtime,
                      CreatTime: that.data.time,
-                     ReservationId: timestramp,
+                     ReservationId: timestamp,
                      UserId: that.data.userid,
                      RestaurantId: that.data.resid,
                      TotalPrice: that.data.orderCount.money
@@ -220,8 +224,8 @@ Page({
                     
                        db.collection('ReservationItem').add({
                          data: {
-                           ReservationItemId: timestramp + a,
-                           ReservationId: timestramp,
+                           ReservationItemId: timestamp + a,
+                           ReservationId: timestamp,
                            MenuItemId: that.data.items[a].menuitemid,
                            Count: that.data.items[a].num,
                            TotalPrice: (that.data.items[a].num) * (that.data.items[a].price)

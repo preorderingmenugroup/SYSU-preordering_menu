@@ -3,11 +3,13 @@
 <view class='headerInfo'>
   <view class='headerFlex'>
     <view class='statusInfo'>
-      <label class='statusName'>{{"订单"}}{{orderStatus[thisOrder.status]}}</label>
+      <label class='statusName'>{{"订单"}}{{orderStatus[totalOrd.Status]}}</label>
     </view>
     <view class='footerInfo'>
-      <label class="footerButtonGreen" wx:if="{{thisOrder.status === 0}}">{{ "去支付" }}</label>
-      <label class="footerButtonYellow" wx:if="{{thisOrder.status != 0}}">{{ "去评价" }}</label>
+      <label class="footerButtonRed" wx:if="{{totalOrd.Status === 0}}">{{ "取消订单" }}</label>
+      <label class="footerButtonGreen" wx:if="{{totalOrd.Status === 1}}">{{ "已就餐" }}</label>
+      <label class="footerButtonYellow" wx:if="{{totalOrd.Status === 2}}">{{ "去评价" }}</label>
+      <label class="footerButtonGreen" wx:if="{{totalOrd.Status === 3}}">{{ "去下单" }}</label>
     </view>
   </view>
 </view>
@@ -16,21 +18,21 @@
 <view class='foodInfo'>
   <view class='headerFlex'>
     <view class='shopInfo'>
-      <image class="shopLogo" src="{{ thisOrder.logo }}"></image>
-      <label class='shopName'>{{ thisOrder.name }}</label>
+      <image class="shopLogo" src="{{ totalOrd.logo }}"></image>
+      <label class='shopName'>{{ totalOrd.name }}</label>
     </view>
-    <view wx:key="unique" wx:for="{{thisOrder.food}}" wx:for-index="totalOrderFoodIdx" wx:for-item="totalOrderFoodItem">
+    <view wx:key="unique" wx:for="{{totalOrd.items}}" wx:for-index="totalOrderFoodIdx" wx:for-item="totalOrderFoodItem">
       <view class='foodFlex'>
         <image class="foodImg" src="{{ totalOrderFoodItem.img }}"></image>
         <text class="foodName">{{ totalOrderFoodItem.name }}
-          <text class="foodNum">{{"x"}}{{ totalOrderFoodItem.num }}</text>
+          <text class="foodNum">{{"x"}}{{ totalOrderFoodItem.Count }}</text>
         </text>
-        <label class="foodPrice">{{"￥"}}{{ totalOrderFoodItem.num * totalOrderFoodItem.price}}</label>
+        <label class="foodPrice">{{"￥"}}{{ totalOrderFoodItem.TotalPrice }}</label>
       </view>
     </view>
     <view class='totalWrap'>
       <label class='totalPay'>{{ "共计" }}
-        <label class='totalPayRed'>{{"￥"}}{{thisOrder.price}}</label>
+        <label class='totalPayRed'>{{"￥"}}{{totalOrd.TotalPrice}}</label>
       </label>
     </view>
   </view>
@@ -40,10 +42,10 @@
 <view class='dineInfo'>
   <view class='headerFlex'>
     <view class='paddingTop'>
-      <label class='itemName'>{{ "就餐时间"}}<label class='itemNameBlack'>{{thisOrder.dineTime}}</label></label>
+      <label class='itemName'>{{ "就餐时间"}}<label class='itemNameBlack'>{{totalOrd.ReserveTime}}</label></label>
     </view>
     <view class='paddingBottom'>
-      <label class="itemName">{{ "就餐地点" }}<label class='itemNameBlack'>{{thisOrder.dineAddress}}</label></label>
+      <label class="itemName">{{ "就餐地点" }}<label class='itemNameBlack'>{{totalOrd.dineAddress}}</label></label>
     </view>
   </view>
 </view>
@@ -52,9 +54,9 @@
 <view class='orderInfo'>
   <view class='headerFlex'>
     <view class='paddingTop'>
-      <label class='itemName'>{{ "订单号码  "}}<label class='itemNameBlack'>{{thisOrder.orderId}}</label></label>
+      <label class='itemName'>{{ "订单号码  "}}<label class='itemNameBlack'>{{totalOrd.ReservationId}}</label></label>
     </view>
-    <label class="itemName">{{ "订单时间  " }}<label class='itemNameBlack'>{{thisOrder.orderTime}}</label></label>
+    <label class="itemName">{{ "订单时间  " }}<label class='itemNameBlack'>{{totalOrd.CreatTime}}</label></label>
     <view class='paddingBottom'>
       <label class="itemName">{{ "支付方式  " }}<label class='itemNameBlack'>{{"在线支付"}}</label></label>
     </view>

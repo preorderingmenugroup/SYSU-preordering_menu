@@ -7,8 +7,8 @@ const db = cloud.database()
 const MAX_LIMIT = 100
 exports.main = async (event, context) => {
   // 先取出集合记录总数
-  const countResult = await db.collection('MenuItem').where({
-    RestaurantId: event.resid
+  const countResult = await db.collection('Reservation').where({
+    _openid: cloud.getWXContext().OPENID
   }).count()
   const total = countResult.total
   // 计算需分几次取
@@ -16,8 +16,8 @@ exports.main = async (event, context) => {
   // 承载所有读操作的 promise 的数组
   const tasks = []
   for (let i = 0; i < batchTimes; i++) {
-    const promise = db.collection('MenuItem').where({
-      RestaurantId: event.resid
+    const promise = db.collection('Reservation').where({
+      _openid: cloud.getWXContext().OPENID
     }).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get()
     tasks.push(promise)
   }

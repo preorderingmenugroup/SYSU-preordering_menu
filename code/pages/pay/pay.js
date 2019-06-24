@@ -7,7 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    reservationid:""
   },
 
   /**
@@ -84,6 +83,14 @@ Page({
 
   },
   check_order:function(event){
+
+    var pages = getCurrentPages()
+    var prevPage = pages[pages.length - 2]
+
+    this.setData({
+      detailOrderStamp: prevPage.data.detailOrderStamp
+    })
+
     wx.navigateTo({
       url: '../orderDetail/orderDetail',
     })

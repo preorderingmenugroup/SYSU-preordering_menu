@@ -23,7 +23,7 @@ const getfood_Time = date => {
 
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
-const getfood_timestramp = date => {
+const getfood_timestamp = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -37,5 +37,5 @@ const getfood_timestramp = date => {
 module.exports = {
   formatTime: formatTime,
   getfood_Time: getfood_Time,
-  getfood_timestramp:getfood_timestramp
+  getfood_timestamp:getfood_timestamp
 }

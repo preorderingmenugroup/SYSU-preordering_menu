@@ -1,10 +1,9 @@
 const app = getApp();
 Page({
   data: {
-    navBar: ['全部', '待付款', '已完成', '已取消'],
-    currTab: 0,
-    orderStatus: ['待付款', '已完成', '已取消'],
+    orderStatus: ['待接单', '待就餐', '已完成', '已取消'],
     hasData: false,
+    /*
     thisOrder: {
       dineAddress: "",
       dineTime: "",
@@ -16,11 +15,135 @@ Page({
       orderTime: "",
       price: 0,
       status: 0
-    }
+    },
+    */
+
+    totalOrd: {}
   },
 
   queryDB: function () {
 
+
+    this.setData({
+      hasData: false,
+      totalOrd: {}
+    })
+
+
+    var pages = getCurrentPages()
+    var prevPage = pages[pages.length - 2]
+
+    //prevPage.data.detailOrderStamp
+
+    console.log('resvid is: ' + prevPage.data.detailOrderStamp)
+
+    wx.cloud.callFunction({
+      name: 'getOneReservation',
+      data: {
+        resvid: prevPage.data.detailOrderStamp
+      }
+    })
+      .then(res => {
+        var totalOrdArr_ = res.result.data
+
+        console.log(totalOrdArr_)
+
+        if (totalOrdArr_.length === 0) {
+          console.log('no order')
+        }
+        else {
+
+            wx.cloud.callFunction({
+              name: 'getRestaurant',
+              data: {
+                resid: totalOrdArr_[0].RestaurantId
+              }
+            })
+              .then(res => {
+                console.log(res.result.data)
+
+                totalOrdArr_[0].dineAddress = res.result.data[0].Address
+                totalOrdArr_[0].logo = res.result.data[0].GatePhoto
+                totalOrdArr_[0].name = res.result.data[0].RestaurantName
+
+                //console.log(totalOrdArr_[0])
+                this.setData({
+
+                  hasData: true,
+                  totalOrd: totalOrdArr_[0]
+
+                })
+
+
+
+              })
+              .catch(err => { console.log(err) })
+
+
+            wx.cloud.callFunction({
+              name: 'getReservationItem',
+              data: {
+                resvid: totalOrdArr_[0].ReservationId
+              }
+            })
+              .then(res => {
+                console.log(res.result.data)
+
+                totalOrdArr_[0].items = res.result.data
+                totalOrdArr_[0].items.sort(function (a, b) { return a.ReservationItemId - b.ReservationItemId });
+                //console.log(totalOrdArr_[0])
+
+                totalOrdArr_[0].num = 0
+
+                totalOrdArr_[0].items.forEach(oneItem => {
+
+                  totalOrdArr_[0].num += oneItem.Count
+
+                  wx.cloud.callFunction({
+                    name: 'getMenuItem',
+                    data: {
+                      menuitmid: oneItem.MenuItemId
+                    }
+                  })
+                    .then(res => {
+
+                      oneItem.name = res.result.data[0].MenuItemName
+                      oneItem.img = res.result.data[0].Photo
+
+                      console.log(totalOrdArr_[0])
+
+                      this.setData({
+                        hasData: true,
+                        totalOrd: totalOrdArr_[0]
+                      })
+
+                    })
+                    .catch(err => { console.log(err) })
+
+
+                });
+
+                this.setData({
+                  hasData: true,
+                  totalOrd: totalOrdArr_[0]
+                })
+
+
+              })
+              .catch(err => { console.log(err) })
+
+
+
+
+        }
+
+      })
+      .catch(err => { console.log(err) })
+
+
+
+
+/*
     var thisOrder = {
       dineAddress: "",
       dineTime: "",
@@ -141,6 +264,8 @@ Page({
         console.log('failed')
       }
     })
+
+*/
 
   },
 

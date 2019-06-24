@@ -16,60 +16,179 @@ Page({
   },
 
   queryDB: function () {
+/*
+    const dbt = wx.cloud.database()
 
-
-
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'getMenus',
-      // 传给云函数的参数
-      data: {
-        a: 1,
-        b: 2,
-      },
+    dbt.collection('User').where({
+      _openid: 'ow8DE5Bvq59TSYGPwkQMxTSHsMPo',
+    }).get().then(res => {
+      // res.data 包含该记录的数据
+      console.log(res.errMsg)
     })
-      .then(res => {
-        console.log(res.result) // 3
-      })
       .catch(console.error)
 
+*/
+
+/*
+    wx.cloud.callFunction({
+      name: 'getRestaurant',
+      data: {
+        schoolid: res.result.data[0].SchoolId
+      }
+    })
+      .then(res => {
+        console.log(res.result.data[0].RestaurantId)
+      })
+      .catch(err => { console.log(err) })
+*/
+
+    //var totalOrd = []
+
+    this.setData({
+      hasData: false,
+      totalOrd: []
+    })
+
+    wx.cloud.callFunction({
+      name: 'getReservation',
+    })
+    .then(res => {
+      var totalOrdArr_ = res.result.data
+      totalOrdArr_.sort(function (a, b) { return a.ReservationId - b.ReservationId });
+      console.log(totalOrdArr_)
+
+      if (totalOrdArr_.length === 0) {
+        console.log('no order')
+      }
+      else {
+
+        totalOrdArr_.forEach(totalItem => {
+
+          wx.cloud.callFunction({
+            name: 'getRestaurant',
+            data: {
+              resid: totalItem.RestaurantId
+            }
+          })
+            .then(res => {
+              console.log(res.result.data)
+
+              totalItem.dineAddress = res.result.data[0].Address
+              totalItem.logo = res.result.data[0].GatePhoto
+              totalItem.name = res.result.data[0].RestaurantName              
+
+              //console.log(totalItem)
+              this.setData({
+
+                hasData: true,
+                totalOrd: totalOrdArr_
+
+              })
 
 
+
+            })
+            .catch(err => { console.log(err) })
+
+
+          wx.cloud.callFunction({
+            name: 'getReservationItem',
+            data: {
+              resvid: totalItem.ReservationId
+            }
+          })
+            .then(res => {
+              console.log(res.result.data)
+
+              totalItem.items = res.result.data
+              totalItem.items.sort(function (a, b) { return a.ReservationItemId - b.ReservationItemId });
+              //console.log(totalItem)
+
+              totalItem.num = 0
+
+              totalItem.items.forEach(oneItem => {
+                
+                totalItem.num += oneItem.Count
+
+                wx.cloud.callFunction({
+                  name: 'getMenuItem',
+                  data: {
+                    menuitmid: oneItem.MenuItemId
+                  }
+                })
+                  .then(res => {
+
+                    oneItem.name = res.result.data[0].MenuItemName
+
+                    console.log(totalItem)
+
+                    this.setData({
+                      hasData: true,
+                      totalOrd: totalOrdArr_
+                    })
+
+                  })
+                  .catch(err => { console.log(err) })                
+
+
+              });
+
+              this.setData({
+                hasData: true,
+                totalOrd: totalOrdArr_
+              })
+
+
+            })
+            .catch(err => { console.log(err) })
+
+
+
+        });
+
+      }
+
+    })
+    .catch(err => { console.log(err) })
+
+
+/*
+    wx.cloud.callFunction({
+      name: 'getMe'
+    }).then(res => {
+        wx.cloud.callFunction({
+          name: 'getRestaurant',
+          data: {
+            schoolid: res.result.data[0].SchoolId
+          }
+        })
+          .then(res => {
+            console.log(res.result.data[0].RestaurantId)
+
+            wx.cloud.callFunction({
+              name: 'getMenus',
+              data: {
+                resid: res.result.data[0].RestaurantId
+              }
+            })
+              .then(res => {
+                console.log(res.result.data)
+              })
+              .catch(err => { console.log(err) })
+
+          })
+          .catch(err => { console.log(err) })
+      })
+      .catch(err =>{ console.log(err)})
+*/
+
+/*
 
     var totalOrd = []
 
     this.setData({
       hasData: false,
       totalOrd: totalOrd
-    })
-
-    const db = wx.cloud.database()
-    db.collection('User').where({
-      UserId: app.globalData.userInfor.openid
-    }).get({
-      success: res => {
-        console.log(res.data[0].SchoolId)
-
-        db.collection('User').where({
-          UserId: app.globalData.userInfor.openid
-        }).get({
-          success: res => {
-            console.log(res.data[0].SchoolId)
-
-
-
-
-          },
-          fail: res => {
-            console.log('failed')
-          }
-        })
-
-
-      },
-      fail: res => {
-        console.log('failed')
-      }
     })
 
 
@@ -197,6 +316,10 @@ Page({
         console.log('failed')
       }
     })
+
+
+*/
+
 
   },
 

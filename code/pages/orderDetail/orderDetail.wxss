@@ -52,6 +52,20 @@ page {
   background: lightgreen;
 }
 
+.footerButtonRed{
+  border: solid #ffffff 3rpx;
+  border-radius: 5rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 200rpx;
+  font-size: 32rpx;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: lightcoral;
+}
+
 .footerButtonYellow{
   border: solid #ffffff 3rpx;
   border-radius: 5rpx;
