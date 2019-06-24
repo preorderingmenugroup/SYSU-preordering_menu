@@ -1,11 +1,10 @@
 <!--pages/user_create/user_create.wxml-->
 <view class='body'>
   <view class="information" animation = "{{animation}}">
-    <picker bindchange='bindPickerChange' value="{{index}}" range="{{university_name}}" class = "input">
+    <picker bindchange='bindPickerChange' value="{{index}}" range="{{university_name}}" class = "picker">
       <div id = "select">
         <text wx:if="{{!isSelected}}" id = "select_text">选择学校</text>
-        <text wx:else>{{university_name[index]}}</text>
-        <image src='/images/sign_up/arrow_down.png ' id='arrow' mode='scaleToFill'></image>
+        <text wx:else id = "select_school">{{university_name[index]}}</text>
       </div>
     </picker>
     <input type='number' class = "input" id="phone" bindinput='inputPhone' placeholder='请输入11位电话号码' ></input>
