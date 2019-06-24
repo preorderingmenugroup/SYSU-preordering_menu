@@ -171,7 +171,8 @@ Page({
                 console.log(Price);
                 var Photo = res.data[a].Photo;
                 console.log(Photo);
-
+                var MenuItemId = res.data[a].MenuItemId;
+                console.log(MenuItemId);
                 let tempCat = {
                   categroy_id: this.data.id1add,
                   categroy_name: MenuItemName,
@@ -194,7 +195,8 @@ Page({
                 console.log(Price);
                 var Photo = res.data[a].Photo;
                 console.log(Photo);
-
+                var MenuItemId = res.data[a].MenuItemId;
+                console.log(MenuItemId);
                 let tempCat = {
                   categroy_id: this.data.id1add,
                   categroy_name: MenuItemName,
@@ -217,7 +219,8 @@ Page({
                 console.log(Price);
                 var Photo = res.data[a].Photo;
                 console.log(Photo);
-
+                var MenuItemId = res.data[a].MenuItemId;
+                console.log(MenuItemId);
                 let tempCat = {
                   categroy_id: this.data.id1add,
                   categroy_name: MenuItemName,
@@ -240,7 +243,8 @@ Page({
                 console.log(Price);
                 var Photo = res.data[a].Photo;
                 console.log(Photo);
-
+                var MenuItemId = res.data[a].MenuItemId;
+                console.log(MenuItemId);
                 let tempCat = {
                   categroy_id: this.data.id1add,
                   categroy_name: MenuItemName,
@@ -263,7 +267,8 @@ Page({
                 console.log(Price);
                 var Photo = res.data[a].Photo;
                 console.log(Photo);
-
+                var MenuItemId = res.data[a].MenuItemId;
+                console.log(MenuItemId);
                 let tempCat = {
                   categroy_id: this.data.id1add,
                   categroy_name: MenuItemName,
@@ -286,7 +291,8 @@ Page({
                 console.log(Price);
                 var Photo = res.data[a].Photo;
                 console.log(Photo);
-
+                var MenuItemId = res.data[a].MenuItemId;
+                console.log(MenuItemId);
                 let tempCat = {
                   categroy_id: this.data.id1add,
                   categroy_name: MenuItemName,
