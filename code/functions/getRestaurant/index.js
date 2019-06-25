@@ -8,7 +8,7 @@ const db = cloud.database()
 exports.main = async (event, context) => {
 
   return await db.collection('Restaurant').where({
-    RestaurantId: event.resid
+    _openid: cloud.getWXContext().OPENID
   }).get()
 
 }

@@ -26,7 +26,7 @@
     <view  bindtap='bindOrderManage' class="tunnel-text">
       <view class="navigator-first">
         <image class="icon" src="../../images/sidebar/myOrder.png"></image>
-        <text>我的订单</text>
+        <text>订单管理</text>
       </view>
       <view class="navigator-arrow"></view>
     </view>

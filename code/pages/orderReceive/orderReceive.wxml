@@ -1,3 +1,5 @@
+<!-- 商家订单列表页面， 作者：利庆升 -->
+
 <!--导航-->
 <view class="navBar">
   <text wx:for="{{navBar}}" data-navidx="{{index}}" class="item {{currTab==index ? 'active' : ''}}" 
@@ -5,69 +7,68 @@
   </text>
 </view>
 
-<!--全部-->
+<!--待接单-->
 <view hidden="{{currTab!==0}}">
   <view class="blank"></view>
-  <view wx:key="unique" wx:if="{{totalOrder.hasData}}"  wx:for="{{ totalOrder.array }}" wx:for-index="totalOrderIdx" wx:for-item="totalOrderItem">
+  <view wx:key="unique" wx:if="{{ hasData}}"  wx:for="{{ totalOrd }}" wx:for-index="totalOrderIdx" wx:for-item="totalOrderItem" wx:if="{{ totalOrderItem.Status === 0 }}">
   
     <view class='shopInfo'>
       <image class="shopLogo" src="{{ totalOrderItem.logo }}"></image>
       <label class='shopName'>{{ totalOrderItem.name }}</label>
-      <label class='shopStatus'>{{ orderStatus[totalOrderItem.status] }}</label>
+      <label class='shopStatus'>{{ orderStatus[totalOrderItem.Status] }}</label>
     </view>
 
-    <view class='foodInfo' data-orderid="{{totalOrderItem.orderStamp}}" bindtap="onOrderDetail">
-      <view wx:key="unique" wx:for="{{totalOrderItem.food}}" wx:for-index="totalOrderFoodIdx" wx:for-item="totalOrderFoodItem">
+    <view class='foodInfo' data-orderid="{{totalOrderItem._id}}" bindtap="onOrderDetail">
+      <view wx:key="unique" wx:for="{{totalOrderItem.items}}" wx:for-index="totalOrderFoodIdx" wx:for-item="totalOrderFoodItem">
         <view class='foodFlex'>
           <label class="foodName">{{ totalOrderFoodItem.name }}</label>
-          <label class="foodNum">{{"x"}}{{ totalOrderFoodItem.num }}</label>
+          <label class="foodNum">{{"x"}}{{ totalOrderFoodItem.Count }}</label>
         </view>
       </view>
       <view class='totalWrap'>
         <label class='totalPay'>{{ "共" }}{{ totalOrderItem.num }}{{ "件商品" }}{{ "，实付" }}
-          <label class='totalPayBold'>{{"￥"}}{{totalOrderItem.price}}</label>
+          <label class='totalPayBold'>{{"￥"}}{{totalOrderItem.TotalPrice}}</label>
         </label>
       </view>
     </view>
 
     <view class='orderFooter'>
-      <label class="footerButton1" wx:if="{{totalOrderItem.status === 0}}">{{ "接单" }}</label>
-      <label class="footerButton" wx:if="{{totalOrderItem.status === 0}}">{{ "拒绝" }}</label>
-      <label class="footerButton" wx:if="{{totalOrderItem.status != 0}}">{{ "去评价" }}</label>
+      <label class="footerButton1" data-orderid="{{totalOrderItem._id}}" wx:if="{{totalOrderItem.Status === 0}}" bindtap="onToReceive">{{ "接单" }}</label>
+      <label class="footerButton" data-orderid="{{totalOrderItem._id}}" wx:if="{{totalOrderItem.Status === 0}}" bindtap="onToReject">{{ "拒绝" }}</label>
+      <!--label class="footerButton" wx:if="{{totalOrderItem.Status != 0}}">{{ "去评价" }}</label-->
     </view>
 
   </view>
 </view>
  
-<!--待付款-->
+<!--待发餐-->
 <view hidden="{{currTab!==1}}">
   <view class="blank"></view>
-  <view wx:key="unique" wx:if="{{waitOrder.hasData}}"  wx:for="{{ waitOrder.array }}" wx:for-index="totalOrderIdx" wx:for-item="totalOrderItem">
+  <view wx:key="unique" wx:if="{{ hasData}}"  wx:for="{{ totalOrd }}" wx:for-index="totalOrderIdx" wx:for-item="totalOrderItem" wx:if="{{ totalOrderItem.Status === 1 }}">
   
     <view class='shopInfo'>
       <image class="shopLogo" src="{{ totalOrderItem.logo }}"></image>
       <label class='shopName'>{{ totalOrderItem.name }}</label>
-      <label class='shopStatus'>{{ orderStatus[totalOrderItem.status] }}</label>
+      <label class='shopStatus'>{{ orderStatus[totalOrderItem.Status] }}</label>
     </view>
 
-    <view class='foodInfo' data-orderid="{{totalOrderItem.orderStamp}}" bindtap="onOrderDetail">
-      <view wx:key="unique" wx:for="{{totalOrderItem.food}}" wx:for-index="totalOrderFoodIdx" wx:for-item="totalOrderFoodItem">
+    <view class='foodInfo' data-orderid="{{totalOrderItem._id}}" bindtap="onOrderDetail">
+      <view wx:key="unique" wx:for="{{totalOrderItem.items}}" wx:for-index="totalOrderFoodIdx" wx:for-item="totalOrderFoodItem">
         <view class='foodFlex'>
           <label class="foodName">{{ totalOrderFoodItem.name }}</label>
-          <label class="foodNum">{{"x"}}{{ totalOrderFoodItem.num }}</label>
+          <label class="foodNum">{{"x"}}{{ totalOrderFoodItem.Count }}</label>
         </view>
       </view>
       <view class='totalWrap'>
         <label class='totalPay'>{{ "共" }}{{ totalOrderItem.num }}{{ "件商品" }}{{ "，实付" }}
-          <label class='totalPayBold'>{{"￥"}}{{totalOrderItem.price}}</label>
+          <label class='totalPayBold'>{{"￥"}}{{totalOrderItem.TotalPrice}}</label>
         </label>
       </view>
     </view>
 
     <view class='orderFooter'>
-      <label class="footerButton1" wx:if="{{totalOrderItem.status === 0}}">{{ "接单" }}</label>
-      <label class="footerButton" wx:if="{{totalOrderItem.status === 0}}">{{ "拒绝" }}</label>
-      <label class="footerButton" wx:if="{{totalOrderItem.status != 0}}">{{ "去评价" }}</label>
+      <label class="footerButton" data-orderid="{{totalOrderItem._id}}" wx:if="{{totalOrderItem.Status === 1}}" bindtap="onToGive">{{ "已发餐" }}</label>
+      <!--label class="footerButton" wx:if="{{totalOrderItem.Status != 0}}">{{ "去评价" }}</label-->
     </view>
 
   </view>
@@ -76,32 +77,31 @@
 <!--已完成-->
 <view hidden="{{currTab!==2}}">
   <view class="blank"></view>
-  <view wx:key="unique" wx:if="{{finishOrder.hasData}}"  wx:for="{{ finishOrder.array }}" wx:for-index="totalOrderIdx" wx:for-item="totalOrderItem">
+  <view wx:key="unique" wx:if="{{ hasData}}"  wx:for="{{ totalOrd }}" wx:for-index="totalOrderIdx" wx:for-item="totalOrderItem" wx:if="{{ totalOrderItem.Status === 2 }}">
   
     <view class='shopInfo'>
       <image class="shopLogo" src="{{ totalOrderItem.logo }}"></image>
       <label class='shopName'>{{ totalOrderItem.name }}</label>
-      <label class='shopStatus'>{{ orderStatus[totalOrderItem.status] }}</label>
+      <label class='shopStatus'>{{ orderStatus[totalOrderItem.Status] }}</label>
     </view>
 
-    <view class='foodInfo' data-orderid="{{totalOrderItem.orderStamp}}" bindtap="onOrderDetail">
-      <view wx:key="unique" wx:for="{{totalOrderItem.food}}" wx:for-index="totalOrderFoodIdx" wx:for-item="totalOrderFoodItem">
+    <view class='foodInfo' data-orderid="{{totalOrderItem._id}}" bindtap="onOrderDetail">
+      <view wx:key="unique" wx:for="{{totalOrderItem.items}}" wx:for-index="totalOrderFoodIdx" wx:for-item="totalOrderFoodItem">
         <view class='foodFlex'>
           <label class="foodName">{{ totalOrderFoodItem.name }}</label>
-          <label class="foodNum">{{"x"}}{{ totalOrderFoodItem.num }}</label>
+          <label class="foodNum">{{"x"}}{{ totalOrderFoodItem.Count }}</label>
         </view>
       </view>
       <view class='totalWrap'>
         <label class='totalPay'>{{ "共" }}{{ totalOrderItem.num }}{{ "件商品" }}{{ "，实付" }}
-          <label class='totalPayBold'>{{"￥"}}{{totalOrderItem.price}}</label>
+          <label class='totalPayBold'>{{"￥"}}{{totalOrderItem.TotalPrice}}</label>
         </label>
       </view>
     </view>
 
     <view class='orderFooter'>
-      <label class="footerButton1" wx:if="{{totalOrderItem.status === 0}}">{{ "接单" }}</label>
-      <label class="footerButton" wx:if="{{totalOrderItem.status === 0}}">{{ "拒绝" }}</label>
-      <label class="footerButton" wx:if="{{totalOrderItem.status != 0}}">{{ "去评价" }}</label>
+      <label class="footerButton" data-orderid="{{totalOrderItem._id}}" wx:if="{{totalOrderItem.Status === 2}}" bindtap="onToComment">{{ "去评价" }}</label>
+      <!--label class="footerButton" wx:if="{{totalOrderItem.Status != 0}}">{{ "去评价" }}</label-->
     </view>
 
   </view>
@@ -110,32 +110,31 @@
 <!--已取消-->
 <view hidden="{{currTab!==3}}">
   <view class="blank"></view>
-  <view wx:key="unique" wx:if="{{cancelOrder.hasData}}"  wx:for="{{ cancelOrder.array }}" wx:for-index="totalOrderIdx" wx:for-item="totalOrderItem">
+  <view wx:key="unique" wx:if="{{ hasData}}"  wx:for="{{ totalOrd }}" wx:for-index="totalOrderIdx" wx:for-item="totalOrderItem" wx:if="{{ totalOrderItem.Status === 3 }}">
   
     <view class='shopInfo'>
       <image class="shopLogo" src="{{ totalOrderItem.logo }}"></image>
       <label class='shopName'>{{ totalOrderItem.name }}</label>
-      <label class='shopStatus'>{{ orderStatus[totalOrderItem.status] }}</label>
+      <label class='shopStatus'>{{ orderStatus[totalOrderItem.Status] }}</label>
     </view>
 
-    <view class='foodInfo' data-orderid="{{totalOrderItem.orderStamp}}" bindtap="onOrderDetail">
-      <view wx:key="unique" wx:for="{{totalOrderItem.food}}" wx:for-index="totalOrderFoodIdx" wx:for-item="totalOrderFoodItem">
+    <view class='foodInfo' data-orderid="{{totalOrderItem._id}}" bindtap="onOrderDetail">
+      <view wx:key="unique" wx:for="{{totalOrderItem.items}}" wx:for-index="totalOrderFoodIdx" wx:for-item="totalOrderFoodItem">
         <view class='foodFlex'>
           <label class="foodName">{{ totalOrderFoodItem.name }}</label>
-          <label class="foodNum">{{"x"}}{{ totalOrderFoodItem.num }}</label>
+          <label class="foodNum">{{"x"}}{{ totalOrderFoodItem.Count }}</label>
         </view>
       </view>
       <view class='totalWrap'>
         <label class='totalPay'>{{ "共" }}{{ totalOrderItem.num }}{{ "件商品" }}{{ "，实付" }}
-          <label class='totalPayBold'>{{"￥"}}{{totalOrderItem.price}}</label>
+          <label class='totalPayBold'>{{"￥"}}{{totalOrderItem.TotalPrice}}</label>
         </label>
       </view>
     </view>
 
     <view class='orderFooter'>
-      <label class="footerButton1" wx:if="{{totalOrderItem.status === 0}}">{{ "接单" }}</label>
-      <label class="footerButton" wx:if="{{totalOrderItem.status === 0}}">{{ "拒绝" }}</label>
-      <label class="footerButton" wx:if="{{totalOrderItem.status != 0}}">{{ "去评价" }}</label>
+      <label class="footerButton" data-orderid="{{totalOrderItem._id}}" wx:if="{{totalOrderItem.Status === 3}}" bindtap="onToComment">{{ "去评价" }}</label>
+      <!--label class="footerButton" wx:if="{{totalOrderItem.Status != 0}}">{{ "去评价" }}</label-->
     </view>
 
   </view>

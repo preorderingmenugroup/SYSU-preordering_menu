@@ -115,7 +115,7 @@ Page({
 
   bindOrderManage: function (e) {
     wx.navigateTo({
-      url: '../receiveOrder/receiveOrder'
+      url: '../orderReceive/orderReceive'
     })
   },
 

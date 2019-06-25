@@ -1,3 +1,7 @@
+/*
+ * 作者：利庆升
+ */
+
 const app = getApp();
 Page({
   data: {
@@ -37,14 +41,18 @@ Page({
 
     console.log('resvid is: ' + prevPage.data.detailOrderStamp)
 
-    wx.cloud.callFunction({
-      name: 'getOneReservation',
-      data: {
-        resvid: prevPage.data.detailOrderStamp
-      }
-    })
+    const db = wx.cloud.database()
+
+    db.collection('Reservation').doc(prevPage.data.detailOrderStamp).get()
+
+//    wx.cloud.callFunction({
+//      name: 'getOneReservation',
+//      data: {
+//        resvid: prevPage.data.detailOrderStamp
+//      }
+//    })
       .then(res => {
-        var totalOrdArr_ = res.result.data
+        var totalOrdArr_ = res.data
 
         console.log(totalOrdArr_)
 
@@ -53,24 +61,30 @@ Page({
         }
         else {
 
-            wx.cloud.callFunction({
-              name: 'getRestaurant',
-              data: {
-                resid: totalOrdArr_[0].RestaurantId
-              }
-            })
+          const db = wx.cloud.database()
+
+          db.collection('Restaurant').where({
+            RestaurantId: totalOrdArr_.RestaurantId,
+          }).get()
+
+            //wx.cloud.callFunction({
+            //  name: 'getRestaurant',
+            //  data: {
+            //    resid: totalOrdArr_.RestaurantId
+            //  }
+            //})
               .then(res => {
-                console.log(res.result.data)
+                console.log(res.data)
 
-                totalOrdArr_[0].dineAddress = res.result.data[0].Address
-                totalOrdArr_[0].logo = res.result.data[0].GatePhoto
-                totalOrdArr_[0].name = res.result.data[0].RestaurantName
+                totalOrdArr_.dineAddress = res.data[0].Address
+                totalOrdArr_.logo = res.data[0].GatePhoto
+                totalOrdArr_.name = res.data[0].RestaurantName
 
-                //console.log(totalOrdArr_[0])
+                //console.log(totalOrdArr_)
                 this.setData({
 
                   hasData: true,
-                  totalOrd: totalOrdArr_[0]
+                  totalOrd: totalOrdArr_
 
                 })
 
@@ -83,38 +97,42 @@ Page({
             wx.cloud.callFunction({
               name: 'getReservationItem',
               data: {
-                resvid: totalOrdArr_[0].ReservationId
+                resvid: totalOrdArr_.ReservationId
               }
             })
               .then(res => {
                 console.log(res.result.data)
 
-                totalOrdArr_[0].items = res.result.data
-                totalOrdArr_[0].items.sort(function (a, b) { return a.ReservationItemId - b.ReservationItemId });
-                //console.log(totalOrdArr_[0])
+                totalOrdArr_.items = res.result.data
+                totalOrdArr_.items.sort(function (a, b) { return a.ReservationItemId - b.ReservationItemId });
+                //console.log(totalOrdArr_)
 
-                totalOrdArr_[0].num = 0
+                totalOrdArr_.num = 0
 
-                totalOrdArr_[0].items.forEach(oneItem => {
+                totalOrdArr_.items.forEach(oneItem => {
 
-                  totalOrdArr_[0].num += oneItem.Count
+                  totalOrdArr_.num += oneItem.Count
 
-                  wx.cloud.callFunction({
-                    name: 'getMenuItem',
-                    data: {
-                      menuitmid: oneItem.MenuItemId
-                    }
-                  })
+
+                  db.collection('MenuItem').where({
+                    MenuItemId: oneItem.MenuItemId
+                  }).get()
+                  //wx.cloud.callFunction({
+                  //  name: 'getMenuItem',
+                  //  data: {
+                  //    menuitmid: oneItem.MenuItemId
+                  //  }
+                  //})
                     .then(res => {
 
-                      oneItem.name = res.result.data[0].MenuItemName
-                      oneItem.img = res.result.data[0].Photo
+                      oneItem.name = res.data[0].MenuItemName
+                      oneItem.img = res.data[0].Photo
 
-                      console.log(totalOrdArr_[0])
+                      console.log(totalOrdArr_)
 
                       this.setData({
                         hasData: true,
-                        totalOrd: totalOrdArr_[0]
+                        totalOrd: totalOrdArr_
                       })
 
                     })
@@ -125,7 +143,7 @@ Page({
 
                 this.setData({
                   hasData: true,
-                  totalOrd: totalOrdArr_[0]
+                  totalOrd: totalOrdArr_
                 })
 
 
@@ -310,6 +328,110 @@ Page({
   onPullDownRefresh: function () {
     this.queryDB()
     wx.stopPullDownRefresh()
+  },
+
+  onToCancel: function (e) {
+    wx.showModal({
+      title: '提示',
+      content: '确定取消该订单？',
+      success: res => {
+        if (res.confirm) {
+          console.log('cancel')
+          var pages = getCurrentPages()
+          var prevPage = pages[pages.length - 2]
+
+          //prevPage.data.detailOrderStamp
+
+          console.log('resvid is: ' + prevPage.data.detailOrderStamp)
+
+          wx.cloud.callFunction({
+            name: 'updateStatus',
+            data: {
+              resvid: prevPage.data.detailOrderStamp,
+              status: 3
+            }
+          })
+            .then(res => {
+              console.log(res.result)
+              var that = this
+              that.data.totalOrd.Status = 3
+              wx.showToast({
+                title: '取消成功',
+                icon: 'none',
+                duration: 1000
+              })
+              that.setData({
+                totalOrd: that.data.totalOrd
+              })
+            })
+            .catch(err => { console.log(err) })
+        }
+        else {
+          console.log('no cancel')
+        }
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
+  },
+
+  onToDine: function (e) {
+    wx.showModal({
+      title: '提示',
+      content: '确定已经就餐？',
+      success: res => {
+        if (res.confirm) {
+          console.log('dine')
+          var pages = getCurrentPages()
+          var prevPage = pages[pages.length - 2]
+
+          //prevPage.data.detailOrderStamp
+
+          console.log('resvid is: ' + prevPage.data.detailOrderStamp)
+
+          wx.cloud.callFunction({
+            name: 'updateStatus',
+            data: {
+              resvid: prevPage.data.detailOrderStamp,
+              status: 2
+            }
+          })
+            .then(res => {
+              console.log(res.result)
+              var that = this
+              that.data.totalOrd.Status = 2
+              wx.showToast({
+                title: '您已就餐',
+                icon: 'none',
+                duration: 1000
+              })
+              that.setData({
+                totalOrd: that.data.totalOrd
+              })
+            })
+            .catch(err => { console.log(err) })
+        }
+        else {
+          console.log('no dine')
+        }
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
+  },
+
+  onToComment: function () {
+    wx.showToast({
+      title: '评价功能不可用^_^',
+      icon: 'none',
+      duration: 1500
+    })
+  },
+
+  onToOrder: function () {
+    wx.reLaunch({ url: '../index/index' })
   },
 
   /**

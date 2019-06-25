@@ -1,10 +1,14 @@
+/*
+ * 作者：利庆升
+ */
+
 const app = getApp();
 Page({
   data: {
     navBar: ['待接单', '待就餐', '已完成', '已取消'],
     currTab: 0,
     orderStatus: ['待接单', '待就餐', '已完成', '已取消'],
-    detailOrderStamp: 0,
+    detailOrderStamp: "",
     hasData: false,
     totalOrd: []
   },
@@ -344,6 +348,104 @@ Page({
     wx.navigateTo({ url: '../orderDetail/orderDetail' })
   },
 
+  onToCancel: function (e) {
+    wx.showModal({
+      title: '提示',
+      content: '确定取消该订单？',
+      success: res => {
+        if (res.confirm) {
+          console.log('cancel')
+
+
+          wx.cloud.callFunction({
+            name: 'updateStatus',
+            data: {
+              resvid: e.currentTarget.dataset.orderid,
+              status: 3
+            }
+          })
+            .then(res => {
+              console.log(res.result)
+              var that = this
+              that.data.totalOrd.forEach(item => {
+                if (item._id === e.currentTarget.dataset.orderid) {
+                  item.Status = 3
+                }
+              })
+              wx.showToast({
+                title: '取消成功',
+                icon: 'none',
+                duration: 1000
+              })
+              that.setData({
+                totalOrd: that.data.totalOrd
+              })
+            })
+            .catch(err => { console.log(err) })
+        }
+        else {
+          console.log('no cancel')
+        }
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
+  },
+
+  onToDine: function (e) {
+    wx.showModal({
+      title: '提示',
+      content: '确定已经就餐？',
+      success: res => {
+        if (res.confirm) {
+          console.log('dine')
+
+
+          wx.cloud.callFunction({
+            name: 'updateStatus',
+            data: {
+              resvid: e.currentTarget.dataset.orderid,
+              status: 2
+            }
+          })
+            .then(res => {
+              console.log(res.result)
+              var that = this
+              that.data.totalOrd.forEach(item => {
+                if (item._id === e.currentTarget.dataset.orderid) {
+                  item.Status = 2
+                }
+              })
+              wx.showToast({
+                title: '您已就餐',
+                icon: 'none',
+                duration: 1000
+              })
+              that.setData({
+                totalOrd: that.data.totalOrd
+              })
+            })
+            .catch(err => { console.log(err) })
+        }
+        else {
+          console.log('no dine')
+        }
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
+  },
+
+  onToComment: function () {
+    wx.showToast({
+      title: '评价功能不可用^_^',
+      icon: 'none',
+      duration: 1500
+    })
+  },
+
   onToOrder: function () {
     wx.reLaunch({ url: '../index/index' })
   },
@@ -366,7 +468,7 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function () {
-
+    this.queryDB()
   },
 
   /**
