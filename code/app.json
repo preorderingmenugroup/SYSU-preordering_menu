@@ -7,19 +7,16 @@
     "pages/fullyUserInfo/fullyUserInfo",
     "pages/user_create/user_create",
     "pages/index/index",
-    "pages/orderManage/orderManage",
+    "pages/orderCustomer/orderCustomer",
     "pages/orderDetail/orderDetail",
-    "pages/receiveOrder/receiveOrder",
-    "pages/receiveOrder/orderDetailOwner/orderDetailOwner",
+    "pages/orderManage/orderManage",
+    "pages/orderReceive/orderReceive",
     "pages/order/order",
     "pages/registerShop/registerShop",
     "pages/merchant/merchant",
     "pages/addFood/addFood",
-    "pages/shopValidate/shopValidate",
-    "pages/orderReceive/orderReceive",
     "pages/restaurantCenter/restaurantCenter",
-    "pages/restaurantCenter/restaurantSetting/restaurantSetting",
-    "pages/orderCustomer/orderCustomer"
+    "pages/restaurantCenter/restaurantSetting/restaurantSetting"
   ],
   "window": {
     "backgroundTextStyle": "light",

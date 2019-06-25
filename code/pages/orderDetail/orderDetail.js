@@ -93,17 +93,21 @@ Page({
               })
               .catch(err => { console.log(err) })
 
+          db.collection('ReservationItem').where({
+            ReservationId: totalOrdArr_.ReservationId
+          }).get()
 
-            wx.cloud.callFunction({
-              name: 'getReservationItem',
-              data: {
-                resvid: totalOrdArr_.ReservationId
-              }
-            })
+
+            //wx.cloud.callFunction({
+            //  name: 'getReservationItem',
+            //  data: {
+            //    resvid: totalOrdArr_.ReservationId
+            //  }
+            //})
               .then(res => {
-                console.log(res.result.data)
+                console.log(res.data)
 
-                totalOrdArr_.items = res.result.data
+                totalOrdArr_.items = res.data
                 totalOrdArr_.items.sort(function (a, b) { return a.ReservationItemId - b.ReservationItemId });
                 //console.log(totalOrdArr_)
 
