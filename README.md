@@ -14,7 +14,7 @@
 
   - 6.2 [Use Cases](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/6_2_UsecasesAndActivityPic/user_cases)（用例+活动图）
 
-  - 6.3 [Domain Model](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/DomainModel/Domain%20Model)（领域模型）
+  - 6.3 [Domain Model](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/DomainModel/DomainModel)（领域模型）
 
   - 6.4 [State Models](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/statemodel/state_model)（状态模型）
 
