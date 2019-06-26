@@ -89,7 +89,10 @@ Page({
                 ItemDescription: model.ItemDescription,
                 MenuItemName: model.MenuItemName,
                 Price: model.Price,
-                id: model.countNum
+                id: model.countNum,
+                RestaurantId: 1,
+                Photo: model.ImageUrl,
+                Class: "hh"
             },
             success: function(res) {
                 console.log(res)
