@@ -1,4 +1,5 @@
 # SYSU-preordering-menu食在大学点餐系统
+[软件工程综合试验Checklist]()
 - 1、[About](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/About)（项目概况)  
 
 - 2、[Team profile](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/Team)（团队组建与分工）  
