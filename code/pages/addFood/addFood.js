@@ -67,7 +67,8 @@ Page({
             active: false,
             ItemDescription: "",
             ImageUrl: "",
-            countNum: 0
+            countNum: 0,
+            MenuItemId: "",
         }
         model.MenuItemName = this.data.name
         model.Price = this.data.price
@@ -84,10 +85,10 @@ Page({
         console.log(this.data.countNum)
         model.countNum = this.data.countNum
         db.collection('MenuItem').add({
-
             data: {
                 ItemDescription: model.ItemDescription,
                 MenuItemName: model.MenuItemName,
+                MenuItemId: model.MenuItemId,
                 Price: model.Price,
                 id: model.countNum,
                 RestaurantId: 1,

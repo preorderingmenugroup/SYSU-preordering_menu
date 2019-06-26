@@ -6,35 +6,47 @@
     margin-right:10px;
 }
 
-.title {
+.container {
+  width: 100%;
+  background:#eee;
+}
+
+.container-title {
   text-align: center;
+  position: relative;
+  left: 0px;
+  top: -100px;
+  width: 100%;
   color: rebeccapurple 
 }
 
 .item-content .box .item .title{
-    margin-bottom:5px;
+    margin-bottom:10px;
     color: black;
     font-weight:bolder;
     display: flex;
+    font-size: 16px;
 }
 
 .item-content .box .item .price{
     color:#237346;
-    font-size:18px;
-    margin-bottom:5px;
+    font-size:20px;
+    margin-bottom:15px;
     display: flex;
 }
 
 .item-content .box {
-  padding-top: 30px;
+  padding-top: 20px;
 }
 
 .item-content{
   float:left;
   width:90%;
   height:100%;
-  margin-left: 7%;
+  margin-left: 1%;
   padding-bottom: 10px;
+  position: relative;
+  top: -100px;
 }
 
 .item-content .box .del{
@@ -45,7 +57,11 @@
 }
 
 .item-content .box .item {
-  padding-bottom: 30px;
+  height:95px;
+  padding:10px 0 10px 10px;
+  margin-bottom:10px;
+  background:#fff;
+  padding-bottom: 35px;
 }
 
 .add {
@@ -53,4 +69,6 @@
   background-color: azure;
   width: 50%;
   margin-left: 25%;
+  position: relative;
+  top: -80px;
 }
