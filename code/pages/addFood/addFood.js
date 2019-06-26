@@ -44,6 +44,32 @@ Page({
         }
       })  
     },
+  /*chooseImage: function (name) {
+    var that = this
+    //让用户选择或拍摄一张照片
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        //选择完成会先返回一个临时地址保存备用
+        const tempFilePaths = res.tempFilePaths
+        //将照片上传至云端需要刚才存储的临时地址
+        wx.cloud.uploadFile({
+          cloudPath: 'menuItem/as.jpg',
+          filePath: tempFilePaths[0],
+          success(res) {
+            //上传成功后会返回永久地址
+            console.log(res.fileID)
+          }
+        })
+        that.setData({
+          tempFilePaths: res.tempFilePaths[0],
+          hasImage: 1
+        })  
+      }
+    })
+  },*/
 
     inputDescribe: function(e) {
         this.setData({
@@ -122,30 +148,8 @@ Page({
 
         const db = wx.cloud.database()
         //const db = wx.cloud.database()
-        
-        db.collection('Restaurant').where({
-          UserId: this.data.openid
-        }).get({
-          success: function (res) {
-            console.log('店铺查询成功: ', res)
-            db.collection('MenuItem').add({
-                data: {
-                    ItemDescription: model.ItemDescription,
-                    MenuItemName: model.MenuItemName,
-                    MenuItemId: model.countNum,
-                    Price: model.Price,
-                    RestaurantId: res.data[0].RestaurantId,
-                    Photo: model.ImageUrl,
-                    Class: "hh",
-                    id: model.num
-                },
-                success: function(res) {
-                    console.log(res)
-                }
-    
-            })
-          }
-        })
+        console.log("我的openid",this.data.openid)
+
         //使用正则表达式获取图片后缀
         let suffix = /\.[^\.]+$/.exec(this.data.tempFilePaths)[0];
     
@@ -155,6 +159,31 @@ Page({
             success: res => {
               // get resource ID
               console.log(res.fileID)
+              model.ImageUrl = res.fileID
+              db.collection('Restaurant').where({
+                OwenId: this.data.openid//app.globalData.userInfor.openid
+              }).get({
+                success: function (res) {
+                  console.log('店铺查询成功: ', res)
+                  db.collection('MenuItem').add({
+                    data: {
+                      ItemDescription: model.ItemDescription,
+                      MenuItemName: model.MenuItemName,
+                      MenuItemId: model.countNum,
+                      Price: model.Price,
+                      RestaurantId: res.data[0].RestaurantId,
+                      Photo: model.ImageUrl,
+                      Class: "hh",
+                      id: model.num,
+                    },
+                    success: function (res) {
+                      console.log("新建菜品成功", res)
+                    }
+
+                  })
+                }
+              })
+
             },
             fail: err => {
               // handle error

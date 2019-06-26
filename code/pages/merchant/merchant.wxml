@@ -3,7 +3,7 @@
   <view class="item-content">
     <view class="box">
       <view class="item" wx:for="{{items}}" wx:key="{{item.id}}">
-        <image  src="../../images/index/dapanji.jpeg"></image>
+        <image  src="{{item.Photo}}"></image>
         <text class="title">{{item.MenuItemName}}</text>
         <text class="price">￥ {{item.Price}} 元</text>
         <button class="del" data-index="{{index}}" bindtap="deleteFood">删除该菜品</button>
@@ -12,4 +12,5 @@
   </view>
 
   <button class="add" bindtap="addFood">添加菜品</button>
+  <button class="returnShopCenter" bindtap="returnCenter">返回店铺中心</button>
 </view>

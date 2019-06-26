@@ -13,6 +13,7 @@ Page({
       ItemDescription: "",
       MenuItemName: "",
       Price: 0,
+      Photo: "",
     }]
   },
 
@@ -117,6 +118,12 @@ Page({
       duration: 5000,
     })
 
+  },
+
+  returnCenter: function (e) {
+    wx.navigateTo({
+      url: "../restaurantCenter/restaurantCenter",
+    })
   },
 
 
