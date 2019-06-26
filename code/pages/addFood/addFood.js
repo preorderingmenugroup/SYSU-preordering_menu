@@ -1,3 +1,5 @@
+const app = getApp();
+
 Page({  
     data: {  
       tempFilePaths: "",
@@ -6,6 +8,7 @@ Page({
       describe: "",
       countNum: 0,
       price: 0,
+      openid: "ow8DE5Bvq59TSYGPwkQMxTSHsMPo",
       food: {
         title: "",
         price: 12,
@@ -60,6 +63,30 @@ Page({
         })
     },
 
+    getOpenid: function() {  
+        let that = this;  //获取openid不需要授权
+        wx.login({   
+            success: function(res) {    //请求自己后台获取用户openid
+                wx.request({     
+                    url: 'https://30paotui.com/user/wechat',
+                    data: {
+                        appid: '你的小程序appid',      
+                        secret: '你的小程序secret',      
+                        code: res.code
+                },    
+                success: function(response) {
+                    var openid = response.data.openid;      
+                    console.log('请求获取openid:' + openid);      //可以把openid存到本地，方便以后调用
+                    wx.setStorageSync('openid', openid);
+                    that.setData({
+                        openid: "获取到的openid：" + openid
+                    })
+                }
+                })
+            }
+        })
+    },
+
     addImageSuccess: function() {
         var model = {
             MenuItemName: "",
@@ -67,47 +94,91 @@ Page({
             active: false,
             ItemDescription: "",
             ImageUrl: "",
-            countNum: 0,
+            countNum: "",
             MenuItemId: "",
+            RestaurantId: "",
+            num: 0,
         }
+
         model.MenuItemName = this.data.name
         model.Price = this.data.price
         model.ItemDescription = this.data.describe
         model.ImageUrl = this.data.tempFilePaths
+        model.num = this.data.countNum
 
         this.setData({
             food: model,
         })
         var addFood = JSON.stringify(this.data.food)
-
+        var preNum = "ow8DE5Bvq59TSYGPwkQMxTSHsMPo00000000"
+        var strNum = this.data.countNum.toString()
+        if (this.data.countNum < 10) {
+            preNum += "0"
+        }
+        strNum = preNum+strNum
         //添加数据
+        console.log(strNum)
+        model.countNum = strNum
+
         const db = wx.cloud.database()
-        console.log(this.data.countNum)
-        model.countNum = this.data.countNum
-        db.collection('MenuItem').add({
-            data: {
-                ItemDescription: model.ItemDescription,
-                MenuItemName: model.MenuItemName,
-                MenuItemId: model.MenuItemId,
-                Price: model.Price,
-                id: model.countNum,
-                RestaurantId: 1,
-                Photo: model.ImageUrl,
-                Class: "hh"
+        //const db = wx.cloud.database()
+        
+        db.collection('Restaurant').where({
+          UserId: this.data.openid
+        }).get({
+          success: function (res) {
+            console.log('店铺查询成功: ', res)
+            db.collection('MenuItem').add({
+                data: {
+                    ItemDescription: model.ItemDescription,
+                    MenuItemName: model.MenuItemName,
+                    MenuItemId: model.countNum,
+                    Price: model.Price,
+                    RestaurantId: res.data[0].RestaurantId,
+                    Photo: model.ImageUrl,
+                    Class: "hh",
+                    id: model.num
+                },
+                success: function(res) {
+                    console.log(res)
+                }
+    
+            })
+          }
+        })
+        //使用正则表达式获取图片后缀
+        let suffix = /\.[^\.]+$/.exec(this.data.tempFilePaths)[0];
+    
+        wx.cloud.uploadFile({
+            cloudPath: "canteen/Maester/food/"+model.countNum+suffix,   //使用MenuItemId作为云路径+图片后缀
+            filePath: this.data.tempFilePaths, // 文件路径
+            success: res => {
+              // get resource ID
+              console.log(res.fileID)
             },
-            success: function(res) {
-                console.log(res)
-            },
-            fail: console.error
-
+            fail: err => {
+              // handle error
+              console.log(err)
+            }
         })
 
-        console.log(addFood)
-
-        wx.navigateTo({
-            url: "../merchant/merchant?addFood=" + addFood
+        wx.showToast({
+            title: '正在添加中',
+            icon: 'success',
+            duration: 5000,
         })
+        //使用setTimeout可以防止数据库没有写入完成就已经跳转回商家页面的情况
+        let that = this
+        setTimeout(function(){
+            that.jumpToMerchant();
+        },5000)
     },
+
+    jumpToMerchant: function() {
+        wx.navigateTo({
+            url: "../merchant/merchant"
+        })
+    }
 
 
   })
