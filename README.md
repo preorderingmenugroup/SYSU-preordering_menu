@@ -32,31 +32,23 @@
 
 - 8、生产规范与指南
 
-  - 8.1 XX 代码规范
-  - 8.2 REST API 设计规范
-  - 8.3 架构设计、详细设计（BCE方法）到应用程序框架映射指南
-  - 8.4 部署说明
+  - 8.1 [微信小程序代码规范](https://shimo.im/docs/EZKacqyM018gmopv/read)
+  - 8.2 架构设计、详细设计（BCE方法）到应用程序框架映射指南
+  - 8.3 部署说明
 
-- 9、成品展示
 
-  - 9.1 XX短视频
-  - 9.2 XX短视频
 
-- X1 meeting-records
+- X1 [KANBAN](https://github.com/preorderingmenugroup/SYSU-preordering_menu/projects)
 
-  - inception meeting (yy/mm/dd)
-
-- X2 [KANBAN]()
-
-- X3 [auditing-records]()
 
 - X4 Tech/Work Report
 
-  - 学号-title
+  - [16340091-Jiger]()
 
 - X5 Final Report
+  - [16340091-Jiger]()
 
-  - 学号-title
-  - 小组分工与贡献率说明
+  - [小组分工与贡献率说明]()
+  
 
   
