@@ -1,7 +1,7 @@
 # SYSU-preordering-menu食在大学点餐系统
-- 1、[About](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/About)（项目概况)  
+- 1、[About](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/About.md)（项目概况)  
 
-- 2、[Team profile](https://github.com/preorderingmenugroup/SYSU-preordering_menu/document/Team)（团队组建与分工）  
+- 2、[Team profile](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/Team.md)（团队组建与分工）  
 
 - 3、[Investigation](https://github.com/preorderingmenugroup/SYSU-preordering_menu/Investagation)（项目前期调研/竞品分析）  
 
