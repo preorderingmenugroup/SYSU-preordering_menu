@@ -1,22 +1,22 @@
 # SYSU-preordering_menu
-- 1、[About](https://preorderingmenugroup.github.io/SYSU-preordering_menu/doucument/About)（项目概况)  
+- 1、[About](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/About)（项目概况)  
 
-- 2、[Team profile](https://preorderingmenugroup.github.io/SYSU-preordering_menu/doucument/Team)（团队组建与分工）  
+- 2、[Team profile](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/Team)（团队组建与分工）  
 
-- 3、[Investigation](https://preorderingmenugroup.github.io/SYSU-preordering_menu/doucument/Investagation/Investagation)（项目前期调研/竞品分析）  
+- 3、[Investigation](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/Investagation/Investagation)（项目前期调研/竞品分析）  
 
-- 4、[Vision](https://preorderingmenugroup.github.io/SYSU-preordering_menu/doucument/Vision)（项目愿景）  
+- 4、[Vision](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/Vision)（项目愿景）  
 
-- 5、[Product Backlog](https://preorderingmenugroup.github.io/SYSU-preordering_menu/doucument/Backlog) （产品特性库）  
+- 5、[Product Backlog](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/Backlog) （产品特性库）  
 
 - 6、[Requirement specification](https://preorderingmenugroup.github.io/SYSU-preordering_menu/Requirement-specification)（需求规格说明书）  
   - 6.1 [Usecase Diagram and UML Activity Diagram](https://preorderingmenugroup.github.io/SYSU-preordering_menu/Requirement-specification/1/1-1-usercase-diagram)（用例图，业务过程/多泳道图）  -
 
-  - 6.2 [Use Cases](https://preorderingmenugroup.github.io/SYSU-preordering_menu/doucument/6_2_UsecasesAndActivityPic/user_cases)（用例+活动图）
+  - 6.2 [Use Cases](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/6_2_UsecasesAndActivityPic/user_cases.md)（用例+活动图）
 
   - 6.3 [Domain Model](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/DomainModel/Domain%20Model.md)（领域模型）
 
-  - 6.4 [State Models](https://preorderingmenugroup.github.io/SYSU-preordering_menu/doucument/statemodel/state_model)（状态模型）
+  - 6.4 [State Models](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/statemodel/state_model.md)（状态模型）
 
   - 6.5 System Sequence Diagrams（功能模型）
 
