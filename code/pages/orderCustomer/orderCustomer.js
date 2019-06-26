@@ -7,7 +7,7 @@ Page({
   data: {
     orderStatus: ['待接单', '待发餐', '已完成', '已取消'],
     hasData: false,
-    totalOrd: []
+    totalOrd: {}
   },
 
   queryDB: function () {
@@ -163,10 +163,10 @@ Page({
 
                   });
 
-                  this.setData({
-                    hasData: true,
-                    totalOrd: totalOrdArr_
-                  })
+                  //this.setData({
+                  //  hasData: true,
+                  //  totalOrd: totalOrdArr_
+                  //})
 
 
                 })

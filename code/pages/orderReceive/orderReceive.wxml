@@ -13,7 +13,7 @@
   <view wx:key="unique" wx:if="{{ hasData}}"  wx:for="{{ totalOrd }}" wx:for-index="totalOrderIdx" wx:for-item="totalOrderItem" wx:if="{{ totalOrderItem.Status === 0 }}">
   
     <view class='shopInfo'>
-      <image class="shopLogo" src="{{ totalOrderItem.logo }}"></image>
+      <image class="shopLogo" wx:if="{{ totalOrderItem.logo }}" src="{{ totalOrderItem.logo }}"></image>
       <label class='shopName'>{{ totalOrderItem.name }}</label>
       <label class='shopStatus'>{{ orderStatus[totalOrderItem.Status] }}</label>
     </view>
@@ -47,7 +47,7 @@
   <view wx:key="unique" wx:if="{{ hasData}}"  wx:for="{{ totalOrd }}" wx:for-index="totalOrderIdx" wx:for-item="totalOrderItem" wx:if="{{ totalOrderItem.Status === 1 }}">
   
     <view class='shopInfo'>
-      <image class="shopLogo" src="{{ totalOrderItem.logo }}"></image>
+      <image class="shopLogo" wx:if="{{ totalOrderItem.logo }}" src="{{ totalOrderItem.logo }}"></image>
       <label class='shopName'>{{ totalOrderItem.name }}</label>
       <label class='shopStatus'>{{ orderStatus[totalOrderItem.Status] }}</label>
     </view>
@@ -80,7 +80,7 @@
   <view wx:key="unique" wx:if="{{ hasData}}"  wx:for="{{ totalOrd }}" wx:for-index="totalOrderIdx" wx:for-item="totalOrderItem" wx:if="{{ totalOrderItem.Status === 2 }}">
   
     <view class='shopInfo'>
-      <image class="shopLogo" src="{{ totalOrderItem.logo }}"></image>
+      <image class="shopLogo" wx:if="{{ totalOrderItem.logo }}" src="{{ totalOrderItem.logo }}"></image>
       <label class='shopName'>{{ totalOrderItem.name }}</label>
       <label class='shopStatus'>{{ orderStatus[totalOrderItem.Status] }}</label>
     </view>
@@ -113,7 +113,7 @@
   <view wx:key="unique" wx:if="{{ hasData}}"  wx:for="{{ totalOrd }}" wx:for-index="totalOrderIdx" wx:for-item="totalOrderItem" wx:if="{{ totalOrderItem.Status === 3 }}">
   
     <view class='shopInfo'>
-      <image class="shopLogo" src="{{ totalOrderItem.logo }}"></image>
+      <image class="shopLogo" wx:if="{{ totalOrderItem.logo }}" src="{{ totalOrderItem.logo }}"></image>
       <label class='shopName'>{{ totalOrderItem.name }}</label>
       <label class='shopStatus'>{{ orderStatus[totalOrderItem.Status] }}</label>
     </view>

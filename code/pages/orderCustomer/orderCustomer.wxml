@@ -21,12 +21,12 @@
 <view class='foodInfo'>
   <view class='headerFlex'>
     <view class='shopInfo'>
-      <image class="shopLogo" src="{{ totalOrd.logo }}"></image>
+      <image class="shopLogo" wx:if="{{ totalOrd.logo }}" src="{{ totalOrd.logo }}"></image>
       <label class='shopName'>{{ totalOrd.name }}</label>
     </view>
     <view wx:key="unique" wx:for="{{totalOrd.items}}" wx:for-index="totalOrderFoodIdx" wx:for-item="totalOrderFoodItem">
       <view class='foodFlex'>
-        <image class="foodImg" src="{{ totalOrderFoodItem.img }}"></image>
+        <image class="foodImg" wx:if="{{ totalOrderFoodItem.img }}" src="{{ totalOrderFoodItem.img }}"></image>
         <text class="foodName">{{ totalOrderFoodItem.name }}
           <text class="foodNum">{{"x"}}{{ totalOrderFoodItem.Count }}</text>
         </text>
