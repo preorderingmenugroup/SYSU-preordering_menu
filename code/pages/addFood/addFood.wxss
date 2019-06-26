@@ -12,7 +12,7 @@
     margin-top: 10px;
     width: 40%;
     margin-left: 30%;
-    background-color: yellow;
+    background-color: gold;
     font-size: 14px;
 }
 
@@ -23,21 +23,31 @@
     height: 200px;
 }
 
-.editName, .editPrice, .inputDescribe {
+.editName {
     margin-top: 15px; 
     font-size: 14px;
-    color: #237346;
+    color: burlywood;
 
 }
 
+.editPrice {
+    margin-top: 15px; 
+    font-size: 14px;
+    color: blue;
 
+}
 
+.inputDescribe {
+    margin-top: 15px; 
+    font-size: 14px;
+    color: green;
+}
 
 .addSuccess {
     margin-top: 20px;
     margin-left: 30%;
     width: 40%;
-    background-color: green;
+    background-color: goldenrod;
 }
 
 .inputName {
