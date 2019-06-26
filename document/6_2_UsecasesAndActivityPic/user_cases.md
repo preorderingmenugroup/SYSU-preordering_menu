@@ -17,12 +17,12 @@
 商家接受订单
 ---
 
-![store accept order](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/吉阁尔/jieshoudingdan.PNG?raw=true)  
-商家接受订单
+![store accept order](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/6_2_UsecasesAndActivityPic/jieshoudingdan.PNG?raw=true)  
+商家添加菜品
 ---
 
-![store owner add foods to menu](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/吉阁尔/shangjia_facai.PNG?raw=true)    
+![store owner add foods to menu](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/6_2_UsecasesAndActivityPic/shangjia_facai.PNG?raw=true)    
 用户点单
 ---
 
-![customer make reservation](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/吉阁尔/yonghudiancan.PNG?raw=true)  
+![customer make reservation](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/6_2_UsecasesAndActivityPic/yonghudiancan.PNG?raw=true)  
