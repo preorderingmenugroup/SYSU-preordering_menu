@@ -36,5 +36,6 @@
                 [数据库的增删改查则可查阅微信开发者文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/reference-client-api/database/)
             - 云函数的创建
             - 人工审核server端的搭建和实现 
+                后端采用nodejs+express框架实现,前端使用vue+elementui搭建,服务通过pm2部署到服务器;
         - 测试
     
