@@ -163,10 +163,10 @@ Page({
 
                     });
 
-                    this.setData({
-                      hasData: true,
-                      totalOrd: totalOrdArr_
-                    })
+                    //this.setData({
+                    //  hasData: true,
+                    //  totalOrd: totalOrdArr_
+                    //})
 
 
                   })

@@ -115,10 +115,6 @@ Page({
             var time = new Date();
             var timestamp = time.getTime();
 
-            that.setData({
-              detailOrderStamp: timestamp
-            })
-
             /*db.collection('User').where({
               _openid: app.globalData.userInfor.openid
             }).get({
@@ -152,6 +148,11 @@ Page({
                   },
                   success: res => {
                     console.log('创建订单成功')
+
+                    that.setData({
+                      detailOrderStamp: res._id
+                    })
+
 
                     for (var a = 0; a < itemnum; a++) {
 

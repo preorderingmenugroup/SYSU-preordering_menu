@@ -37,8 +37,13 @@
      食堂网络，所有入驻的食堂，只要用户在登录时选择对应的大学，那么就可以显示对应学校的菜单
 
 产品核心业务流程与交互界面。
-1. [食堂点单实现二维码提前取餐]()
-2. [餐厅拥有者小程序内添加菜品]()
-3. [各个大学进行入驻]()
+### 1. 食堂点单实现二维码提前取餐
+ ![食堂点单实现二维码提前取餐](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/Investagation/makeorder.png?raw=true)  
+ 
+### 2. 餐厅拥有者小程序内添加菜品
+ ![餐厅拥有者小程序内添加菜品](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/Investagation/addfood.png?raw=true)  
+ 
+### 3. 各个大学进行入驻
+ ![各个大学进行入驻](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/Investagation/school_get_in.png?raw=true)  
 
 
