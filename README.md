@@ -28,7 +28,7 @@
   - 7.1 UI design（界面设计）
   - 7.2 [Database design](https://preorderingmenugroup.github.io/SYSU-preordering_menu/Design/2DataBaseDesign)（数据库设计）
   - 7.3 Interface API design（接口 API 设计）
-  - 7.4 Architecture design（架构设计）
+  - 7.4 [Architecture design](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/Framework/7-4/framework)（架构设计）
   - 7.5 Usecase design（用例设计）
 
 - 8、生产规范与指南
