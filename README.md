@@ -11,7 +11,7 @@
 
 - 5、[Product Backlog](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/Backlog) （产品特性库）  
 
-- 6、[Requirement specification](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/Requirement-specification)（需求规格说明书）  
+- 6、Requirement specification（需求规格说明书）  
   - 6.1 [Usecase Diagram and UML Activity Diagram](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/Requirement-specification/1/1-1-usercase-diagram)（用例图，业务过程/多泳道图）  
 
   - 6.2 [Use Cases](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/6_2_UsecasesAndActivityPic/user_cases)（用例+活动图）
@@ -20,23 +20,23 @@
 
   - 6.4 [State Models](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/statemodel/state_model)（状态模型）
 
-  - 6.5 System Sequence Diagrams（功能模型）
+  - 6.5 [System Sequence Diagrams](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/SystemSequenceDiagrams/SysSeq)（功能模型）
 
   - 6.6 Supplementary Requirements（补充需求）
 
 - 7、Design（设计说明书）
 
-  - 7.1 UI design（界面设计）
+  - 7.1 [UI design](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/uidesign)（界面设计）
   - 7.2 [Database design](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/DatabaseDesign/DatabaseDesign)（数据库设计）
-  - 7.3 Interface API design（接口 API 设计）
+  - 7.3 [Interface API design](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/Design/7-3/api)（接口 API 设计）
   - 7.4 Architecture design（架构设计）
   - 7.5 Usecase design（用例设计）
 
 - 8、生产规范与指南
 
   - 8.1 [微信小程序代码规范](https://shimo.im/docs/EZKacqyM018gmopv/read)
-  - 8.2 架构设计、详细设计（BCE方法）到应用程序框架映射指南
-  - 8.3 部署说明
+  - 8.2[架构设计、详细设计（BCE方法）到应用程序框架映射指南]()
+  - 8.3 [部署说明](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/com_experiment/sotwarelab)
 
 
 
@@ -50,7 +50,7 @@
 - X5 Final Report
   - [16340091-Jiger]()
 
-  - [小组分工与贡献率说明]()
+  - [小组分工与贡献率说明](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/contribution)
   
 
   

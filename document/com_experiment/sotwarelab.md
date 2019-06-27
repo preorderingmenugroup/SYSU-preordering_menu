@@ -8,4 +8,4 @@
 - [《软件设计文档》](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/com_experiment/design_doc)
 
 
-- [《小组分工与贡献率说明》]()
+- [《小组分工与贡献率说明》](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/contribution)

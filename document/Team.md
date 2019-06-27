@@ -16,7 +16,7 @@
 |16340234|WYS|[WYS](https://github.com/sysu16340234)|js工程师，前端工程师，架构师|
 |15331178|lichingsheng|[lichingsheng](https://github.com/lichingsheng)|js工程师，前端工程师|
 |16340042|lcccyb|[lcccyb](https://github.com/lcccyb)|js工程师，前端工程师|
-|1634|x705896204x|[x705896204x](https://github.com/orgs/preorderingmenugroup/people/x705896204x)|
+|14334303|x705896204x|[x705896204x](https://github.com/orgs/preorderingmenugroup/people/x705896204x)|
 
 ### 具体分工与个人宣言
 
