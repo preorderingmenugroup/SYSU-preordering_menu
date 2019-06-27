@@ -26,7 +26,7 @@
 
 - 7、Design（设计说明书）
 
-  - 7.1 [UI design]()（界面设计）
+  - 7.1 [UI design](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/uidesign)（界面设计）
   - 7.2 [Database design](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/DatabaseDesign/DatabaseDesign)（数据库设计）
   - 7.3 Interface API design（接口 API 设计）
   - 7.4 Architecture design（架构设计）
@@ -35,7 +35,7 @@
 - 8、生产规范与指南
 
   - 8.1 [微信小程序代码规范](https://shimo.im/docs/EZKacqyM018gmopv/read)
-  - 8.2 架构设计、详细设计（BCE方法）到应用程序框架映射指南
+  - 8.2[架构设计、详细设计（BCE方法）到应用程序框架映射指南]()
   - 8.3 [部署说明](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/com_experiment/sotwarelab)
 
 
@@ -50,7 +50,7 @@
 - X5 Final Report
   - [16340091-Jiger]()
 
-  - [小组分工与贡献率说明]()
+  - [小组分工与贡献率说明](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/contribution.md)
   
 
   
