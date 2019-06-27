@@ -25,7 +25,7 @@
   
 
 ## Important Documentation
-- [需求规格说明书](https://preorderingmenugroup.github.io/SYSU-preordering_menu/Requirement-specification)  
+- 需求规格说明书：请移步至gitpage第六点 
 - [软件设计说明书](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/com_experiment/design_doc)  
 - [产品演示视频](https://preorderingmenugroup.github.io/SYSU-preordering_menu/blob/master/videoandpic/video)  
 
