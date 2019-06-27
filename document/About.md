@@ -25,15 +25,12 @@
   
 
 ## Important Documentation
-<<<<<<< HEAD
 - [需求规格说明书](https://preorderingmenugroup.github.io/SYSU-preordering_menu/Requirement-specification)  
 - [软件设计说明书]()  
 - [产品演示视频]()  
-=======
 - 需求规格说明书：请移步至gitpage第六点 
 - [软件设计说明书](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/com_experiment/design_doc)  
 - [产品演示视频](https://preorderingmenugroup.github.io/SYSU-preordering_menu/blob/master/videoandpic/video)  
->>>>>>> e4eae8defa1605d2b8d00d54b3a5ed9723105a5f
 
 ## Iterations
 
@@ -61,7 +58,6 @@
         - 团队分工
         - 项目前期调研
         - 项目愿景
-<<<<<<< HEAD
         - Backlog
 ### Iteration2
 第二轮开发：后端的开发与前端的改进并交互
@@ -83,41 +79,5 @@
     - 进行测试，修改缺陷；
     - 完善项目文档；
 9. 提交成品
-=======
         - Backlog  
 
-### Iteration2
-第二轮开发：后端的开发与前端的改进并交互  
-
-4. week9  
-      - 将前端页面重新细化，根据我们预想的系统罗列功能，并在最开始的前端页面上添加功能，小组成员自己挑选喜好的页面进行开发。 
-      
-      
-5. week10  
-      - 期中考试周，组员都有期中考试科目，项目暂停一周;  
-      
-      
-6. week11～13  
-      - 进行领域建模;  
-      - 按照建模结果创建数据库(使用微信云开发);  
-      - 验证数据库正确性;  
-      - 进行前端页面的修正;  
-
-
-
-### Iteration3
-第三轮开发：页面的整合以及测试  
-
-7. week14～16  
-      - 进行前端页面间的整合，项目组员一起对整合后的页面进行功能建议；  
-      - 对整合后的系统存在的问题进行修改，对缺少的必要功能进行添加；
-      
-      
-8. week17～18  
-      - 进行测试，修改缺陷；
-      - 完善项目文档；
-      
-      
-9. 提交成品;  
-
->>>>>>> e4eae8defa1605d2b8d00d54b3a5ed9723105a5f
