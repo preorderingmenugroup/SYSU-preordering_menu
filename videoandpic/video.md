@@ -1,0 +1,5 @@
+- ![添加菜品](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/videoandpic/addfood.mov)
+- ![添加餐厅](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/videoandpic/addrestaurant.mov)  
+- ![商家接单](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/videoandpic/jiedan.mov)  
+- ![顾客点单](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/videoandpic/makeorder.mov)  
+- ![订单相关](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/videoandpic/reservation.mov)  

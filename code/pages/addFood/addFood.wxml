@@ -6,19 +6,14 @@
     <image src="{{tempFilePaths}}"></image>
 </view>
 
-<button class="uploadImage" bindtap="chooseImage">请选择菜品图片</button>
+<button class="uploadImage" bindtap="chooseImage">请选择上传菜品图片</button>
 <view class="editName">请编辑菜品名称：</view>
 <input class="inputName" placeholder="请输入菜品名称" bindblur="inputFood"></input>
 
 <view class="editPrice">请设定菜品价格：</view>
-<input class="inputName"  type="digit"  placeholder="请设定菜品价格" bindblur="inputPrice"></input>
+<input class="inputName" placeholder="请设定菜品价格" bindblur="inputPrice"></input>
 
 <view class="inputDescribe">请输入菜品描述：</view>
-<input class="inputName"placeholder="请输入菜品描述" bindblur="inputDescribe"></input>
-
-<view class="inputDescribe">请选择菜品分类：</view>
-<picker  bindchange='bindCategrayPicker' class="inputName"  value="{{cateIndex}}" range="{{categorys}}">
-  {{categorys[cateIndex]}}
-</picker>
+<input class="inputName" placeholder="请输入菜品描述" bindblur="inputDescribe"></input>
 
 <button class="addSuccess" bindtap="addImageSuccess">确定添加</button>
