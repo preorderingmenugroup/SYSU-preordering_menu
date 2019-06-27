@@ -50,7 +50,7 @@
 - X5 Final Report
   - [16340091-Jiger]()
 
-  - [小组分工与贡献率说明](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/contribution.md)
+  - [小组分工与贡献率说明](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/contribution)
   
 
   
