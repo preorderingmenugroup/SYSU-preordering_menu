@@ -25,7 +25,6 @@
   
 
 ## Important Documentation
-- [需求规格说明书](https://preorderingmenugroup.github.io/SYSU-preordering_menu/Requirement-specification)  
 - 需求规格说明书：请移步至gitpage第六点 
 - [软件设计说明书](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/com_experiment/design_doc)  
 - [产品演示视频](https://preorderingmenugroup.github.io/SYSU-preordering_menu/blob/master/videoandpic/video)  
@@ -42,7 +41,8 @@
 第一轮开发：项目初始文档的编写和前端的最初编写
 1. week4～5
     - week5 进行第二次会议，明确需要学习的内容，技术
-        - 项目采用小程序编写，并采用github中的organization，所以前两周，主要是熟悉相关的小程序文档，github上组织的协同开发，以及跟随课程学习文档的书写
+        - 项目采用小程序编写，并采用github中的organization，所以前两周，主要是熟悉相关的小程序文档，github上组织的协同开发，
+以及跟随课程学习文档的书写
 
 2. week6～7
     - week7 第三次会议
