@@ -30,7 +30,7 @@
   - 7.2 [Database design](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/DatabaseDesign/DatabaseDesign)（数据库设计）
   - 7.3 [Interface API design](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/Design/7-3/api)（接口 API 设计）
   - 7.4 Architecture design（架构设计）
-  - 7.5 Usecase design（用例设计）
+  - 7.5 [Usecase design](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/usecaseDesign/usecaseDesign)（用例设计）
 
 - 8、生产规范与指南
 
