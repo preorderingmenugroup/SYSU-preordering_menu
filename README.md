@@ -54,5 +54,3 @@
   - [小组分工与贡献率说明](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/contribution)
   
 
-  
->>>>>>> e4eae8defa1605d2b8d00d54b3a5ed9723105a5f
