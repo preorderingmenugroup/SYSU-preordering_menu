@@ -11,3 +11,7 @@
 ### 发布菜品
 
 - ![](image/addfood.JPG)
+
+### 用户授权
+
+- ![](image/authonization.png)
