@@ -3,46 +3,50 @@ var app = getApp()
 Page({
   data: {
     temp: [{
-
     }],
-    _id: "",
     idNum: 0,
     // 商品列表
-    items: [{
-      id: 0,
-      ItemDescription: "",
-      MenuItemName: "",
-      Price: 0,
-      Photo: "",
-    }]
+    items: []
   },
-
-
-  onLoad: function () {
+  getMenuItem: function () {
     const db = wx.cloud.database()
     var menu = []
     var that = this;
 
-    db.collection('MenuItem').where({
-      id: app.globalData.id
+    var restruId;
+    //查询RestaurantId
+    db.collection('Restaurant').where({
+      OwenId: app.globalData.userInfor.openid
     }).get({
-      success: function (res) {
-        that.setData({ _id: res.data[0]._id });
+      success: res => {
+        restruId = res.data[0].RestaurantId;
+        //查询该店铺的菜品信息
+        db.collection('MenuItem').where({
+          RestaurantId: restruId
+        }).get({
+          success: function (res) {
+            console.log(res.data.length)
+            // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
+            for (var i = 0; i < res.data.length; i++) {
+              menu.push(res.data[i])
+            }
+            that.setData({ items: menu });  //为什么必须把this换成that，直接调用this就不行?
+            console.log(that.data.items)
+          }
+        })
+      },
+      fail: function (rese) {
+        console.log("查询餐馆信息失败")
       }
     })
+  },
 
-    db.collection('MenuItem').get({
-      success: function (res) {
-        console.log(res.data.length)
-        // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
-        for (var i = 0; i < res.data.length; i++) {
-          menu.push(res.data[i])
-        }
-        that.setData({ items: menu });  //为什么必须把this换成that，直接调用this就不行?
-        console.log(that.data.items)
-      }
-    })
+  onShow:function(){
+    this.getMenuItem()
+  },
 
+  onLoad: function () {
+    this.getMenuItem()
     /*
     db.collection('MenuItem').add({
       data: {
@@ -86,50 +90,35 @@ Page({
 
   deleteFood: function (e) {
     var index = e.currentTarget.dataset.index  //类型问题，为什么wxml那里改成data-index就好了
-    var items = this.data.items
-
-    app.globalData.id = index + 1
-
-    console.log(app.globalData.id)
-    var that = this;
-
+    var that = this
     const db = wx.cloud.database()
-
-    db.collection('MenuItem').where({
-      id: app.globalData.id
-    }).get({
-      success: function (res) {
-        db.collection('MenuItem').doc(res.data[0]._id).remove({
-          success: function (res) {
-            console.log(res.data)
-          }
+    db.collection('MenuItem').doc(this.data.items[index]._id).remove({
+      success: function(res){
+        that.data.items.splice(index, 1)
+        that.setData({
+          items: that.data.items,
         })
-      }
+        wx.showToast({
+          title: '删除成功',
+          icon:'success'
+        })
+      },
+      fail: console.error
     })
-
-    items.splice(index, 1)
-    this.setData({
-      items: items,
-    })
-    console.log(this.data.items)
-    wx.showToast({
-      title: '正在删除中',
-      icon: 'success',
-      duration: 5000,
-    })
-
-  },
-
-  returnCenter: function (e) {
-    wx.navigateTo({
-      url: "../restaurantCenter/restaurantCenter",
-    })
+    //删除本地数据
+    
   },
 
 
   addFood: function (e) {
     wx.navigateTo({
       url: "../addFood/addFood"
+    })
+  },
+
+  bindRestaurantCenter:function(e){
+    wx.navigateTo({
+      url: "../restaurantCenter/restaurantCenter"
     })
   }
 })
