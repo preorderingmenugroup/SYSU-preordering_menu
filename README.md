@@ -20,7 +20,7 @@
 
   - 6.4 [State Models](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/statemodel/state_model)（状态模型）
 
-  - 6.5 System Sequence Diagrams（功能模型）
+  - 6.5 [System Sequence Diagrams](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/SystemSequenceDiagrams/SysSeq)（功能模型）
 
   - 6.6 Supplementary Requirements（补充需求）
 
