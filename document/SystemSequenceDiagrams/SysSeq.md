@@ -2,7 +2,7 @@
 
 ### 用户点单
 
-- ![]()
+- ![用户点单](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/SystemSequenceDiagrams/makeorder.PNG?raw=true)
 
 ### 用户取消订单  
 
