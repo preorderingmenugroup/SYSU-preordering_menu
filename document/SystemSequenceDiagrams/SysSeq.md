@@ -2,11 +2,11 @@
 
 ### 用户点单
 
-- ![用户点单](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/SystemSequenceDiagrams/makeorder.PNG?raw=true)
+- ![用户点单](makeorder.PNG)
 
 ### 用户取消订单  
 
-- ![用户取消订单](https://github.com/preorderingmenugroup/SYSU-preordering_menu/blob/master/document/SystemSequenceDiagrams/change.PNG?raw=true)
+- ![用户取消订单](change.PNG)
 
 ### 发布菜品
 
