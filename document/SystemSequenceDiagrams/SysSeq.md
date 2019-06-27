@@ -14,4 +14,12 @@
 
 ### 用户授权
 
-- ![](image/authonization.png)
+- ![](image/authorization.png)
+
+### 用户注册
+
+- ![](image/sign_up_success.png)
+
+### 餐厅资质审核
+
+- ![](image/review.png)
