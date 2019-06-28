@@ -48,9 +48,8 @@
 
 - X5 Final Report
   - [16340091-Jiger]()
-- [16340236-chengwenwu](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/finalReport/16340236)
-  - [小组分工与贡献率说明](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/contribution)
-  
+  - [16340236-chengwenwu](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/finalReport/16340236)
+- [小组分工与贡献率说明](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/contribution)
 
 
 
