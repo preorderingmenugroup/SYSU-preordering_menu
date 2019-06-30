@@ -45,11 +45,13 @@
 
   - [16340091-Jiger](https://blog.csdn.net/qq_42026528/article/details/94280829)
   - [16340236-chengwenwu](https://blog.csdn.net/C2681595858/article/details/88066862)
+ 
 
 - X5 Final Report
   - [小组报告](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/finalReport/groupreport)
   - [16340091-Jiger](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/finalReport/16340091)
   - [16340236-chengwenwu](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/finalReport/16340236)
+   - [16340234-WYS](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/finalReport/16340234)
 - [小组分工与贡献率说明](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/contribution)
 
 
