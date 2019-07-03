@@ -46,12 +46,14 @@
   - [16340091-Jiger](https://blog.csdn.net/qq_42026528/article/details/94280829)
   - [16340236-chengwenwu](https://blog.csdn.net/C2681595858/article/details/88066862)
   - [16340234-WYS](https://sysu16340234.github.io/express/route)
+  - [16340042-lcccyb](https://lcccyb.cc/study/2018/10/30/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/)
 
 - X5 Final Report
   - [小组报告](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/finalReport/groupreport)
   - [16340091-Jiger](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/finalReport/16340091)
   - [16340236-chengwenwu](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/finalReport/16340236)
    - [16340234-WYS](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/finalReport/16340234)
+   - [16340042-lcccyb](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/finalReport/16340042)
 - [小组分工与贡献率说明](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/contribution)
 
 
