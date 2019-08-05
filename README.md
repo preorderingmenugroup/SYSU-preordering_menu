@@ -47,6 +47,7 @@
   - [16340236-chengwenwu](https://blog.csdn.net/C2681595858/article/details/88066862)
   - [16340234-WYS](https://sysu16340234.github.io/express/route)
   - [16340042-lcccyb](https://lcccyb.cc/study/2018/10/30/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/)
+  - [14331303-x705896204x](https://blog.csdn.net/weixin_38336140/article/details/98483162)
 
 - X5 Final Report
   - [小组报告](https://preorderingmenugroup.github.io/SYSU-preordering_menu/document/finalReport/groupreport)
